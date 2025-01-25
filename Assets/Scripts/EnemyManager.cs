@@ -7,7 +7,6 @@ public class EnemyManager : MonoBehaviour {
 #region Dependencies	
 	[SerializeField] private List<GameObject> enemyPrefabs;
 	[SerializeField] private int poolSize;
-	private BubbleBehavior _bubble;
 #endregion
 
 #region Attributes
@@ -20,8 +19,8 @@ public class EnemyManager : MonoBehaviour {
 #endregion
 
 #region Data
-	private List<AiController> _pooledEnemies = new();
-	private List<AiController> _attackingEnemies = new();
+	private readonly List<AiController> _pooledEnemies = new();
+	private readonly List<AiController> _attackingEnemies = new();
 
 #endregion
 
@@ -30,22 +29,32 @@ public class EnemyManager : MonoBehaviour {
 	    Instance = this;
 		_transform = transform;
 		_poolTransform = _transform.GetChild(0);
-		_bubble = FindFirstObjectByType<BubbleBehavior>();
-    }
-
-    private void Start() {
-	    foreach (var prefab in enemyPrefabs) {
-		    for (var i = 0; i < poolSize; i++) {
-			    var enemy = Instantiate(prefab);
-			    enemy.name = prefab.name + i;
-			    MoveOutOfPlay(enemy.GetComponent<AiController>());
-			    _pooledEnemies.Add(enemy.GetComponent<AiController>());
-		    }
-	    }
     }
 #endregion
 
 #region Custom
+
+	public void Init() {
+		foreach (var enemy in _pooledEnemies) {
+			Destroy(enemy.gameObject);
+		}
+		
+		foreach (var enemy in _attackingEnemies) {
+			Destroy(enemy.gameObject);
+		}
+		
+		_pooledEnemies.Clear();
+		_attackingEnemies.Clear();
+		
+		foreach (var prefab in enemyPrefabs) {
+			for (var i = 0; i < poolSize; i++) {
+				var enemy = Instantiate(prefab);
+				enemy.name = prefab.name + i;
+				MoveOutOfPlay(enemy.GetComponent<AiController>());
+				_pooledEnemies.Add(enemy.GetComponent<AiController>());
+			}
+		}
+	}
 
 	public void SpawnEnemy() {
 		MoveInPlay(_pooledEnemies[0]);
@@ -63,22 +72,14 @@ public class EnemyManager : MonoBehaviour {
 		t.transform.SetParent(_poolTransform);
 	}
 	private void MoveInPlay(AiController t) {
-		var flyInTime = 3f;
-		
 		t.transform.SetParent(null);
-		
+
+		var bubble = GameManager.Instance.Bubble;
 		var randomRadian = Random.Range(0f, 2 * Mathf.PI);
-		var startPoint = _bubble.transform.position + new Vector3(Mathf.Cos(randomRadian) * 20f, Mathf.Sin(randomRadian) * 20f, 0f);
-		startPoint += (Vector3) _bubble.Velocity * flyInTime;
-		var aimPoint = _bubble.transform.position + new Vector3(Mathf.Cos(randomRadian) * _bubble.Radius * 0.8f, Mathf.Sin(randomRadian) * _bubble.Radius * 0.8f, 0f);
-		aimPoint += (Vector3) _bubble.Velocity * flyInTime;
+		var startPoint = bubble.transform.position + new Vector3(Mathf.Cos(randomRadian) * 20f, Mathf.Sin(randomRadian) * 20f, 0f);
 		
 		t.transform.position = startPoint;
-
 		t.FlyingIn = true;
-		t.transform.DOMove(aimPoint, flyInTime)
-			.SetEase(Ease.Linear)
-			.OnComplete(() => t.FlyingIn = false);
 	}
 #endregion
 

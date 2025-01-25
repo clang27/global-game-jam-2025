@@ -7,7 +7,7 @@ public class CoinManager : MonoBehaviour {
 #endregion
 
 #region Attributes
-    // public static GameManager Instance { get; private set; }
+    public static CoinManager Instance { get; private set; }
 #endregion
 
 #region Components
@@ -20,11 +20,9 @@ public class CoinManager : MonoBehaviour {
 
 #region Unity
     private void Awake() {
+        Instance = this;
+        
         _transform = transform;
-    }
-
-    private void Start() {
-        UiManager.Instance.SetCoins(_coins);
     }
 
     private void Update() {
@@ -37,6 +35,10 @@ public class CoinManager : MonoBehaviour {
 #endregion
 
 #region Custom
+    public void Init() {
+        _coins = 0;
+        UiManager.Instance.SetCoins(_coins);
+    }
     public void AddCoin() {
         _coins++;
         UiManager.Instance.SetCoins(_coins);

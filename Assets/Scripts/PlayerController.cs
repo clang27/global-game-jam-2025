@@ -32,8 +32,21 @@ public class PlayerController : MonoBehaviour {
 		_character.InputVector = value.Get<Vector2>();
 	}
 		
+	public void OnDash() {
+		if (GameManager.Instance.GameState == GameState.Start) {
+			GameManager.Instance.StartGame();
+		} else if (GameManager.Instance.GameState == GameState.GameOver) {
+			GameManager.Instance.ResetGame();
+		} else {
+			_character.Dash();	
+		}
+	}
 	public void OnAttack() {
-		_character.Dash();
+		if (GameManager.Instance.GameState == GameState.Start) {
+		} else if (GameManager.Instance.GameState == GameState.GameOver) {
+		} else {
+			_character.Attack();	
+		}
 	}
 #endregion
 

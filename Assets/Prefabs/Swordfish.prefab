@@ -15,8 +15,8 @@ GameObject:
   - component: {fileID: 7162103286997196706}
   - component: {fileID: 2865206718112430807}
   m_Layer: 0
-  m_Name: Turtle
-  m_TagString: Untagged
+  m_Name: Swordfish
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 7282344639636168180}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2, y: -200, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.8, y: 0.8, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -81,7 +81,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 13ce72c799d1e0e4a881d3d5423e847c, type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -103,7 +103,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 5
+  m_Mass: 4
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 1
@@ -176,10 +176,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fce72f16bcdf11949b23b4e9bd2eb3f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isPlayer: 0
   acceleration: 2
   deceleration: 2
-  maxSpeed: 5
+  maxSpeed: 4
+  ejectForce: 10
+  dashForce: 10
 --- !u!114 &2865206718112430807
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -195,5 +196,5 @@ MonoBehaviour:
   bubbleLayerMask:
     serializedVersion: 2
     m_Bits: 64
-  style: 1
+  style: 2
   avoidEdgeDistance: 2.5

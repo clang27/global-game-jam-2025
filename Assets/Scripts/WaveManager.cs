@@ -7,7 +7,7 @@ public class WaveManager : MonoBehaviour {
 #endregion
 
 #region Attributes
-	// public static GameManager Instance { get; private set; }
+	public static WaveManager Instance { get; private set; }
 #endregion
 
 #region Components
@@ -22,11 +22,8 @@ public class WaveManager : MonoBehaviour {
 
 #region Unity
     private void Awake() {
+	    Instance = this;
 		_transform = transform;
-    }
-
-    private void Start() {
-	    UiManager.Instance.SetWaveCount(_waveCount);
     }
 
     private void Update() {
@@ -40,6 +37,12 @@ public class WaveManager : MonoBehaviour {
 #endregion
 
 #region Custom
+	public void Init() {
+		_waveCount = 0;
+		_spawnTimer = 0f;
+		
+		UiManager.Instance.SetWaveCount(_waveCount);
+	}
 
 	public void IncreaseWave() {
 		_waveCount++;
