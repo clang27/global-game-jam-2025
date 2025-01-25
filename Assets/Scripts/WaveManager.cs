@@ -1,52 +1,75 @@
 using UnityEngine;
 
 public class WaveManager : MonoBehaviour {
-
-#region Dependencies
-	// [SerializeField] private GameObject[] Entries;
+	
+#region Properties
+	[SerializeField] private int maxWaves = 3;
 #endregion
 
 #region Attributes
 	public static WaveManager Instance { get; private set; }
-#endregion
-
-#region Components
-	private Transform _transform;
+	public bool CompletedWaves => _waveCount == maxWaves;
 #endregion
 
 #region Data
 	private int _waveCount = 0;
-	private readonly float _spawnInterval = 5f;
-	private float _spawnTimer = 0f;
 #endregion
 
 #region Unity
     private void Awake() {
 	    Instance = this;
-		_transform = transform;
-    }
-
-    private void Update() {
-	    _spawnTimer += Time.deltaTime;
-
-	    if (_spawnTimer > _spawnInterval) {
-		    EnemyManager.Instance.SpawnEnemy();
-		    _spawnTimer = 0f;
-	    }
     }
 #endregion
 
 #region Custom
 	public void Init() {
 		_waveCount = 0;
-		_spawnTimer = 0f;
 		
 		UiManager.Instance.SetWaveCount(_waveCount);
 	}
 
-	public void IncreaseWave() {
+	public void StartWave() {
 		_waveCount++;
 		UiManager.Instance.SetWaveCount(_waveCount);
+
+		switch (_waveCount) {
+			case 1:
+				EnemyManager.Instance.SpawnEnemy(50f, AiStyle.Swordfish);
+				EnemyManager.Instance.SpawnEnemy(100f, AiStyle.Swordfish);
+				EnemyManager.Instance.SpawnEnemy(150f, AiStyle.Swordfish);
+				EnemyManager.Instance.SpawnEnemy(200f, AiStyle.Swordfish);
+				break;
+			case 2:
+				EnemyManager.Instance.SpawnEnemy(50f, AiStyle.Swordfish);
+				EnemyManager.Instance.SpawnEnemy(100f, AiStyle.Swordfish);
+				EnemyManager.Instance.SpawnEnemy(150f, AiStyle.Swordfish);
+				EnemyManager.Instance.SpawnEnemy(200f, AiStyle.Swordfish);
+				EnemyManager.Instance.SpawnEnemy(50f, AiStyle.Swordfish);
+				EnemyManager.Instance.SpawnEnemy(100f, AiStyle.Swordfish);
+				EnemyManager.Instance.SpawnEnemy(150f, AiStyle.Swordfish);
+				EnemyManager.Instance.SpawnEnemy(200f, AiStyle.Swordfish);
+				break;
+			case 3:
+				EnemyManager.Instance.SpawnEnemy(50f, AiStyle.Swordfish);
+				EnemyManager.Instance.SpawnEnemy(50f, AiStyle.Swordfish);
+				EnemyManager.Instance.SpawnEnemy(50f, AiStyle.Swordfish);
+				EnemyManager.Instance.SpawnEnemy(50f, AiStyle.Swordfish);
+				break;
+			case 4:
+				break;
+			case 5:
+				break;
+			case 6:
+				break;
+			case 7:
+				break;
+			case 8:
+				break;
+			case 9:
+				break;
+			case 10:
+				break;
+		}
 	}
 #endregion
 

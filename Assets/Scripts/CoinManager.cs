@@ -36,7 +36,7 @@ public class CoinManager : MonoBehaviour {
 
 #region Custom
     public void Init() {
-        _coins = 0;
+        _coins = 100;
         UiManager.Instance.SetCoins(_coins);
     }
     public void AddCoin() {

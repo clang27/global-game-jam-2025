@@ -53,7 +53,7 @@ public class BubbleBehavior : MonoBehaviour {
 			_playersOnBubble.Clear();
 			_transform.localScale = Vector2.zero;
 			_collider.enabled = false;
-			GameManager.Instance.GameOver();
+			GameManager.Instance.GameOver(false);
 		}
 	}
 
@@ -68,6 +68,7 @@ public class BubbleBehavior : MonoBehaviour {
 				GameManager.Instance.PlayerInBubble();
 			} else {
 				player.GetComponent<AiController>().FlyingIn = false;
+				player.GetComponent<AiController>().RevertStats();
 			}
 			
 		}

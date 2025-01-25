@@ -5,11 +5,11 @@ using UnityEngine;
 public class CharacterBehavior : MonoBehaviour {
 
 #region Dependencies
-	[SerializeField] private float acceleration = 2f;
-	[SerializeField] private float deceleration = 2f;
-	[SerializeField] private float maxSpeed = 5f;
-	[SerializeField] private float ejectForce = 30f;
-	[SerializeField] private float dashForce = 10f;
+	public float Acceleration = 2f;
+	public float Deceleration = 2f;
+	public float MaxSpeed = 5f;
+	public float EjectForce = 20f;
+	public float DashForce = 10f;
 #endregion
 
 #region Attributes
@@ -63,16 +63,16 @@ public class CharacterBehavior : MonoBehaviour {
 		var onBubble = bubble.OnBubble(this);
 		
 		if (InputVector.magnitude > 0f && Controllable) {
-			var goalSpeed = InputVector * maxSpeed;
+			var goalSpeed = InputVector * MaxSpeed;
 			if (onBubble) {
 				goalSpeed += bubble.Velocity;
 			}
 		
-			var acc = (onBubble) ? acceleration : acceleration / 4f;
+			var acc = (onBubble) ? Acceleration : Acceleration / 4f;
 			_rigidbody.linearVelocity = Vector2.Lerp(_rigidbody.linearVelocity, goalSpeed, Time.fixedDeltaTime * acc);
 		} else if (!Stunned) {
 			var goalSpeed = (onBubble) ? bubble.Velocity : Vector2.zero;
-			var dec = (onBubble) ? deceleration : deceleration / 4f;
+			var dec = (onBubble) ? Deceleration : Deceleration / 4f;
 			_rigidbody.linearVelocity = Vector2.Lerp(_rigidbody.linearVelocity, goalSpeed, Time.fixedDeltaTime * dec);
 		}
 		
@@ -102,7 +102,7 @@ public class CharacterBehavior : MonoBehaviour {
 		}
 
 		if (!Spinning && !Dashing) { // Don't clamp if spinning
-			_rigidbody.linearVelocity = Vector2.ClampMagnitude(_rigidbody.linearVelocity, maxSpeed);	
+			_rigidbody.linearVelocity = Vector2.ClampMagnitude(_rigidbody.linearVelocity, MaxSpeed);	
 		}
 	}
 
@@ -138,8 +138,10 @@ public class CharacterBehavior : MonoBehaviour {
 	
 	public void Eject(Vector2 direction) {
 		Spinning = true;
-		Knockback(direction, ejectForce);
-		_rigidbody.DORotate(360f, 2f).OnComplete(() => {
+		Knockback(direction, EjectForce);
+
+		var duration = tag.Equals("Enemy") ? 0.5f : 1.5f;
+		_rigidbody.DORotate(360f, duration).OnComplete(() => {
 			_rigidbody.rotation = 0f;
 			Spinning = false;
 			if (tag.Equals("Enemy")) {
@@ -154,14 +156,15 @@ public class CharacterBehavior : MonoBehaviour {
 
 	public void Dash() {
 		if (_dashCooldown) { return; }
-		_rigidbody.AddForce(PreviousNotZeroInputVector * dashForce * _rigidbody.mass, ForceMode2D.Impulse);
+		_rigidbody.AddForce(PreviousNotZeroInputVector * DashForce * _rigidbody.mass, ForceMode2D.Impulse);
 		_dashCooldown = true;
 		Dashing = true;
-		DOVirtual.DelayedCall(0.5f, () => Dashing = false);
+		DOVirtual.DelayedCall(GameManager.Instance.Bubble.OnBubble(this) ? 0.5f : 0.2f, () => Dashing = false);
 		DOVirtual.DelayedCall(1f, () => _dashCooldown = false);
 	}
 
 	public void Attack() {
+		if (Dashing) { return; }
 		_attackBehavior.Activate(DirectionFacing);
 	}
 	

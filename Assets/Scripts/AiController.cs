@@ -10,6 +10,7 @@ public class AiController : MonoBehaviour {
 
 #region Attributes
     public bool FlyingIn { get; set; }
+    public AiStyle Type => style;
 #endregion
 
 #region Components
@@ -18,6 +19,7 @@ public class AiController : MonoBehaviour {
 #endregion
 
 #region Data
+    private bool _boosted = false;
 #endregion
 
 #region Unity
@@ -54,6 +56,23 @@ public class AiController : MonoBehaviour {
 #endregion
 
 #region Custom
+    public void BoostStats() {
+        if (_boosted) { return; }
+
+        _boosted = true;
+        _character.Acceleration *= 2f;
+        _character.Deceleration *= 2f;
+        _character.MaxSpeed *= 2f;
+    }
+    
+    public void RevertStats() {
+        if (!_boosted) { return; }
+
+        _boosted = false;
+        _character.Acceleration /= 2f;
+        _character.Deceleration /= 2f;
+        _character.MaxSpeed /= 2f;
+    }
 
 #endregion
 

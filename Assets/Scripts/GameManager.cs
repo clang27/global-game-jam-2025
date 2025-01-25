@@ -40,11 +40,9 @@ public class GameManager : MonoBehaviour {
     }
 
     private void Update() {
-        
-    }
-	
-	private void FixedUpdate() {
-        
+	    if (Input.GetKeyDown(KeyCode.Escape)) {
+		    Application.Quit();
+	    }
     }
 #endregion
 
@@ -58,6 +56,7 @@ public class GameManager : MonoBehaviour {
 		WaveManager.Instance.enabled = false;
 		CoinManager.Instance.enabled = false;
 		OxygenManager.Instance.enabled = false;
+		ShopManager.Instance.enabled = false;
 		
 		TitleCamera();
 		
@@ -69,8 +68,10 @@ public class GameManager : MonoBehaviour {
 		CoinManager.Instance.Init();
 		OxygenManager.Instance.Init();
 		
+		UiManager.Instance.ShowWinScreen(false);
 		UiManager.Instance.ShowGameOver(false);
 		UiManager.Instance.ShowTitle(true);
+		UiManager.Instance.ShowTimer(false);
 		UiManager.Instance.ShowOxygen(false);
 		UiManager.Instance.ShowHud(false);
 	}
@@ -95,13 +96,41 @@ public class GameManager : MonoBehaviour {
 		CoinManager.Instance.enabled = true;
 		OxygenManager.Instance.enabled = true;
 		
+		WaveManager.Instance.StartWave();
+		
+		UiManager.Instance.ShowWinScreen(false);
 		UiManager.Instance.ShowGameOver(false);
+		UiManager.Instance.ShowTimer(false);
 		UiManager.Instance.ShowTitle(false);
 		UiManager.Instance.ShowOxygen(false);
 		UiManager.Instance.ShowHud(true);
 	}
 
-	public void GameOver() {
+	public void WaveDone() {
+		Debug.Log("Wave done!");
+		
+		WaveManager.Instance.enabled = false;
+		if (WaveManager.Instance.CompletedWaves) {
+			GameOver(true);
+		} else {
+			GameState = GameState.Shop;
+
+			ShopManager.Instance.enabled = true;
+			ShopManager.Instance.StartShop();
+		}
+	}
+
+	public void ShopDone() {
+		Debug.Log("Shop done!");
+		GameState = GameState.Wave;
+		ShopManager.Instance.enabled = false;
+		ShopManager.Instance.StopShop();
+		
+		WaveManager.Instance.enabled = true;
+		WaveManager.Instance.StartWave();
+	}
+
+	public void GameOver(bool won) {
 		GameState = GameState.GameOver;
 		_gameOverCooldown = true;
 		DOVirtual.DelayedCall(1f, () => _gameOverCooldown = false);
@@ -115,30 +144,32 @@ public class GameManager : MonoBehaviour {
 		
 		PlayerOutOfBubble();
 		
-		UiManager.Instance.ShowGameOver(true);
+		UiManager.Instance.ShowGameOver(!won);
+		UiManager.Instance.ShowWinScreen(won);
 		UiManager.Instance.ShowTitle(false);
 		UiManager.Instance.ShowOxygen(false);
+		UiManager.Instance.ShowTimer(false);
 		UiManager.Instance.ShowHud(false);
 	}
 
 	public void TitleCamera() {
-		titleCamera.enabled = true;
-		inBubbleCamera.enabled = false;
-		outBubbleCamera.enabled = false;
+		titleCamera.Priority = 3;
+		inBubbleCamera.Priority = 2;
+		outBubbleCamera.Priority = 1;
 	}
 
 	public void PlayerOutOfBubble() {
 		OxygenManager.Instance.OutOfBubble();
-		titleCamera.enabled = false;
-		inBubbleCamera.enabled = false;
-		outBubbleCamera.enabled = true;
+		titleCamera.Priority = 1;
+		inBubbleCamera.Priority = 2;
+		outBubbleCamera.Priority = 3;
 	}
 	
 	public void PlayerInBubble() {
 		OxygenManager.Instance.InBubble();
-		titleCamera.enabled = false;
-		inBubbleCamera.enabled = true;
-		outBubbleCamera.enabled = false;
+		titleCamera.Priority = 1;
+		inBubbleCamera.Priority = 3;
+		outBubbleCamera.Priority = 2;
 	}
 #endregion
 

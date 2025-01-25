@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using DG.Tweening;
 using UnityEngine;
 
@@ -56,30 +57,38 @@ public class EnemyManager : MonoBehaviour {
 		}
 	}
 
-	public void SpawnEnemy() {
-		MoveInPlay(_pooledEnemies[0]);
-		_attackingEnemies.Add(_pooledEnemies[0]);
-		_pooledEnemies.RemoveAt(0);
+	public void SpawnEnemy(float distanceFromBubble, AiStyle aiStyle) {
+		var ai = _pooledEnemies.First(enemy => enemy.Type == aiStyle);
+		
+		MoveInPlay(ai, distanceFromBubble);
+		_attackingEnemies.Add(ai);
+		_pooledEnemies.Remove(ai);
+		UiManager.Instance.SetEnemiesRemaining(_attackingEnemies.Count);
 	}
 	
 	public void DespawnEnemy(AiController ai) {
 		MoveOutOfPlay(ai);
 		_pooledEnemies.Add(ai);
 		_attackingEnemies.Remove(ai);
+		UiManager.Instance.SetEnemiesRemaining(_attackingEnemies.Count);
+		if (_attackingEnemies.Count == 0) {
+			GameManager.Instance.WaveDone();
+		}
 	}
 	private void MoveOutOfPlay(AiController t) {
 		t.transform.position = new Vector3(0f, -5000f);
 		t.transform.SetParent(_poolTransform);
 	}
-	private void MoveInPlay(AiController t) {
+	private void MoveInPlay(AiController t, float distanceFromBubble) {
 		t.transform.SetParent(null);
 
 		var bubble = GameManager.Instance.Bubble;
-		var randomRadian = Random.Range(0f, 2 * Mathf.PI);
-		var startPoint = bubble.transform.position + new Vector3(Mathf.Cos(randomRadian) * 20f, Mathf.Sin(randomRadian) * 20f, 0f);
+		var randomRadian = Random.Range(0f, Mathf.PI);
+		var startPoint = bubble.transform.position + new Vector3(Mathf.Cos(randomRadian) * distanceFromBubble, Mathf.Sin(randomRadian) * distanceFromBubble, 0f);
 		
 		t.transform.position = startPoint;
 		t.FlyingIn = true;
+		t.BoostStats();
 	}
 #endregion
 

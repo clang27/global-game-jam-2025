@@ -37,7 +37,7 @@ public class OxygenManager : MonoBehaviour {
             UiManager.Instance.SetOxygen(_oxygen);
 
             if (_oxygen <= 0f) {
-                GameManager.Instance.GameOver();
+                GameManager.Instance.GameOver(false);
             }
         }
         else {

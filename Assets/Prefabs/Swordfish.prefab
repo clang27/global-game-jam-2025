@@ -176,11 +176,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fce72f16bcdf11949b23b4e9bd2eb3f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  acceleration: 2
-  deceleration: 2
-  maxSpeed: 4
-  ejectForce: 10
-  dashForce: 10
+  Acceleration: 2
+  Deceleration: 3
+  MaxSpeed: 5
+  EjectForce: 20
+  DashForce: 10
 --- !u!114 &2865206718112430807
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -5,9 +5,9 @@ using UnityEngine.UI;
 public class UiManager : MonoBehaviour {
 
 #region Dependencies
-	[SerializeField] private TextMeshProUGUI waveCountTextMesh, coinTextMesh, bubbleTextMesh;
-	[SerializeField] private Image oxygenBarImage;
-	[SerializeField] private CanvasGroup oxygenBarCanvasGroup, hudCanvasGroup, titleCanvasGroup, gameOverCanvasGroup;
+	[SerializeField] private TextMeshProUGUI waveCountTextMesh, coinTextMesh, bubbleTextMesh, enemiesRemainingTextMesh;
+	[SerializeField] private Image oxygenBarImage, timerBarImage;
+	[SerializeField] private CanvasGroup winScreenCanvasGroup, oxygenBarCanvasGroup, timerCanvasGroup, hudCanvasGroup, titleCanvasGroup, gameOverCanvasGroup;
 #endregion
 
 #region Attributes
@@ -45,6 +45,14 @@ public class UiManager : MonoBehaviour {
 	public void SetOxygen(float oxygen) {
 		oxygenBarImage.fillAmount = oxygen;
 	}
+	
+	public void SetEnemiesRemaining(int num) {
+		enemiesRemainingTextMesh.text = num.ToString();
+	}
+	
+	public void SetTimer(float amount) {
+		timerBarImage.fillAmount = amount;
+	}
 
 	public void ShowHud(bool b) {
 		ShowCanvas(hudCanvasGroup, b);
@@ -57,9 +65,16 @@ public class UiManager : MonoBehaviour {
 	public void ShowOxygen(bool b) {
 		ShowCanvas(oxygenBarCanvasGroup, b);
 	}
+	public void ShowTimer(bool b) {
+		ShowCanvas(timerCanvasGroup, b);
+	}
 	
 	public void ShowGameOver(bool b) {
 		ShowCanvas(gameOverCanvasGroup, b);
+	}
+	
+	public void ShowWinScreen(bool b) {
+		ShowCanvas(winScreenCanvasGroup, b);
 	}
 
 	private void ShowCanvas(CanvasGroup cg, bool b) {
