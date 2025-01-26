@@ -36,7 +36,7 @@ public class CoinManager : MonoBehaviour {
 
 #region Custom
     public void Init() {
-        _coins = 100;
+        _coins = 0;
         UiManager.Instance.SetCoins(_coins);
     }
     public void AddCoin() {
@@ -46,6 +46,15 @@ public class CoinManager : MonoBehaviour {
     
     public void AddChest() {
         _coins+=5;
+        UiManager.Instance.SetCoins(_coins);
+    }
+
+    public bool HaveEnoughCoins(int amount) {
+        return _coins >= amount;
+    }
+    
+    public void SpendCoins(int amount) {
+        _coins -= amount;
         UiManager.Instance.SetCoins(_coins);
     }
 #endregion

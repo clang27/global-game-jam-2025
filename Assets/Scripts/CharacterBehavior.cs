@@ -1,4 +1,3 @@
-using System;
 using DG.Tweening;
 using UnityEngine;
 
@@ -9,7 +8,15 @@ public class CharacterBehavior : MonoBehaviour {
 	public float Deceleration = 2f;
 	public float MaxSpeed = 5f;
 	public float EjectForce = 20f;
-	public float DashForce = 10f;
+	public float DashSpeed = 10f;
+	public float DashForce = 0.8f;
+
+	[SerializeField] private AudioClip _leaveBubbleSound;
+	[SerializeField] private AudioClip _enterBubbleSound;
+	[SerializeField] private AudioClip _dashSound;
+	[SerializeField] private AudioClip _bumpSound;
+	[SerializeField] private AudioClip _hurtSound;
+	[SerializeField] private AudioClip _attackSound;
 #endregion
 
 #region Attributes
@@ -31,7 +38,7 @@ public class CharacterBehavior : MonoBehaviour {
 	public bool Spinning { get; private set; }
 	public bool Dashing { get; private set; }
 	public bool Controllable { get; set; } = true;
-	public bool Stunned { get; set; }
+	public bool Stunned { get; private set; }
 #endregion
 
 #region Components
@@ -39,12 +46,14 @@ public class CharacterBehavior : MonoBehaviour {
 	private Rigidbody2D _rigidbody;
 	private Animator _animator;
 	private AttackBehavior _attackBehavior;
+	private SpriteRenderer _spriteRenderer;
 #endregion
 
 #region Data
 	private Vector2 _inputVector; 
 	private bool _dashCooldown;
 	private Vector3 _startingPosition;
+	private float _startingAcceleration, _startingDeceleration, _startingMaxSpeed, _startingDashSpeed, _startingDashForce;
 #endregion
 
 #region Unity
@@ -54,6 +63,13 @@ public class CharacterBehavior : MonoBehaviour {
 		_startingPosition = _transform.position;
 		_animator = GetComponent<Animator>();
 		_attackBehavior = GetComponentInChildren<AttackBehavior>();
+		_spriteRenderer = GetComponent<SpriteRenderer>();
+
+		_startingAcceleration = Acceleration;
+		_startingDeceleration = Deceleration;
+		_startingMaxSpeed = MaxSpeed;
+		_startingDashSpeed = DashSpeed;
+		_startingDashForce = DashForce;
     }
 	
 	private void FixedUpdate() {
@@ -77,23 +93,22 @@ public class CharacterBehavior : MonoBehaviour {
 		}
 		
 		if (_animator) {
-			if (Controllable) {
-				_animator.SetBool("up", false);
-				_animator.SetBool("down", false);
-				_animator.SetBool("right", false);
-				_animator.SetBool("left", false);
-				
+			if (Controllable && tag.Equals("Player")) {
 				if (InputVector.x > 0f) {
 					DirectionFacing = Direction.Right;
+					ClearMovementFlags();
 					_animator.SetBool("right", true);
 				} else if (InputVector.x < 0f) {
 					DirectionFacing = Direction.Left;
+					ClearMovementFlags();
 					_animator.SetBool("left", true);
 				} else if (InputVector.y > 0f) {
 					DirectionFacing = Direction.Up;
+					ClearMovementFlags();
 					_animator.SetBool("up", true);
 				} else if (InputVector.y < 0f) {
 					DirectionFacing = Direction.Down;
+					ClearMovementFlags();
 					_animator.SetBool("down", true);
 				} 
 			}
@@ -106,11 +121,19 @@ public class CharacterBehavior : MonoBehaviour {
 		}
 	}
 
+	private void ClearMovementFlags() {
+		_animator.SetBool("up", false);
+		_animator.SetBool("down", false);
+		_animator.SetBool("right", false);
+		_animator.SetBool("left", false);
+	}
+
 	private void OnCollisionStay2D(Collision2D other) {
 		if (other.gameObject.TryGetComponent<CharacterBehavior>(out var player)) {
 			if (Dashing) {
+				AudioManager.Instance.PlaySfx(_bumpSound);
 				Debug.Log("Collided!");
-				player.Knockback((other.transform.position - _transform.position).normalized, 0.8f);	
+				player.Knockback((other.transform.position - _transform.position).normalized, DashForce);	
 				player.Stunned = true;
 				DOVirtual.DelayedCall(0.2f, () => player.Stunned = false);
 			}
@@ -120,7 +143,33 @@ public class CharacterBehavior : MonoBehaviour {
 #endregion
 
 #region Custom
+	public void UpgradeDash() {
+		DashSpeed += 2f;
+		DashForce += 0.4f;
+	}
+	public void Stun() {
+		if (tag.Equals("Player") && Stunned) {
+			return;
+		}
+
+		AudioManager.Instance.PlaySfx(_hurtSound);
+		
+		Stunned = true;
+		_spriteRenderer.DOFade(0.1f, 0.05f).SetLoops(-1, LoopType.Yoyo);
+	}
+	
+	public void Unstun() {
+		Stunned = false;
+		_spriteRenderer.DOKill();
+		_spriteRenderer.DOFade(1f, 0f);
+	}
 	public void Init() {
+		Acceleration = _startingAcceleration;
+		Deceleration = _startingDeceleration;
+		MaxSpeed = _startingMaxSpeed;
+		DashSpeed = _startingDashSpeed;
+		DashForce = _startingDashForce;
+        
 		_transform.position = _startingPosition;
 		_transform.eulerAngles = Vector3.zero;
 		Controllable = false;
@@ -138,7 +187,9 @@ public class CharacterBehavior : MonoBehaviour {
 	
 	public void Eject(Vector2 direction) {
 		Spinning = true;
+		TimeOnBubble = 0f;
 		Knockback(direction, EjectForce);
+		AudioManager.Instance.PlaySfx(_leaveBubbleSound);
 
 		var duration = tag.Equals("Enemy") ? 0.5f : 1.5f;
 		_rigidbody.DORotate(360f, duration).OnComplete(() => {
@@ -149,14 +200,25 @@ public class CharacterBehavior : MonoBehaviour {
 			}
 		});
 	}
+
+	public void EnterBubble() {
+		TimeOnBubble = 0f;
+		AudioManager.Instance.PlaySfx(_enterBubbleSound);
+	}
 	
 	public void Knockback(Vector2 direction, float force) {
 		_rigidbody.AddForce(direction * (force * _rigidbody.mass), ForceMode2D.Impulse);
 	}
 
 	public void Dash() {
-		if (_dashCooldown) { return; }
-		_rigidbody.AddForce(PreviousNotZeroInputVector * DashForce * _rigidbody.mass, ForceMode2D.Impulse);
+		if (_dashCooldown || Stunned) { return; }
+		
+		if (_animator) {
+			_animator.SetTrigger("dash");
+		}
+		
+		AudioManager.Instance.PlaySfx(_dashSound);
+		_rigidbody.AddForce(PreviousNotZeroInputVector * DashSpeed * _rigidbody.mass, ForceMode2D.Impulse);
 		_dashCooldown = true;
 		Dashing = true;
 		DOVirtual.DelayedCall(GameManager.Instance.Bubble.OnBubble(this) ? 0.5f : 0.2f, () => Dashing = false);
@@ -164,7 +226,16 @@ public class CharacterBehavior : MonoBehaviour {
 	}
 
 	public void Attack() {
-		if (Dashing) { return; }
+		if (Dashing || Stunned) { return; }
+
+		if (!_attackBehavior.OnCooldown) {
+			AudioManager.Instance.PlaySfx(_attackSound);
+			if (_animator) {
+				_animator.SetTrigger("attack");
+			}
+		}
+
+		
 		_attackBehavior.Activate(DirectionFacing);
 	}
 	

@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 
 public class AudioManager : MonoBehaviour {
@@ -30,25 +31,48 @@ public class AudioManager : MonoBehaviour {
 		_musicSource = transform.GetChild(0).GetComponent<AudioSource>();
 		_sfxSource = transform.GetChild(1).GetComponent<AudioSource>();
     }
-
-    private void Update() {
-        
-    }
-	
-	private void FixedUpdate() {
-        
-    }
 #endregion
 
 #region Custom
-	public void PlaySong(AudioClip ac, float pitch = 1f, float vol = 1f) {
+	public void PlayGameTheme() {
+		if (_musicSource.isPlaying) {
+			_musicSource.DOFade(0f, 0.1f).OnComplete(() => {
+				_musicSource.Stop();
+				_musicSource.clip = songOne;
+				_musicSource.Play();
+				_musicSource.DOFade(1f, 0.1f);
+			});
+		} else {
+			PlaySong(songOne);
+		}
+	}
+	
+	public void PlayShopTheme() {
+		if (_musicSource.isPlaying) {
+			_musicSource.DOFade(0f, 0.1f).OnComplete(() => {
+				_musicSource.Stop();
+				_musicSource.clip = songTwo;
+				_musicSource.Play();
+				_musicSource.DOFade(1f, 0.1f);
+			});
+		} else {
+			PlaySong(songTwo);
+		}
+	}
+	
+	private void PlaySong(AudioClip ac, float pitch = 1f, float vol = 1f) {
 		_musicSource.clip = ac;
 		_musicSource.pitch = pitch;
 		_musicSource.volume = vol;
 		_musicSource.Play();
 	}
 
-	public void PlaySfx(AudioClip ac, float pitch = 1f, float vol = 1f) {
+	public void PlaySfx(AudioClip ac, float vol = 1f) {
+		if (ac == null) {
+			return;
+		}
+
+		var pitch = Random.Range(0.95f, 1.05f);
 		_sfxSource.pitch = pitch;
 		_sfxSource.volume = vol;
 		_sfxSource.PlayOneShot(ac);

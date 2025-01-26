@@ -1,3 +1,4 @@
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,7 +8,8 @@ public class UiManager : MonoBehaviour {
 #region Dependencies
 	[SerializeField] private TextMeshProUGUI waveCountTextMesh, coinTextMesh, bubbleTextMesh, enemiesRemainingTextMesh;
 	[SerializeField] private Image oxygenBarImage, timerBarImage;
-	[SerializeField] private CanvasGroup winScreenCanvasGroup, oxygenBarCanvasGroup, timerCanvasGroup, hudCanvasGroup, titleCanvasGroup, gameOverCanvasGroup;
+	[SerializeField] private CanvasGroup shopCanvasGroup, winScreenCanvasGroup, oxygenBarCanvasGroup, timerCanvasGroup, hudCanvasGroup, titleCanvasGroup, gameOverCanvasGroup;
+	[SerializeField] private TextMeshProUGUI restartWinTextMesh, restartGameOverTextMesh, startTextMesh;
 #endregion
 
 #region Attributes
@@ -30,8 +32,23 @@ public class UiManager : MonoBehaviour {
 #endregion
 
 #region Custom
-	public void SetWaveCount(int waveCount) {
-		waveCountTextMesh.text = waveCount.ToString();
+	public void Init() {
+		ShowWinScreen(false);
+		ShowGameOver(false);
+		ShowTitle(true);
+		ShowOxygen(false);
+		ShowHud(false);
+
+		startTextMesh.DOFade(1f, 0f);
+		restartGameOverTextMesh.DOFade(1f, 0f);
+		restartWinTextMesh.DOFade(1f, 0f);
+		
+		startTextMesh.DOFade(0f, 0.3f).SetLoops(-1, LoopType.Yoyo);
+		restartGameOverTextMesh.DOFade(0f, 0.3f).SetLoops(-1, LoopType.Yoyo);
+		restartWinTextMesh.DOFade(0f, 0.3f).SetLoops(-1, LoopType.Yoyo);
+	}
+	public void SetWaveCount(int waveCount, int maxWaveCount) {
+		waveCountTextMesh.text = $"{waveCount}/{maxWaveCount}";
 	}
 	
 	public void SetCoins(int coins) {
@@ -56,6 +73,10 @@ public class UiManager : MonoBehaviour {
 
 	public void ShowHud(bool b) {
 		ShowCanvas(hudCanvasGroup, b);
+	}
+	
+	public void ShowShopItems(bool b) {
+		ShowCanvas(shopCanvasGroup, b);
 	}
 	
 	public void ShowTitle(bool b) {

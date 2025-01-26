@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using DG.Tweening;
 using UnityEngine;
 
 public class EnemyManager : MonoBehaviour {
@@ -51,6 +50,7 @@ public class EnemyManager : MonoBehaviour {
 			for (var i = 0; i < poolSize; i++) {
 				var enemy = Instantiate(prefab);
 				enemy.name = prefab.name + i;
+				enemy.GetComponent<AiController>().enabled = false;
 				MoveOutOfPlay(enemy.GetComponent<AiController>());
 				_pooledEnemies.Add(enemy.GetComponent<AiController>());
 			}
@@ -61,6 +61,7 @@ public class EnemyManager : MonoBehaviour {
 		var ai = _pooledEnemies.First(enemy => enemy.Type == aiStyle);
 		
 		MoveInPlay(ai, distanceFromBubble);
+		ai.enabled = true;
 		_attackingEnemies.Add(ai);
 		_pooledEnemies.Remove(ai);
 		UiManager.Instance.SetEnemiesRemaining(_attackingEnemies.Count);
@@ -68,6 +69,8 @@ public class EnemyManager : MonoBehaviour {
 	
 	public void DespawnEnemy(AiController ai) {
 		MoveOutOfPlay(ai);
+		
+		ai.enabled = false;
 		_pooledEnemies.Add(ai);
 		_attackingEnemies.Remove(ai);
 		UiManager.Instance.SetEnemiesRemaining(_attackingEnemies.Count);

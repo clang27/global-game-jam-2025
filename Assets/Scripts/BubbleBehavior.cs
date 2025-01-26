@@ -18,6 +18,8 @@ public class BubbleBehavior : MonoBehaviour {
 	private Vector3 ShrinkRate => _playersOnBubble
 		.Count(p => 
 			p.tag.Equals("Enemy") && p.TimeOnBubble >= shrinkThreshold) * shrinkSpeed * Vector3.one;
+
+	public bool FullOfAir => _transform.localScale.Equals(_startingScale);
 #endregion
 
 #region Components
@@ -63,7 +65,7 @@ public class BubbleBehavior : MonoBehaviour {
 		if (other.TryGetComponent<CharacterBehavior>(out var player)) {
 			Debug.Log(other.name + " has landed on the bubble.");
 			_playersOnBubble.Add(player);
-			player.TimeOnBubble = 0f;
+			player.EnterBubble();
 			if (player.tag.Equals("Player")) {
 				GameManager.Instance.PlayerInBubble();
 			} else {
@@ -82,7 +84,6 @@ public class BubbleBehavior : MonoBehaviour {
 			_playersOnBubble.Remove(player);
 			var direction = (player.transform.position - _transform.position).normalized;
 			player.Eject(direction);
-			player.TimeOnBubble = 0f;
 			if (player.tag.Equals("Player")) {
 				GameManager.Instance.PlayerOutOfBubble();
 			}
@@ -92,6 +93,14 @@ public class BubbleBehavior : MonoBehaviour {
 #endregion
 
 #region Custom
+	public void BuyAir() {
+		_transform.localScale += new Vector3(0.1f, 0.1f, 0.1f);
+		if (_transform.localScale.x > _startingScale.x) {
+			_transform.localScale = _startingScale;
+		}
+		
+		UiManager.Instance.SetBubble((_transform.localScale.x - (popPercent * _startingScale.x)) / (_startingScale.x - (popPercent * _startingScale.x)));
+	}
 	public bool OnBubble(CharacterBehavior characterBehavior) {
 		return _playersOnBubble.Contains(characterBehavior);
 	}

@@ -32,7 +32,6 @@ public class AttackBehavior : MonoBehaviour {
 #region Custom
 	public void EquipWeapon(Weapon w) {
 		EquippedWeapon = w;
-		_hitBoxCollider.size = w.HitboxSize;
 		_weaponSpriteRenderer.sprite = w.Sprite;
 	}
 	public void Init() {
@@ -44,13 +43,6 @@ public class AttackBehavior : MonoBehaviour {
 		if (OnCooldown) { return; }
 
 		OnCooldown = true;
-		_hitBoxSpriteRenderer.enabled = true;
-		_hitBoxCollider.enabled = true;
-
-		DOVirtual.DelayedCall(EquippedWeapon.ActiveTime, () => {
-			_hitBoxSpriteRenderer.enabled = false;
-			_hitBoxCollider.enabled = false;
-		});
 		
 		DOVirtual.DelayedCall(EquippedWeapon.AttackSpeed, () => {
 			OnCooldown = false;
@@ -58,23 +50,15 @@ public class AttackBehavior : MonoBehaviour {
 
 		switch (direction) {
 			case Direction.Down:
-				_hitBoxTransform.localPosition = new Vector3(0f, -1.59f, 0f);
-				_hitBoxTransform.eulerAngles = new Vector3(0f, 0f, 270f);
 				DirectionAttacking = Vector2.down;
 				break;
 			case Direction.Up:
-				_hitBoxTransform.localPosition = new Vector3(0f, 1.59f, 0f);
-				_hitBoxTransform.eulerAngles = new Vector3(0f, 0f, 90f);
 				DirectionAttacking = Vector2.up;
 				break;
 			case Direction.Right:
-				_hitBoxTransform.localPosition = new Vector3(1.59f, 0f, 0f);
-				_hitBoxTransform.eulerAngles = new Vector3(0f, 0f, 0f);
 				DirectionAttacking = Vector2.right;
 				break;
 			case Direction.Left:
-				_hitBoxTransform.localPosition = new Vector3(-1.59f, 0f, 0f);
-				_hitBoxTransform.eulerAngles = new Vector3(0f, 0f, 180f);
 				DirectionAttacking = Vector2.left;
 				break;
 			default:

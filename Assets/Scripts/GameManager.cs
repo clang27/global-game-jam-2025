@@ -48,6 +48,8 @@ public class GameManager : MonoBehaviour {
 
 #region Custom
 	private void Init() {
+		AudioManager.Instance.PlayGameTheme();
+		
 		GameState = GameState.Start;
 		_gameOverCooldown = false;
 		
@@ -63,17 +65,12 @@ public class GameManager : MonoBehaviour {
 		Bubble.Init();
 		Player.Init();
 		
+		ShopManager.Instance.Init();
 		WaveManager.Instance.Init();
 		EnemyManager.Instance.Init();
 		CoinManager.Instance.Init();
 		OxygenManager.Instance.Init();
-		
-		UiManager.Instance.ShowWinScreen(false);
-		UiManager.Instance.ShowGameOver(false);
-		UiManager.Instance.ShowTitle(true);
-		UiManager.Instance.ShowTimer(false);
-		UiManager.Instance.ShowOxygen(false);
-		UiManager.Instance.ShowHud(false);
+		UiManager.Instance.Init();
 	}
 
 	public void ResetGame() {
@@ -114,6 +111,7 @@ public class GameManager : MonoBehaviour {
 			GameOver(true);
 		} else {
 			GameState = GameState.Shop;
+			AudioManager.Instance.PlayShopTheme();
 
 			ShopManager.Instance.enabled = true;
 			ShopManager.Instance.StartShop();
@@ -123,6 +121,8 @@ public class GameManager : MonoBehaviour {
 	public void ShopDone() {
 		Debug.Log("Shop done!");
 		GameState = GameState.Wave;
+		AudioManager.Instance.PlayGameTheme();
+		
 		ShopManager.Instance.enabled = false;
 		ShopManager.Instance.StopShop();
 		

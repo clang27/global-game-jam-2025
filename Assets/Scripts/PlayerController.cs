@@ -33,6 +33,8 @@ public class PlayerController : MonoBehaviour {
 	}
 		
 	public void OnDash() {
+		if (ShopManager.Instance.InWindow) { return; }
+		
 		if (GameManager.Instance.GameState == GameState.Start) {
 			GameManager.Instance.StartGame();
 		} else if (GameManager.Instance.GameState == GameState.GameOver) {
@@ -42,6 +44,8 @@ public class PlayerController : MonoBehaviour {
 		}
 	}
 	public void OnAttack() {
+		if (ShopManager.Instance.InWindow) { return; }
+		
 		if (GameManager.Instance.GameState == GameState.Start) {
 		} else if (GameManager.Instance.GameState == GameState.GameOver) {
 		} else {

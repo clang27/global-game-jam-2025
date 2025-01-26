@@ -32,8 +32,8 @@ public class HitBox : MonoBehaviour {
 			if (player.tag.Equals("Enemy")) {
 				Debug.Log(other.name + " has been hit");
 				player.Knockback(_attackBehavior.DirectionAttacking, _attackBehavior.EquippedWeapon.Knockback);
-				player.Stunned = true;
-				DOVirtual.DelayedCall(_attackBehavior.EquippedWeapon.StunTime, () => player.Stunned = false);
+				player.Stun();
+				DOVirtual.DelayedCall(_attackBehavior.EquippedWeapon.StunTime, () => player.Unstun());
 
 				if (other.TryGetComponent<AiController>(out var enemy)) {
 					if (enemy.FlyingIn) {

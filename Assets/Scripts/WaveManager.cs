@@ -25,49 +25,73 @@ public class WaveManager : MonoBehaviour {
 	public void Init() {
 		_waveCount = 0;
 		
-		UiManager.Instance.SetWaveCount(_waveCount);
+		UiManager.Instance.SetWaveCount(_waveCount, maxWaves);
 	}
 
 	public void StartWave() {
 		_waveCount++;
-		UiManager.Instance.SetWaveCount(_waveCount);
+		UiManager.Instance.SetWaveCount(_waveCount, maxWaves);
 
 		switch (_waveCount) {
 			case 1:
-				EnemyManager.Instance.SpawnEnemy(50f, AiStyle.Swordfish);
-				EnemyManager.Instance.SpawnEnemy(100f, AiStyle.Swordfish);
-				EnemyManager.Instance.SpawnEnemy(150f, AiStyle.Swordfish);
-				EnemyManager.Instance.SpawnEnemy(200f, AiStyle.Swordfish);
+				EnemyManager.Instance.SpawnEnemy(50f, AiStyle.Jellyfish);
+				EnemyManager.Instance.SpawnEnemy(75f, AiStyle.Jellyfish);
+				EnemyManager.Instance.SpawnEnemy(100f, AiStyle.Jellyfish);
+				EnemyManager.Instance.SpawnEnemy(125f, AiStyle.Jellyfish);
 				break;
 			case 2:
-				EnemyManager.Instance.SpawnEnemy(50f, AiStyle.Swordfish);
-				EnemyManager.Instance.SpawnEnemy(100f, AiStyle.Swordfish);
-				EnemyManager.Instance.SpawnEnemy(150f, AiStyle.Swordfish);
-				EnemyManager.Instance.SpawnEnemy(200f, AiStyle.Swordfish);
-				EnemyManager.Instance.SpawnEnemy(50f, AiStyle.Swordfish);
-				EnemyManager.Instance.SpawnEnemy(100f, AiStyle.Swordfish);
-				EnemyManager.Instance.SpawnEnemy(150f, AiStyle.Swordfish);
-				EnemyManager.Instance.SpawnEnemy(200f, AiStyle.Swordfish);
+				EnemyManager.Instance.SpawnEnemy(50f, AiStyle.Jellyfish);
+				EnemyManager.Instance.SpawnEnemy(75f, AiStyle.Jellyfish);
+				EnemyManager.Instance.SpawnEnemy(100f, AiStyle.Jellyfish);
+				EnemyManager.Instance.SpawnEnemy(125f, AiStyle.Jellyfish);
 				break;
 			case 3:
-				EnemyManager.Instance.SpawnEnemy(50f, AiStyle.Swordfish);
-				EnemyManager.Instance.SpawnEnemy(50f, AiStyle.Swordfish);
-				EnemyManager.Instance.SpawnEnemy(50f, AiStyle.Swordfish);
-				EnemyManager.Instance.SpawnEnemy(50f, AiStyle.Swordfish);
+				EnemyManager.Instance.SpawnEnemy(50f, AiStyle.Jellyfish);
+				EnemyManager.Instance.SpawnEnemy(75f, AiStyle.Jellyfish);
+				EnemyManager.Instance.SpawnEnemy(100f, AiStyle.Jellyfish);
+				EnemyManager.Instance.SpawnEnemy(125f, AiStyle.Jellyfish);
 				break;
 			case 4:
+				EnemyManager.Instance.SpawnEnemy(50f, AiStyle.Jellyfish);
+				EnemyManager.Instance.SpawnEnemy(75f, AiStyle.Jellyfish);
+				EnemyManager.Instance.SpawnEnemy(100f, AiStyle.Jellyfish);
+				EnemyManager.Instance.SpawnEnemy(125f, AiStyle.Jellyfish);
 				break;
 			case 5:
+				EnemyManager.Instance.SpawnEnemy(50f, AiStyle.Jellyfish);
+				EnemyManager.Instance.SpawnEnemy(75f, AiStyle.Jellyfish);
+				EnemyManager.Instance.SpawnEnemy(100f, AiStyle.Jellyfish);
+				EnemyManager.Instance.SpawnEnemy(125f, AiStyle.Jellyfish);
 				break;
 			case 6:
+				EnemyManager.Instance.SpawnEnemy(50f, AiStyle.Jellyfish);
+				EnemyManager.Instance.SpawnEnemy(75f, AiStyle.Jellyfish);
+				EnemyManager.Instance.SpawnEnemy(100f, AiStyle.Jellyfish);
+				EnemyManager.Instance.SpawnEnemy(125f, AiStyle.Jellyfish);
 				break;
 			case 7:
+				EnemyManager.Instance.SpawnEnemy(50f, AiStyle.Jellyfish);
+				EnemyManager.Instance.SpawnEnemy(75f, AiStyle.Jellyfish);
+				EnemyManager.Instance.SpawnEnemy(100f, AiStyle.Jellyfish);
+				EnemyManager.Instance.SpawnEnemy(125f, AiStyle.Jellyfish);
 				break;
 			case 8:
+				EnemyManager.Instance.SpawnEnemy(50f, AiStyle.Jellyfish);
+				EnemyManager.Instance.SpawnEnemy(75f, AiStyle.Jellyfish);
+				EnemyManager.Instance.SpawnEnemy(100f, AiStyle.Jellyfish);
+				EnemyManager.Instance.SpawnEnemy(125f, AiStyle.Jellyfish);
 				break;
 			case 9:
+				EnemyManager.Instance.SpawnEnemy(50f, AiStyle.Jellyfish);
+				EnemyManager.Instance.SpawnEnemy(75f, AiStyle.Jellyfish);
+				EnemyManager.Instance.SpawnEnemy(100f, AiStyle.Jellyfish);
+				EnemyManager.Instance.SpawnEnemy(125f, AiStyle.Jellyfish);
 				break;
 			case 10:
+				EnemyManager.Instance.SpawnEnemy(50f, AiStyle.Jellyfish);
+				EnemyManager.Instance.SpawnEnemy(75f, AiStyle.Jellyfish);
+				EnemyManager.Instance.SpawnEnemy(100f, AiStyle.Jellyfish);
+				EnemyManager.Instance.SpawnEnemy(125f, AiStyle.Jellyfish);
 				break;
 		}
 	}
