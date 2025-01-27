@@ -95,6 +95,7 @@ public class ShopManager : MonoBehaviour {
 		
 		AudioManager.Instance.PlaySfx(successfulBuySound);
 		CoinManager.Instance.SpendCoins(amount);
+		GameManager.Instance.Player.UpgradeWeapon();
 	}
 #endregion
 

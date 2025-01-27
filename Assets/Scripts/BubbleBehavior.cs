@@ -15,9 +15,9 @@ public class BubbleBehavior : MonoBehaviour {
 #region Attributes
 	public Vector2 Velocity => _rigidbody.linearVelocity;
 	public float Radius => _collider.bounds.extents.x;
-	private Vector3 ShrinkRate => _playersOnBubble
+	private Vector3 ShrinkRate => Mathf.Sqrt(_playersOnBubble
 		.Count(p => 
-			p.tag.Equals("Enemy") && p.TimeOnBubble >= shrinkThreshold) * shrinkSpeed * Vector3.one;
+			p.tag.Equals("Enemy") && p.TimeOnBubble >= shrinkThreshold)) * shrinkSpeed * Vector3.one;
 
 	public bool FullOfAir => _transform.localScale.Equals(_startingScale);
 #endregion
@@ -69,8 +69,7 @@ public class BubbleBehavior : MonoBehaviour {
 			if (player.tag.Equals("Player")) {
 				GameManager.Instance.PlayerInBubble();
 			} else {
-				player.GetComponent<AiController>().FlyingIn = false;
-				player.GetComponent<AiController>().RevertStats();
+				player.GetComponent<AiController>().Landed();
 			}
 			
 		}
@@ -94,7 +93,7 @@ public class BubbleBehavior : MonoBehaviour {
 
 #region Custom
 	public void BuyAir() {
-		_transform.localScale += new Vector3(0.1f, 0.1f, 0.1f);
+		_transform.localScale += new Vector3(0.15f, 0.15f, 0.15f);
 		if (_transform.localScale.x > _startingScale.x) {
 			_transform.localScale = _startingScale;
 		}

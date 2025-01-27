@@ -77,7 +77,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.7, y: 0.9}
+  m_Size: {x: 0.8, y: 1}
   m_EdgeRadius: 0
 --- !u!114 &4876426639942149892
 MonoBehaviour:
@@ -91,6 +91,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0993cd69da2499ba1beac7f1ceb6adc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitSound: {fileID: 8300000, guid: 05e31ac7095e3f24bbc9a50def2dfb7a, type: 3}
 --- !u!1 &7282344639636168180
 GameObject:
   m_ObjectHideFlags: 0
@@ -123,7 +124,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.8, y: 0.8, z: 1}
+  m_LocalScale: {x: 0.75, y: 0.75, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7398667266118744015}
@@ -255,7 +256,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.8, y: 0.8}
+  m_Size: {x: 0.8, y: 0.9}
   m_EdgeRadius: 0
 --- !u!114 &7162103286997196706
 MonoBehaviour:
@@ -271,16 +272,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Acceleration: 6
   Deceleration: 6
-  MaxSpeed: 3
-  EjectForce: 10
+  MaxSpeed: 2
+  EjectForce: 8
   DashSpeed: 10
   DashForce: 10
   _leaveBubbleSound: {fileID: 8300000, guid: 335d8577f8ec17d448e810b636985343, type: 3}
   _enterBubbleSound: {fileID: 8300000, guid: a1250fb4cdf990b48ae2ab789f832dc0, type: 3}
   _dashSound: {fileID: 0}
   _bumpSound: {fileID: 0}
-  _attackSound: {fileID: 0}
   _hurtSound: {fileID: 8300000, guid: 6050f143108766f43b9644073702920c, type: 3}
+  _attackSound: {fileID: 0}
+  _shockSprite: {fileID: 0}
 --- !u!114 &2865206718112430807
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -293,13 +295,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f29aafdca162b7043a10096ed7fd637c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackSound: {fileID: 0}
   bubbleLayerMask:
     serializedVersion: 2
     m_Bits: 64
   style: 1
   avoidEdgeDistance: 0.8
-  knockback: 6
-  stunTime: 0.5
+  knockback: 5
+  stunTime: 1.2
 --- !u!95 &53559109004338006
 Animator:
   serializedVersion: 7

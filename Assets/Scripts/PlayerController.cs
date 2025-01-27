@@ -39,16 +39,14 @@ public class PlayerController : MonoBehaviour {
 			GameManager.Instance.StartGame();
 		} else if (GameManager.Instance.GameState == GameState.GameOver) {
 			GameManager.Instance.ResetGame();
-		} else {
+		} else if (GameManager.Instance.GameState == GameState.Wave || GameManager.Instance.GameState == GameState.Shop) {
 			_character.Dash();	
 		}
 	}
 	public void OnAttack() {
 		if (ShopManager.Instance.InWindow) { return; }
 		
-		if (GameManager.Instance.GameState == GameState.Start) {
-		} else if (GameManager.Instance.GameState == GameState.GameOver) {
-		} else {
+		if (GameManager.Instance.GameState == GameState.Wave) {
 			_character.Attack();	
 		}
 	}

@@ -59,8 +59,10 @@ public class GameManager : MonoBehaviour {
 		CoinManager.Instance.enabled = false;
 		OxygenManager.Instance.enabled = false;
 		ShopManager.Instance.enabled = false;
+		IslandManager.Instance.enabled = false;
 		
 		TitleCamera();
+		outBubbleCamera.Follow = Player.transform;
 		
 		Bubble.Init();
 		Player.Init();
@@ -71,6 +73,7 @@ public class GameManager : MonoBehaviour {
 		CoinManager.Instance.Init();
 		OxygenManager.Instance.Init();
 		UiManager.Instance.Init();
+		IslandManager.Instance.Init();
 	}
 
 	public void ResetGame() {
@@ -92,6 +95,7 @@ public class GameManager : MonoBehaviour {
 		WaveManager.Instance.enabled = true;
 		CoinManager.Instance.enabled = true;
 		OxygenManager.Instance.enabled = true;
+		IslandManager.Instance.enabled = true;
 		
 		WaveManager.Instance.StartWave();
 		
@@ -105,6 +109,8 @@ public class GameManager : MonoBehaviour {
 
 	public void WaveDone() {
 		Debug.Log("Wave done!");
+		
+		if (GameState == GameState.GameOver) { return; }
 		
 		WaveManager.Instance.enabled = false;
 		if (WaveManager.Instance.CompletedWaves) {
@@ -131,10 +137,15 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void GameOver(bool won) {
-		GameState = GameState.GameOver;
+		GameState = won ? GameState.Win : GameState.GameOver;
+		
 		_gameOverCooldown = true;
 		DOVirtual.DelayedCall(1f, () => _gameOverCooldown = false);
 
+		if (won) {
+			UiManager.Instance.SetWinCoins(CoinManager.Instance.Coins);
+		}
+		
 		Player.Controllable = false;
 		Bubble.enabled = false;
 
@@ -143,6 +154,7 @@ public class GameManager : MonoBehaviour {
 		OxygenManager.Instance.enabled = false;
 		
 		PlayerOutOfBubble();
+		outBubbleCamera.Follow = null;
 		
 		UiManager.Instance.ShowGameOver(!won);
 		UiManager.Instance.ShowWinScreen(won);

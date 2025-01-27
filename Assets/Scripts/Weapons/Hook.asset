@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Hook
   m_EditorClassIdentifier: 
   Sprite: {fileID: 0}
-  Knockback: 5
+  Knockback: 8
   AttackSpeed: 0.5
-  StunTime: 0.2
+  StunTime: 0.3
   Sound: {fileID: 8300000, guid: 6e4fbb0f5837eda4cad11e70c1c35dfb, type: 3}

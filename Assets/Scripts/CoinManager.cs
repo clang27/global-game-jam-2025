@@ -8,6 +8,7 @@ public class CoinManager : MonoBehaviour {
 
 #region Attributes
     public static CoinManager Instance { get; private set; }
+    public int Coins { get; private set; }
 #endregion
 
 #region Components
@@ -15,7 +16,6 @@ public class CoinManager : MonoBehaviour {
 #endregion
 
 #region Data
-    private int _coins = 0;
 #endregion
 
 #region Unity
@@ -36,26 +36,21 @@ public class CoinManager : MonoBehaviour {
 
 #region Custom
     public void Init() {
-        _coins = 0;
-        UiManager.Instance.SetCoins(_coins);
+        Coins = 0;
+        UiManager.Instance.SetCoins(Coins);
     }
-    public void AddCoin() {
-        _coins++;
-        UiManager.Instance.SetCoins(_coins);
-    }
-    
-    public void AddChest() {
-        _coins+=5;
-        UiManager.Instance.SetCoins(_coins);
+    public void AddCoin(int amount) {
+        Coins+=amount;
+        UiManager.Instance.SetCoins(Coins);
     }
 
     public bool HaveEnoughCoins(int amount) {
-        return _coins >= amount;
+        return Coins >= amount;
     }
     
     public void SpendCoins(int amount) {
-        _coins -= amount;
-        UiManager.Instance.SetCoins(_coins);
+        Coins -= amount;
+        UiManager.Instance.SetCoins(Coins);
     }
 #endregion
 

@@ -72,7 +72,7 @@ public class AudioManager : MonoBehaviour {
 			return;
 		}
 
-		var pitch = Random.Range(0.95f, 1.05f);
+		var pitch = 1f;
 		_sfxSource.pitch = pitch;
 		_sfxSource.volume = vol;
 		_sfxSource.PlayOneShot(ac);

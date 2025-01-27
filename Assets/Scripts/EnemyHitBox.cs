@@ -1,11 +1,10 @@
-using System;
 using DG.Tweening;
 using UnityEngine;
 
 public class EnemyHitBox : MonoBehaviour {
 
 #region Dependencies
-	// [SerializeField] private GameObject[] Entries;
+	[SerializeField] private AudioClip hitSound;
 #endregion
 
 #region Attributes
@@ -32,13 +31,19 @@ public class EnemyHitBox : MonoBehaviour {
 		if (other.TryGetComponent<CharacterBehavior>(out var player)) {
 			if (player.tag.Equals("Player")) {
 				Debug.Log(other.name + " has been hit");
+				AudioManager.Instance.PlaySfx(hitSound);
 
-				var direction = _aiController.Type == AiStyle.Jellyfish
-					? -_aiController.Direction
-					: _aiController.Direction;
+				var direction = -_aiController.Direction;
+
+				if (_aiController.Type == AiStyle.Swordfish) {
+					direction = _aiController.Direction;
+				}
+				else {
+					direction = (player.transform.position - _aiController.transform.position ).normalized;
+				}
 				
 				player.Knockback(direction, _aiController.Knockback);
-				player.Stun();
+				player.Stun(_aiController.Type == AiStyle.Jellyfish);
 				DOVirtual.DelayedCall(_aiController.StunTime, () => player.Unstun());
 			}
 		}

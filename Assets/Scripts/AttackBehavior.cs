@@ -30,12 +30,18 @@ public class AttackBehavior : MonoBehaviour {
 #endregion
 
 #region Custom
-	public void EquipWeapon(Weapon w) {
-		EquippedWeapon = w;
-		_weaponSpriteRenderer.sprite = w.Sprite;
+	public void ResetWeapon() {
+		EquippedWeapon = ScriptableObject.CreateInstance<Weapon>();
+		EquippedWeapon.AttackSpeed = defaultWeapon.AttackSpeed;
+		EquippedWeapon.Knockback = defaultWeapon.Knockback;
+		EquippedWeapon.Sprite = defaultWeapon.Sprite;
+		EquippedWeapon.StunTime = defaultWeapon.StunTime;
+		EquippedWeapon.Sound = defaultWeapon.Sound;
+		
+		_weaponSpriteRenderer.sprite = defaultWeapon.Sprite;
 	}
 	public void Init() {
-		EquipWeapon(defaultWeapon);
+		ResetWeapon();
 		_hitBoxSpriteRenderer.enabled = false;
 		_hitBoxCollider.enabled = false;
 	}

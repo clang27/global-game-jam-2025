@@ -62,6 +62,7 @@ public class EnemyManager : MonoBehaviour {
 		
 		MoveInPlay(ai, distanceFromBubble);
 		ai.enabled = true;
+		ai.Init();
 		_attackingEnemies.Add(ai);
 		_pooledEnemies.Remove(ai);
 		UiManager.Instance.SetEnemiesRemaining(_attackingEnemies.Count);
@@ -90,8 +91,6 @@ public class EnemyManager : MonoBehaviour {
 		var startPoint = bubble.transform.position + new Vector3(Mathf.Cos(randomRadian) * distanceFromBubble, Mathf.Sin(randomRadian) * distanceFromBubble, 0f);
 		
 		t.transform.position = startPoint;
-		t.FlyingIn = true;
-		t.BoostStats();
 	}
 #endregion
 

@@ -6,10 +6,11 @@ using UnityEngine.UI;
 public class UiManager : MonoBehaviour {
 
 #region Dependencies
-	[SerializeField] private TextMeshProUGUI waveCountTextMesh, coinTextMesh, bubbleTextMesh, enemiesRemainingTextMesh;
+	[SerializeField] private TextMeshProUGUI waveCountTextMesh, coinTextMesh, bubbleTextMesh, enemiesRemainingTextMesh, winCoinTextMesh;
 	[SerializeField] private Image oxygenBarImage, timerBarImage;
 	[SerializeField] private CanvasGroup shopCanvasGroup, winScreenCanvasGroup, oxygenBarCanvasGroup, timerCanvasGroup, hudCanvasGroup, titleCanvasGroup, gameOverCanvasGroup;
-	[SerializeField] private TextMeshProUGUI restartWinTextMesh, restartGameOverTextMesh, startTextMesh;
+	[SerializeField] private TextMeshProUGUI restartGameOverTextMesh, startTextMesh;
+	[SerializeField] private RectTransform _munnyWinSprite; 
 #endregion
 
 #region Attributes
@@ -41,11 +42,11 @@ public class UiManager : MonoBehaviour {
 
 		startTextMesh.DOFade(1f, 0f);
 		restartGameOverTextMesh.DOFade(1f, 0f);
-		restartWinTextMesh.DOFade(1f, 0f);
+		winCoinTextMesh.transform.DOScale(1f, 0f);
 		
 		startTextMesh.DOFade(0f, 0.3f).SetLoops(-1, LoopType.Yoyo);
 		restartGameOverTextMesh.DOFade(0f, 0.3f).SetLoops(-1, LoopType.Yoyo);
-		restartWinTextMesh.DOFade(0f, 0.3f).SetLoops(-1, LoopType.Yoyo);
+		winCoinTextMesh.transform.DOScale(1.2f, 0.8f).SetLoops(-1, LoopType.Yoyo);
 	}
 	public void SetWaveCount(int waveCount, int maxWaveCount) {
 		waveCountTextMesh.text = $"{waveCount}/{maxWaveCount}";
@@ -53,6 +54,10 @@ public class UiManager : MonoBehaviour {
 	
 	public void SetCoins(int coins) {
 		coinTextMesh.text = coins.ToString();
+	}
+	
+	public void SetWinCoins(int coins) {
+		winCoinTextMesh.text = $"Made it out with {coins} coins!";
 	}
 
 	public void SetBubble(float percentage) {
@@ -95,7 +100,15 @@ public class UiManager : MonoBehaviour {
 	}
 	
 	public void ShowWinScreen(bool b) {
-		ShowCanvas(winScreenCanvasGroup, b);
+		if (!b) {
+			ShowCanvas(winScreenCanvasGroup, false);
+		}
+		else {
+			DOVirtual.DelayedCall(8f, () => {
+				_munnyWinSprite.DOMoveY(560f, 1f);
+				ShowCanvas(winScreenCanvasGroup, true);
+			});
+		}
 	}
 
 	private void ShowCanvas(CanvasGroup cg, bool b) {
