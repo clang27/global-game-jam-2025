@@ -141,6 +141,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: right
     m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: jetpack
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1724240622055683327}
   m_Solo: 0
@@ -215,6 +218,9 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 1
     m_ConditionEvent: left
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: jetpack
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 6666196374717343761}
@@ -526,6 +532,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: up
     m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: jetpack
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -481098566392869478}
   m_Solo: 0
@@ -550,6 +559,9 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 1
     m_ConditionEvent: up
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: jetpack
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -481098566392869478}
@@ -577,7 +589,7 @@ AnimatorStateTransition:
     m_ConditionEvent: right
     m_EventTreshold: 0
   - m_ConditionMode: 1
-    m_ConditionEvent: dash
+    m_ConditionEvent: jetpack
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -6891682491030450229}
@@ -632,6 +644,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: down
     m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: jetpack
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 7210806682513673978}
   m_Solo: 0
@@ -658,7 +673,7 @@ AnimatorStateTransition:
     m_ConditionEvent: up
     m_EventTreshold: 0
   - m_ConditionMode: 1
-    m_ConditionEvent: dash
+    m_ConditionEvent: jetpack
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -7490100635106586657}
@@ -711,7 +726,7 @@ AnimatorStateTransition:
     m_ConditionEvent: down
     m_EventTreshold: 0
   - m_ConditionMode: 1
-    m_ConditionEvent: dash
+    m_ConditionEvent: jetpack
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 7926286493265004528}
@@ -737,6 +752,9 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 1
     m_ConditionEvent: right
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: jetpack
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1724240622055683327}
@@ -787,6 +805,9 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 1
     m_ConditionEvent: down
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: jetpack
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 7210806682513673978}
@@ -839,7 +860,7 @@ AnimatorStateTransition:
     m_ConditionEvent: left
     m_EventTreshold: 0
   - m_ConditionMode: 1
-    m_ConditionEvent: dash
+    m_ConditionEvent: jetpack
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -6826016377387432931}
@@ -949,6 +970,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: up
     m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: jetpack
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -481098566392869478}
   m_Solo: 0
@@ -998,6 +1022,9 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 1
     m_ConditionEvent: up
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: jetpack
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -481098566392869478}
@@ -1093,6 +1120,12 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
+  - m_Name: jetpack
+    m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -1116,6 +1149,9 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 1
     m_ConditionEvent: left
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: jetpack
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 6666196374717343761}
@@ -1141,6 +1177,9 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 1
     m_ConditionEvent: right
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: jetpack
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1724240622055683327}
@@ -1275,6 +1314,9 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 1
     m_ConditionEvent: right
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: jetpack
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1724240622055683327}
@@ -1692,6 +1734,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: down
     m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: jetpack
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 7210806682513673978}
   m_Solo: 0
@@ -1747,6 +1792,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: left
     m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: jetpack
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 6666196374717343761}
   m_Solo: 0
@@ -1772,6 +1820,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: down
     m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: jetpack
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 7210806682513673978}
   m_Solo: 0
@@ -1796,6 +1847,9 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 1
     m_ConditionEvent: left
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: jetpack
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 6666196374717343761}

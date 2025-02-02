@@ -4,6 +4,7 @@ public class OxygenManager : MonoBehaviour {
 
 #region Dependencies
     [SerializeField] private float decayRate = 0.005f;
+    [SerializeField] private float growRate = 0.005f;
 #endregion
 
 #region Attributes
@@ -33,38 +34,38 @@ public class OxygenManager : MonoBehaviour {
 	
     private void FixedUpdate() {
         if (_outOfBubble) {
-            _oxygen -= decayRate;
-            UiManager.Instance.SetOxygen(_oxygen);
-
-            if (_oxygen <= 0f) {
-                GameManager.Instance.GameOver(false);
-            }
+            AddOxygen(-decayRate);
         }
         else {
-            _oxygen += decayRate * 2f;
-            UiManager.Instance.SetOxygen(_oxygen);
-
-            if (_oxygen >= 1f) {
-                _oxygen = 1f;
-            }
+            AddOxygen(growRate);
         }
     }
 #endregion
 
 #region Custom
+    public void AddOxygen(float amount) {
+        _oxygen += amount;
+        UiManager.Instance.SetOxygen(_oxygen);
+
+        if (_oxygen <= 0f) {
+            _oxygen = 0f;
+            GameManager.Instance.GameOver(false);
+        } else if (_oxygen >= 1f) {
+            _oxygen = 1f;
+        }
+    }
     public void Init() {
         _oxygen = 1f;
         UiManager.Instance.SetOxygen(_oxygen);
+        UiManager.Instance.ShowOxygen(false);
     }
 
     public void OutOfBubble() {
         _outOfBubble = true;
-        UiManager.Instance.ShowOxygen(true);
     }
     
     public void InBubble() {
         _outOfBubble = false;
-        UiManager.Instance.ShowOxygen(false);
     }
     
 #endregion

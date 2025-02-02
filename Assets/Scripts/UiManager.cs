@@ -10,7 +10,7 @@ public class UiManager : MonoBehaviour {
 	[SerializeField] private Image oxygenBarImage, timerBarImage;
 	[SerializeField] private CanvasGroup shopCanvasGroup, winScreenCanvasGroup, oxygenBarCanvasGroup, timerCanvasGroup, hudCanvasGroup, titleCanvasGroup, gameOverCanvasGroup;
 	[SerializeField] private TextMeshProUGUI restartGameOverTextMesh, startTextMesh;
-	[SerializeField] private RectTransform _munnyWinSprite; 
+	[SerializeField] private RectTransform _munnyWinSprite, depthArrow; 
 #endregion
 
 #region Attributes
@@ -37,7 +37,6 @@ public class UiManager : MonoBehaviour {
 		ShowWinScreen(false);
 		ShowGameOver(false);
 		ShowTitle(true);
-		ShowOxygen(false);
 		ShowHud(false);
 
 		startTextMesh.DOFade(1f, 0f);
@@ -98,13 +97,25 @@ public class UiManager : MonoBehaviour {
 	public void ShowGameOver(bool b) {
 		ShowCanvas(gameOverCanvasGroup, b);
 	}
+
+	public void SetDepth(float y, float maxY) {
+		const float minY = -210f;
+		const float arrowMinY = -300f;
+		const float arrowMaxY = 300f;
+		
+		y = Mathf.Clamp(y, minY, maxY);
+		var percent = (y - maxY) / (minY - maxY);
+		var goalY = arrowMaxY - ((arrowMaxY - arrowMinY) * percent);
+
+		depthArrow.anchoredPosition = new Vector2(depthArrow.anchoredPosition.x, goalY);
+	}
 	
 	public void ShowWinScreen(bool b) {
 		if (!b) {
 			ShowCanvas(winScreenCanvasGroup, false);
 		}
 		else {
-			DOVirtual.DelayedCall(8f, () => {
+			DOVirtual.DelayedCall(2f, () => {
 				_munnyWinSprite.DOMoveY(560f, 1f);
 				ShowCanvas(winScreenCanvasGroup, true);
 			});

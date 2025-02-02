@@ -28,28 +28,35 @@ public class PlayerController : MonoBehaviour {
 #endregion
 
 #region Custom
-	public void OnMove(InputValue value) {
-		_character.InputVector = value.Get<Vector2>();
+	public void OnMove(InputAction.CallbackContext context) {
+		_character.InputVector = context.ReadValue<Vector2>();
 	}
 		
-	public void OnDash() {
-		if (ShopManager.Instance.InWindow) { return; }
-		
+	public void OnDash(InputAction.CallbackContext context) {
 		if (GameManager.Instance.GameState == GameState.Start) {
-			GameManager.Instance.StartGame();
+			if (context.started) {
+				GameManager.Instance.StartGame();
+			}
 		} else if (GameManager.Instance.GameState == GameState.GameOver) {
-			GameManager.Instance.ResetGame();
+			if (context.started) {
+				GameManager.Instance.ResetGame();
+			}
 		} else if (GameManager.Instance.GameState == GameState.Wave || GameManager.Instance.GameState == GameState.Shop) {
-			_character.Dash();	
+			if (context.started) {
+				_character.JetpackOn();	
+			} else if(context.canceled) {
+				_character.JetpackOff();	
+			}
 		}
 	}
-	public void OnAttack() {
-		if (ShopManager.Instance.InWindow) { return; }
-		
-		if (GameManager.Instance.GameState == GameState.Wave) {
-			_character.Attack();	
-		}
-	}
+	
+	// public void OnAttack() {
+	// 	if (ShopManager.Instance.InWindow) { return; }
+	// 	
+	// 	if (GameManager.Instance.GameState == GameState.Wave) {
+	// 		_character.Attack();	
+	// 	}
+	// }
 #endregion
 
 }

@@ -7,8 +7,8 @@ public class CharacterBehavior : MonoBehaviour {
 	public float Acceleration = 2f;
 	public float Deceleration = 2f;
 	public float MaxSpeed = 5f;
+	public float JetpackMaxSpeed = 10f;
 	public float EjectForce = 20f;
-	public float DashSpeed = 10f;
 	public float DashForce = 0.8f;
 
 	[SerializeField] private AudioClip _leaveBubbleSound;
@@ -18,6 +18,7 @@ public class CharacterBehavior : MonoBehaviour {
 	[SerializeField] private AudioClip _hurtSound;
 	[SerializeField] private AudioClip _attackSound;
 	[SerializeField] private SpriteRenderer _shockSprite;
+	[SerializeField] private Transform _finishLineTransform;
 #endregion
 
 #region Attributes
@@ -34,8 +35,8 @@ public class CharacterBehavior : MonoBehaviour {
 		}
 	}
 
-	public Vector2 PreviousNotZeroInputVector { get; set; }
-	public Vector2 PreviousInputVector { get; set; }
+	public Vector2 PreviousNotZeroInputVector { get; set; } = Vector2.up;
+	public Vector2 PreviousInputVector { get; set; } = Vector2.up;
 	public bool Spinning { get; private set; }
 	public bool Dashing { get; private set; }
 	public bool Controllable { get; set; } = true;
@@ -48,6 +49,7 @@ public class CharacterBehavior : MonoBehaviour {
 	private Animator _animator;
 	private AttackBehavior _attackBehavior;
 	private SpriteRenderer _spriteRenderer;
+	private ParticleSystem _particleSystem;
 #endregion
 
 #region Data
@@ -56,6 +58,7 @@ public class CharacterBehavior : MonoBehaviour {
 	private Vector3 _startingPosition;
 	private float _startingAcceleration, _startingDeceleration, _startingMaxSpeed, _startingDashSpeed, _startingDashForce;
 	private Vector2 _velocity;
+	private bool _jetpacking;
 #endregion
 
 #region Unity
@@ -65,29 +68,44 @@ public class CharacterBehavior : MonoBehaviour {
 		_startingPosition = _transform.position;
 		_animator = GetComponent<Animator>();
 		_attackBehavior = GetComponentInChildren<AttackBehavior>();
+		_particleSystem = GetComponentInChildren<ParticleSystem>();
 		_spriteRenderer = GetComponent<SpriteRenderer>();
 
 		_startingAcceleration = Acceleration;
 		_startingDeceleration = Deceleration;
 		_startingMaxSpeed = MaxSpeed;
-		_startingDashSpeed = DashSpeed;
 		_startingDashForce = DashForce;
+    }
+
+    private void Update() {
+	    UiManager.Instance.SetDepth(_transform.position.y, _finishLineTransform.position.y);
+	    if (GameManager.Instance.GameState == GameState.Wave) {
+		    if (_transform.position.y >= _finishLineTransform.position.y) {
+			    GameManager.Instance.GameOver(true);
+		    }
+	    }
     }
 	
 	private void FixedUpdate() {
 		if (Stunned) {return;}
 		
-		var bubble = GameManager.Instance.Bubble;
-		var onBubble = bubble.OnBubble(this);
-		
-		if (InputVector.magnitude > 0f && Controllable) {
-			var goalSpeed = InputVector * MaxSpeed;
-			var acc = (onBubble) ? Acceleration : Acceleration / 4f;
+		var onBubble = BubbleManager.Instance.Bubble != null;
+
+		if (_jetpacking) {
+			var goalSpeed = PreviousNotZeroInputVector * JetpackMaxSpeed;
+			var acc = Acceleration / 2f;
 			_velocity = Vector2.Lerp(_velocity, goalSpeed, Time.fixedDeltaTime * acc);
-		} else if (!Stunned) {
-			var goalSpeed = Vector2.zero;
-			var dec = (onBubble) ? Deceleration : Deceleration / 4f;
-			_velocity = Vector2.Lerp(_velocity, goalSpeed, Time.fixedDeltaTime * dec);
+			OxygenManager.Instance.AddOxygen(-0.002f);
+		} else {
+			if (InputVector.magnitude > 0f && Controllable) {
+				var goalSpeed = InputVector * MaxSpeed;
+				var acc = (onBubble) ? Acceleration : Acceleration / 4f;
+				_velocity = Vector2.Lerp(_velocity, goalSpeed, Time.fixedDeltaTime * acc);
+			} else if (!Stunned) {
+				var goalSpeed = Vector2.zero;
+				var dec = (onBubble) ? Deceleration : Deceleration / 4f;
+				_velocity = Vector2.Lerp(_velocity, goalSpeed, Time.fixedDeltaTime * dec);
+			}
 		}
 		
 		if (_animator) {
@@ -111,13 +129,14 @@ public class CharacterBehavior : MonoBehaviour {
 				} 
 			}
 
-			_animator.SetFloat("speed", Mathf.Sqrt(_velocity.sqrMagnitude) / 5f + 0.2f);
+			_animator.SetFloat("speed", Mathf.Sqrt(_velocity.sqrMagnitude) / 8f + 0.2f);
 		}
 
-		if (!Spinning && !Dashing) { // Don't clamp if spinning or dashing
-			_rigidbody.linearVelocity = Vector2.ClampMagnitude(_velocity, MaxSpeed);
+		if (!Spinning) { // Don't clamp if spinning or dashing
+			var maxSpeed = _jetpacking ? JetpackMaxSpeed : MaxSpeed;
+			_rigidbody.linearVelocity = Vector2.ClampMagnitude(_velocity, maxSpeed);
 			if (onBubble) {
-				_rigidbody.linearVelocity += bubble.Velocity;
+				_rigidbody.linearVelocity += BubbleManager.Instance.Bubble.Velocity;
 			}
 		}
 	}
@@ -145,7 +164,6 @@ public class CharacterBehavior : MonoBehaviour {
 
 #region Custom
 	public void UpgradeDash() {
-		DashSpeed += 2f;
 		DashForce += 0.4f;
 	}
 
@@ -183,7 +201,6 @@ public class CharacterBehavior : MonoBehaviour {
 		Acceleration = _startingAcceleration;
 		Deceleration = _startingDeceleration;
 		MaxSpeed = _startingMaxSpeed;
-		DashSpeed = _startingDashSpeed;
 		DashForce = _startingDashForce;
 
 		if (_attackBehavior) {
@@ -199,8 +216,11 @@ public class CharacterBehavior : MonoBehaviour {
 		Controllable = false;
 		TimeOnBubble = 0f;
 		_attackBehavior.Init();
-
+		
 		DirectionFacing = Direction.Up;
+		PreviousInputVector = Vector2.up;
+		PreviousNotZeroInputVector = Vector2.up;
+		
 		if (_animator) {
 			_animator.SetBool("up", true);
 			_animator.SetBool("down", false);
@@ -214,13 +234,12 @@ public class CharacterBehavior : MonoBehaviour {
 		TimeOnBubble = 0f;
 		Knockback(direction, EjectForce);
 		AudioManager.Instance.PlaySfx(_leaveBubbleSound);
-
-		var duration = tag.Equals("Enemy") ? 0.5f : 1f;
-		_rigidbody.DORotate(360f, duration).OnComplete(() => {
+		
+		_rigidbody.DORotate(360f, 0.5f).OnComplete(() => {
 			_rigidbody.rotation = 0f;
 			Spinning = false;
 			if (tag.Equals("Enemy")) {
-				EnemyManager.Instance.DespawnEnemy(GetComponent<AiController>());
+				//EnemyManager.Instance.DespawnEnemy(GetComponent<AiController>());
 			}
 		});
 	}
@@ -228,40 +247,56 @@ public class CharacterBehavior : MonoBehaviour {
 	public void EnterBubble() {
 		TimeOnBubble = 0f;
 		AudioManager.Instance.PlaySfx(_enterBubbleSound);
+		
+		_jetpacking = false;
+		if (_animator) {
+			_animator.SetBool("jetpack", _jetpacking);
+		}
 	}
 	
 	public void Knockback(Vector2 direction, float force) {
 		_rigidbody.AddForce(direction * (force * _rigidbody.mass), ForceMode2D.Impulse);
 	}
 
-	public void Dash() {
-		if (_dashCooldown || Stunned) { return; }
+	public void JetpackOn() {
+		if (Stunned) { return; }
+		var onBubble = BubbleManager.Instance.Bubble != null;
 		
+		if (onBubble) { return; }
+
+		_particleSystem.Play();
+		_jetpacking = true;
 		if (_animator) {
-			_animator.SetTrigger("dash");
-		}
-		
-		AudioManager.Instance.PlaySfx(_dashSound);
-		_rigidbody.AddForce(PreviousNotZeroInputVector * DashSpeed * _rigidbody.mass, ForceMode2D.Impulse);
-		_dashCooldown = true;
-		Dashing = true;
-		DOVirtual.DelayedCall(GameManager.Instance.Bubble.OnBubble(this) ? 0.3f : 0.6f, () => Dashing = false);
-		DOVirtual.DelayedCall(1f, () => _dashCooldown = false);
-	}
-
-	public void Attack() {
-		if (Dashing || Stunned) { return; }
-
-		if (!_attackBehavior.OnCooldown) {
-			DOVirtual.DelayedCall(0.1f, () => AudioManager.Instance.PlaySfx(_attackSound));
-			if (_animator) {
-				_animator.SetTrigger("attack");
-			}
+			_animator.SetBool("jetpack", _jetpacking);
 		}
 
+		_velocity += PreviousNotZeroInputVector * DashForce;
+		OxygenManager.Instance.AddOxygen(-0.005f);
 		
-		_attackBehavior.Activate(DirectionFacing);
+		AudioManager.Instance.PlaySfx(_dashSound);	
 	}
+	
+	public void JetpackOff() {
+		_particleSystem.Stop();
+		_jetpacking = false;
+		if (_animator) {
+			_animator.SetBool("jetpack", _jetpacking);
+		}
+	}
+
+	// public void Attack() {
+	// 	if (Dashing || Stunned) { return; }
+	//
+	// 	if (!_attackBehavior.OnCooldown) {
+	// 		DOVirtual.DelayedCall(0.1f, () => AudioManager.Instance.PlaySfx(_attackSound));
+	// 		if (_animator) {
+	// 			_animator.SetTrigger("attack");
+	// 		}
+	// 	}
+	//
+	// 	
+	// 	_attackBehavior.Activate(DirectionFacing);
+	// }
 	
 #endregion
 

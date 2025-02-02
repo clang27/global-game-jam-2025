@@ -13,18 +13,7 @@ MonoBehaviour:
   m_Name: Main Camera Custom Blends
   m_EditorClassIdentifier: 
   CustomBlends:
-  - From: InsideBubbleCamera
-    To: TitleCamera
-    Blend:
-      Style: 0
-      Time: 0
-      CustomCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
-        m_RotationOrder: 0
-  - From: OutsideBubbleCamera
+  - From: '**ANY CAMERA**'
     To: TitleCamera
     Blend:
       Style: 0

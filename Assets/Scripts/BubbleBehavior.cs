@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Cinemachine;
 using UnityEngine;
 using Vector2 = UnityEngine.Vector2;
 using Vector3 = UnityEngine.Vector3;
@@ -26,10 +27,12 @@ public class BubbleBehavior : MonoBehaviour {
 	private Transform _transform;
 	private Rigidbody2D _rigidbody;
 	private CircleCollider2D _collider;
+	private CinemachineCamera _inBubbleCamera;
 #endregion
 
 #region Data
 	private Vector3 _startingPosition, _startingScale;
+	private float _speed = 0f;
 	private readonly List<CharacterBehavior> _playersOnBubble = new(); 
 #endregion
 
@@ -38,6 +41,7 @@ public class BubbleBehavior : MonoBehaviour {
 		_transform = transform;
 		_rigidbody = GetComponent<Rigidbody2D>();
 		_collider = GetComponentInChildren<CircleCollider2D>();
+		_inBubbleCamera = GetComponentInChildren<CinemachineCamera>();
 		_startingPosition = _transform.position;
 		_startingScale = _transform.localScale;
     }
@@ -60,30 +64,26 @@ public class BubbleBehavior : MonoBehaviour {
 	}
 
 	private void OnTriggerEnter2D(Collider2D other) {
-		if (GameManager.Instance.GameState == GameState.Start) { return; }
-		
 		if (other.TryGetComponent<CharacterBehavior>(out var player)) {
 			Debug.Log(other.name + " has landed on the bubble.");
 			_playersOnBubble.Add(player);
 			player.EnterBubble();
 			if (player.tag.Equals("Player")) {
-				GameManager.Instance.PlayerInBubble();
-			} else {
-				player.GetComponent<AiController>().Landed();
+				BubbleManager.Instance.Bubble = this;
+				GameManager.Instance.PlayerInBubble(_inBubbleCamera);
 			}
 			
 		}
 	}
 	
 	private void OnTriggerExit2D(Collider2D other) {
-		if (GameManager.Instance.GameState == GameState.Start) { return; }
-		
 		if (other.TryGetComponent<CharacterBehavior>(out var player)) {
 			Debug.Log(other.name + " has exited the bubble.");
 			_playersOnBubble.Remove(player);
 			var direction = (player.transform.position - _transform.position).normalized;
 			player.Eject(direction);
 			if (player.tag.Equals("Player")) {
+				BubbleManager.Instance.Bubble = null;
 				GameManager.Instance.PlayerOutOfBubble();
 			}
 		}
@@ -104,8 +104,12 @@ public class BubbleBehavior : MonoBehaviour {
 		return _playersOnBubble.Contains(characterBehavior);
 	}
 	public void Init() {
+		_speed = Random.Range(3f, 10f);
+		
+		TurnOffCamera();
+		enabled = false;
+		
 		_playersOnBubble.Clear();
-		_playersOnBubble.Add(GameManager.Instance.Player);
 		_collider.enabled = true;
 		
 		_transform.localScale = _startingScale;
@@ -113,10 +117,13 @@ public class BubbleBehavior : MonoBehaviour {
 		StopMoving();
 	}
 	public void StartMoving() {
-		_rigidbody.linearVelocityY = 2f;
+		_rigidbody.linearVelocityY = _speed;
 	}
 	public void StopMoving() {
 		_rigidbody.linearVelocityY = 0f;
+	}
+	public void TurnOffCamera() {
+		_inBubbleCamera.Priority = 1;
 	}
 #endregion
 

@@ -5,12 +5,11 @@ using UnityEngine;
 public class GameManager : MonoBehaviour {
 
 #region Dependencies
-	[SerializeField] private CinemachineCamera inBubbleCamera, outBubbleCamera, titleCamera;
+	[SerializeField] private CinemachineCamera outBubbleCamera, titleCamera;
 #endregion
 
 #region Attributes
 	public static GameManager Instance { get; private set; }
-	public BubbleBehavior Bubble { get; private set; }
 	public CharacterBehavior Player { get; private set; }
 	public GameState GameState { get; private set; } = GameState.Start;
 #endregion
@@ -31,7 +30,7 @@ public class GameManager : MonoBehaviour {
 	    DOTween.Init(false, false, LogBehaviour. Default)
 		    .SetCapacity(100, 20);
         
-	    Bubble = GameObject.FindGameObjectWithTag("Bubble").GetComponent<BubbleBehavior>();
+	    
 	    Player = GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterBehavior>();
     }
 
@@ -53,23 +52,17 @@ public class GameManager : MonoBehaviour {
 		GameState = GameState.Start;
 		_gameOverCooldown = false;
 		
-		Bubble.enabled = false;
-
-		WaveManager.Instance.enabled = false;
 		CoinManager.Instance.enabled = false;
 		OxygenManager.Instance.enabled = false;
-		ShopManager.Instance.enabled = false;
 		IslandManager.Instance.enabled = false;
 		
 		TitleCamera();
 		outBubbleCamera.Follow = Player.transform;
 		
-		Bubble.Init();
 		Player.Init();
 		
-		ShopManager.Instance.Init();
-		WaveManager.Instance.Init();
-		EnemyManager.Instance.Init();
+		BubbleManager.Instance.Init();
+		TimeManager.Instance.Init();
 		CoinManager.Instance.Init();
 		OxygenManager.Instance.Init();
 		UiManager.Instance.Init();
@@ -86,55 +79,50 @@ public class GameManager : MonoBehaviour {
 	public void StartGame() {
 		GameState = GameState.Wave;
 		
-		Bubble.enabled = true;
-		Player.Controllable = true;
+		BubbleManager.Instance.StartGame();
+		TimeManager.Instance.StartGame();
 		
-		PlayerInBubble();
-		
-		Bubble.StartMoving();
-		WaveManager.Instance.enabled = true;
 		CoinManager.Instance.enabled = true;
 		OxygenManager.Instance.enabled = true;
-		IslandManager.Instance.enabled = true;
-		
-		WaveManager.Instance.StartWave();
 		
 		UiManager.Instance.ShowWinScreen(false);
 		UiManager.Instance.ShowGameOver(false);
-		UiManager.Instance.ShowTimer(false);
 		UiManager.Instance.ShowTitle(false);
-		UiManager.Instance.ShowOxygen(false);
+		UiManager.Instance.ShowOxygen(true);
 		UiManager.Instance.ShowHud(true);
+		
+		Player.Controllable = true;
+		PlayerOutOfBubble();
 	}
 
-	public void WaveDone() {
-		Debug.Log("Wave done!");
-		
-		if (GameState == GameState.GameOver) { return; }
-		
-		WaveManager.Instance.enabled = false;
-		if (WaveManager.Instance.CompletedWaves) {
-			GameOver(true);
-		} else {
-			GameState = GameState.Shop;
-			AudioManager.Instance.PlayShopTheme();
-
-			ShopManager.Instance.enabled = true;
-			ShopManager.Instance.StartShop();
-		}
-	}
-
-	public void ShopDone() {
-		Debug.Log("Shop done!");
-		GameState = GameState.Wave;
-		AudioManager.Instance.PlayGameTheme();
-		
-		ShopManager.Instance.enabled = false;
-		ShopManager.Instance.StopShop();
-		
-		WaveManager.Instance.enabled = true;
-		WaveManager.Instance.StartWave();
-	}
+	// public void WaveDone() {
+	// 	Debug.Log("Wave done!");
+	// 	
+	// 	if (GameState == GameState.GameOver) { return; }
+	// 	
+	// 	//WaveManager.Instance.enabled = false;
+	// 	if (WaveManager.Instance.CompletedWaves) {
+	// 		GameOver(true);
+	// 	} else {
+	// 		GameState = GameState.Shop;
+	// 		AudioManager.Instance.PlayShopTheme();
+	//
+	// 		ShopManager.Instance.enabled = true;
+	// 		ShopManager.Instance.StartShop();
+	// 	}
+	// }
+	//
+	// public void ShopDone() {
+	// 	Debug.Log("Shop done!");
+	// 	GameState = GameState.Wave;
+	// 	AudioManager.Instance.PlayGameTheme();
+	// 	
+	// 	ShopManager.Instance.enabled = false;
+	// 	ShopManager.Instance.StopShop();
+	// 	
+	// 	WaveManager.Instance.enabled = true;
+	// 	WaveManager.Instance.StartWave();
+	// }
 
 	public void GameOver(bool won) {
 		GameState = won ? GameState.Win : GameState.GameOver;
@@ -147,9 +135,9 @@ public class GameManager : MonoBehaviour {
 		}
 		
 		Player.Controllable = false;
-		Bubble.enabled = false;
+		Player.JetpackOff();
 
-		WaveManager.Instance.enabled = false;
+		TimeManager.Instance.enabled = false;
 		CoinManager.Instance.enabled = false;
 		OxygenManager.Instance.enabled = false;
 		
@@ -166,21 +154,19 @@ public class GameManager : MonoBehaviour {
 
 	public void TitleCamera() {
 		titleCamera.Priority = 3;
-		inBubbleCamera.Priority = 2;
 		outBubbleCamera.Priority = 1;
 	}
 
 	public void PlayerOutOfBubble() {
 		OxygenManager.Instance.OutOfBubble();
 		titleCamera.Priority = 1;
-		inBubbleCamera.Priority = 2;
 		outBubbleCamera.Priority = 3;
 	}
 	
-	public void PlayerInBubble() {
+	public void PlayerInBubble(CinemachineCamera bubbleCam) {
 		OxygenManager.Instance.InBubble();
 		titleCamera.Priority = 1;
-		inBubbleCamera.Priority = 3;
+		bubbleCam.Priority = 3;
 		outBubbleCamera.Priority = 2;
 	}
 #endregion
