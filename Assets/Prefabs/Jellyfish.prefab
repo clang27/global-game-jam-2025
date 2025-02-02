@@ -302,7 +302,7 @@ MonoBehaviour:
   style: 1
   avoidEdgeDistance: 0.8
   knockback: 5
-  stunTime: 1.2
+  stunTime: 1
 --- !u!95 &53559109004338006
 Animator:
   serializedVersion: 7
