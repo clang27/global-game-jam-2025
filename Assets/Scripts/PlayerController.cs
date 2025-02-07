@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -13,42 +14,81 @@ public class PlayerController : MonoBehaviour {
 
 #region Components
 	private CharacterBehavior _character;
-	private Transform _transform;
+	private PlayerInput _playerInput;
 #endregion
 
 #region Data
-	// private Coroutine _marchOverCoroutine;
+	private bool _inUi;
 #endregion
 
 #region Unity
     private void Awake() {
-		_transform = transform;
 		_character = GetComponent<CharacterBehavior>();
+		_playerInput = GetComponent<PlayerInput>();
     }
 #endregion
 
 #region Custom
-	public void OnMove(InputValue value) {
-		_character.InputVector = value.Get<Vector2>();
+	public void GoToUiControls() {
+		Debug.Log("Going to UI controls");
+		
+		_character.InputVector = Vector2.zero;
+		_character.JetpackOff();
+
+		_inUi = true;
 	}
+	
+	public void GoToPlayerControls() {
+		Debug.Log("Going to Player controls");
+
+		_inUi = false;
+	}
+	
+	public void OnMove(InputAction.CallbackContext context) {
+		if (_inUi) { return; }
 		
-	public void OnDash() {
-		if (ShopManager.Instance.InWindow) { return; }
-		
-		if (GameManager.Instance.GameState == GameState.Start) {
-			GameManager.Instance.StartGame();
-		} else if (GameManager.Instance.GameState == GameState.GameOver) {
-			GameManager.Instance.ResetGame();
-		} else if (GameManager.Instance.GameState == GameState.Wave || GameManager.Instance.GameState == GameState.Shop) {
-			_character.Dash();	
+		_character.InputVector = context.ReadValue<Vector2>();
+	}
+
+	public void OnSubmit(InputAction.CallbackContext context) {
+        if (!_inUi) { return; }
+        if (!context.started) { return; }
+        
+		switch (GameManager.Instance.GameState) {
+			case GameState.Start:
+				GameManager.Instance.StartGame();
+				break;
+			case GameState.GameOver:
+				GameManager.Instance.ResetGame();
+				break;
+			case GameState.Wave:
+				break;
+			case GameState.Shop:
+				ShopManager.Instance.CloseShop();
+				GoToPlayerControls();
+				break;
+			case GameState.Win:
+				break;
+			default:
+				throw new ArgumentOutOfRangeException();
 		}
 	}
-	public void OnAttack() {
-		if (ShopManager.Instance.InWindow) { return; }
+			
+	public void OnJetpack(InputAction.CallbackContext context) {
+		if (_inUi) { return; }
 		
-		if (GameManager.Instance.GameState == GameState.Wave) {
-			_character.Attack();	
+		if (context.started) {
+			_character.JetpackOn();	
+		} else if(context.canceled) {
+			_character.JetpackOff();	
 		}
+	}
+	
+	public void OnAttack(InputAction.CallbackContext context) {
+		if (_inUi) { return; }
+		if (!context.started) { return; }
+		
+		_character.Attack();	
 	}
 #endregion
 

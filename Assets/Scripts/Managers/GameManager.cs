@@ -66,6 +66,7 @@ public class GameManager : MonoBehaviour {
 		
 		Bubble.Init();
 		Player.Init();
+		Player.GetComponent<PlayerController>().GoToUiControls();
 		
 		ShopManager.Instance.Init();
 		WaveManager.Instance.Init();
@@ -87,7 +88,7 @@ public class GameManager : MonoBehaviour {
 		GameState = GameState.Wave;
 		
 		Bubble.enabled = true;
-		Player.Controllable = true;
+		Player.GetComponent<PlayerController>().GoToPlayerControls();
 		
 		PlayerInBubble();
 		
@@ -118,6 +119,7 @@ public class GameManager : MonoBehaviour {
 		} else {
 			GameState = GameState.Shop;
 			AudioManager.Instance.PlayShopTheme();
+			Player.GetComponent<PlayerController>().GoToUiControls();
 
 			ShopManager.Instance.enabled = true;
 			ShopManager.Instance.StartShop();
@@ -128,6 +130,7 @@ public class GameManager : MonoBehaviour {
 		Debug.Log("Shop done!");
 		GameState = GameState.Wave;
 		AudioManager.Instance.PlayGameTheme();
+		Player.GetComponent<PlayerController>().GoToPlayerControls();
 		
 		ShopManager.Instance.enabled = false;
 		ShopManager.Instance.StopShop();
@@ -146,7 +149,7 @@ public class GameManager : MonoBehaviour {
 			UiManager.Instance.SetWinCoins(CoinManager.Instance.Coins);
 		}
 		
-		Player.Controllable = false;
+		Player.GetComponent<PlayerController>().GoToUiControls();
 		Bubble.enabled = false;
 
 		WaveManager.Instance.enabled = false;

@@ -10,6 +10,7 @@ public class BubbleBehavior : MonoBehaviour {
 	[SerializeField] private float shrinkSpeed = 0.0001f;
 	[SerializeField] private float popPercent = 0.2f;
 	[SerializeField] private float shrinkThreshold = 1f;
+	[SerializeField] private float topSpeed = 2f;
 #endregion
 
 #region Attributes
@@ -68,6 +69,7 @@ public class BubbleBehavior : MonoBehaviour {
 			player.EnterBubble();
 			if (player.tag.Equals("Player")) {
 				GameManager.Instance.PlayerInBubble();
+				player.JetpackOff();
 			} else {
 				player.GetComponent<AiController>().Landed();
 			}
@@ -100,9 +102,11 @@ public class BubbleBehavior : MonoBehaviour {
 		
 		UiManager.Instance.SetBubble((_transform.localScale.x - (popPercent * _startingScale.x)) / (_startingScale.x - (popPercent * _startingScale.x)));
 	}
+	
 	public bool OnBubble(CharacterBehavior characterBehavior) {
 		return _playersOnBubble.Contains(characterBehavior);
 	}
+	
 	public void Init() {
 		_playersOnBubble.Clear();
 		_playersOnBubble.Add(GameManager.Instance.Player);
@@ -112,12 +116,15 @@ public class BubbleBehavior : MonoBehaviour {
 		_transform.position = _startingPosition;
 		StopMoving();
 	}
+	
 	public void StartMoving() {
-		_rigidbody.linearVelocityY = 2f;
+		_rigidbody.linearVelocityY = topSpeed;
 	}
+	
 	public void StopMoving() {
 		_rigidbody.linearVelocityY = 0f;
 	}
+	
 #endregion
 
 }
