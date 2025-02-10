@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using CameraState = Enums.CameraState;
 using Vector2 = UnityEngine.Vector2;
 using Vector3 = UnityEngine.Vector3;
 
@@ -50,7 +51,7 @@ public class BubbleBehavior : MonoBehaviour {
 		
 		_transform.localScale -= ShrinkRate;
 		
-		UiManager.Instance.SetBubble((_transform.localScale.x - (popPercent * _startingScale.x)) / (_startingScale.x - (popPercent * _startingScale.x)));
+		//UiManager.Instance.SetBubble((_transform.localScale.x - (popPercent * _startingScale.x)) / (_startingScale.x - (popPercent * _startingScale.x)));
 
 		if (_transform.localScale.x / _startingScale.x <= popPercent) {
 			_playersOnBubble.Clear();
@@ -68,12 +69,10 @@ public class BubbleBehavior : MonoBehaviour {
 			_playersOnBubble.Add(player);
 			player.EnterBubble();
 			if (player.tag.Equals("Player")) {
-				GameManager.Instance.PlayerInBubble();
+				OxygenManager.Instance.InBubble();
+				CameraManager.Instance.Switch(CameraState.Bubble, this);
 				player.JetpackOff();
-			} else {
-				player.GetComponent<AiController>().Landed();
-			}
-			
+			} 
 		}
 	}
 	
@@ -86,7 +85,8 @@ public class BubbleBehavior : MonoBehaviour {
 			var direction = (player.transform.position - _transform.position).normalized;
 			player.Eject(direction);
 			if (player.tag.Equals("Player")) {
-				GameManager.Instance.PlayerOutOfBubble();
+				OxygenManager.Instance.OutOfBubble();
+				CameraManager.Instance.Switch(CameraState.Ocean);
 			}
 		}
 	}
@@ -100,7 +100,7 @@ public class BubbleBehavior : MonoBehaviour {
 			_transform.localScale = _startingScale;
 		}
 		
-		UiManager.Instance.SetBubble((_transform.localScale.x - (popPercent * _startingScale.x)) / (_startingScale.x - (popPercent * _startingScale.x)));
+		//UiManager.Instance.SetBubble((_transform.localScale.x - (popPercent * _startingScale.x)) / (_startingScale.x - (popPercent * _startingScale.x)));
 	}
 	
 	public bool OnBubble(CharacterBehavior characterBehavior) {
@@ -109,9 +109,8 @@ public class BubbleBehavior : MonoBehaviour {
 	
 	public void Init() {
 		_playersOnBubble.Clear();
-		_playersOnBubble.Add(GameManager.Instance.Player);
 		_collider.enabled = true;
-		
+        
 		_transform.localScale = _startingScale;
 		_transform.position = _startingPosition;
 		StopMoving();

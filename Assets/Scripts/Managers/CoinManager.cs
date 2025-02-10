@@ -37,11 +37,11 @@ public class CoinManager : MonoBehaviour {
 #region Custom
     public void Init() {
         Coins = 0;
-        UiManager.Instance.SetCoins(Coins);
+        //UiManager.Instance.SetCoins(Coins);
     }
     public void AddCoin(int amount) {
         Coins+=amount;
-        UiManager.Instance.SetCoins(Coins);
+        //UiManager.Instance.SetCoins(Coins);
     }
 
     public bool HaveEnoughCoins(int amount) {
@@ -50,7 +50,7 @@ public class CoinManager : MonoBehaviour {
     
     public void SpendCoins(int amount) {
         Coins -= amount;
-        UiManager.Instance.SetCoins(Coins);
+        //UiManager.Instance.SetCoins(Coins);
     }
 #endregion
 

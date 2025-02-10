@@ -83,9 +83,6 @@ public class CharacterBehavior : MonoBehaviour {
 	private void FixedUpdate() {
 		if (Stunned) {return;}
 		
-		var bubble = GameManager.Instance.Bubble;
-		var onBubble = bubble.OnBubble(this);
-		
 		if (_jetpacking) {
 			var goalSpeed = PreviousNotZeroInputVector * JetpackMaxSpeed;
 			var acc = Acceleration / 2f;
@@ -94,11 +91,11 @@ public class CharacterBehavior : MonoBehaviour {
 		} else {
 			if (InputVector.magnitude > 0f) {
 				var goalSpeed = InputVector * MaxSpeed;
-				var acc = (onBubble) ? Acceleration : Acceleration / 4f;
+				var acc = (GameManager.Instance.PlayerOnBubble) ? Acceleration : Acceleration / 4f;
 				_velocity = Vector2.Lerp(_velocity, goalSpeed, Time.fixedDeltaTime * acc);
 			} else if (!Stunned) {
 				var goalSpeed = Vector2.zero;
-				var dec = (onBubble) ? Deceleration : Deceleration / 4f;
+				var dec = (GameManager.Instance.PlayerOnBubble) ? Deceleration : Deceleration / 4f;
 				_velocity = Vector2.Lerp(_velocity, goalSpeed, Time.fixedDeltaTime * dec);
 			}
 		}
@@ -132,8 +129,8 @@ public class CharacterBehavior : MonoBehaviour {
 		if (!Spinning) { // Don't clamp if spinning or dashing
 			var maxSpeed = _jetpacking ? JetpackMaxSpeed : MaxSpeed;
 			_rigidbody.linearVelocity = Vector2.ClampMagnitude(_velocity, maxSpeed);
-			if (onBubble) {
-				_rigidbody.linearVelocity += bubble.Velocity;
+			if (GameManager.Instance.PlayerOnBubble) {
+				_rigidbody.linearVelocity += GameManager.Instance.BubblePlayerIsOn.Velocity;
 			}
 		}
 	}
@@ -224,7 +221,7 @@ public class CharacterBehavior : MonoBehaviour {
 			_rigidbody.rotation = 0f;
 			Spinning = false;
 			if (tag.Equals("Enemy")) {
-				EnemyManager.Instance.DespawnEnemy(GetComponent<AiController>());
+				//EnemyManager.Instance.DespawnEnemy(GetComponent<AiController>());
 			}
 		});
 	}
@@ -254,10 +251,7 @@ public class CharacterBehavior : MonoBehaviour {
 	
 	public void JetpackOn() {
 		if (Stunned) { return; }
-
-		var onBubble = GameManager.Instance.Bubble.OnBubble(this);
-		
-		if (onBubble) { return; }
+		if (GameManager.Instance.PlayerOnBubble) { return; }
 
 		_particleSystem.Play();
 		_jetpacking = true;

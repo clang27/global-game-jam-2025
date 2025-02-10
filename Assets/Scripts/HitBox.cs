@@ -1,4 +1,3 @@
-using System;
 using DG.Tweening;
 using UnityEngine;
 
@@ -34,13 +33,6 @@ public class HitBox : MonoBehaviour {
 				player.Knockback(_attackBehavior.DirectionAttacking, _attackBehavior.EquippedWeapon.Knockback);
 				player.Stun(false);
 				DOVirtual.DelayedCall(_attackBehavior.EquippedWeapon.StunTime, () => player.Unstun());
-
-				if (other.TryGetComponent<AiController>(out var enemy)) {
-					if (enemy.FlyingIn) {
-						enemy.FlyingIn = false;
-						player.Eject(_attackBehavior.DirectionAttacking);
-					}
-				} 
 			}
 		}
 	}

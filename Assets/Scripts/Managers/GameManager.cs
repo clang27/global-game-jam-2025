@@ -1,18 +1,18 @@
+using System.Collections.Generic;
+using System.Linq;
 using DG.Tweening;
-using Unity.Cinemachine;
+using Enums;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour {
 
-#region Dependencies
-	[SerializeField] private CinemachineCamera inBubbleCamera, outBubbleCamera, titleCamera;
-#endregion
-
 #region Attributes
 	public static GameManager Instance { get; private set; }
-	public BubbleBehavior Bubble { get; private set; }
+	public List<BubbleBehavior> Bubbles { get; private set; }
 	public CharacterBehavior Player { get; private set; }
 	public GameState GameState { get; private set; } = GameState.Start;
+	public bool PlayerOnBubble => Bubbles.Any(bubble => bubble.OnBubble(Player));
+	public BubbleBehavior BubblePlayerIsOn => Bubbles.First(bubble => bubble.OnBubble(Player));
 #endregion
 
 #region Components
@@ -30,8 +30,8 @@ public class GameManager : MonoBehaviour {
 
 	    DOTween.Init(false, false, LogBehaviour. Default)
 		    .SetCapacity(1000, 200);
-        
-	    Bubble = GameObject.FindGameObjectWithTag("Bubble").GetComponent<BubbleBehavior>();
+
+	    Bubbles = FindObjectsByType<BubbleBehavior>(FindObjectsInactive.Include, FindObjectsSortMode.None).ToList();
 	    Player = GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterBehavior>();
     }
 
@@ -57,28 +57,21 @@ public class GameManager : MonoBehaviour {
 		GameState = GameState.Start;
 		_gameOverCooldown = false;
 		
-		Bubble.enabled = false;
-
-		WaveManager.Instance.enabled = false;
 		CoinManager.Instance.enabled = false;
 		OxygenManager.Instance.enabled = false;
-		ShopManager.Instance.enabled = false;
-		IslandManager.Instance.enabled = false;
 		
-		TitleCamera();
-		outBubbleCamera.Follow = Player.transform;
-		
-		Bubble.Init();
 		Player.Init();
 		Player.GetComponent<PlayerController>().GoToUiControls();
 		
-		ShopManager.Instance.Init();
-		WaveManager.Instance.Init();
-		EnemyManager.Instance.Init();
+		foreach (var bubble in Bubbles) {
+			bubble.enabled = false;
+			bubble.Init();
+		}
+
 		CoinManager.Instance.Init();
 		OxygenManager.Instance.Init();
 		UiManager.Instance.Init();
-		IslandManager.Instance.Init();
+		CameraManager.Instance.Init();
 	}
 
 	public void ResetGame() {
@@ -89,58 +82,22 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void StartGame() {
-		GameState = GameState.Wave;
+		GameState = GameState.Playing;
 		
-		Bubble.enabled = true;
+		CameraManager.Instance.Switch(CameraState.Ocean);
+		
+		foreach (var bubble in Bubbles) {
+			bubble.enabled = true;
+		}
 		Player.GetComponent<PlayerController>().GoToPlayerControls();
 		
-		PlayerInBubble();
-		
-		Bubble.StartMoving();
-		WaveManager.Instance.enabled = true;
 		CoinManager.Instance.enabled = true;
 		OxygenManager.Instance.enabled = true;
-		IslandManager.Instance.enabled = true;
-		
-		WaveManager.Instance.StartWave();
 		
 		UiManager.Instance.ShowWinScreen(false);
 		UiManager.Instance.ShowGameOver(false);
-		UiManager.Instance.ShowTimer(false);
 		UiManager.Instance.ShowTitle(false);
-		UiManager.Instance.ShowOxygen(false);
 		UiManager.Instance.ShowHud(true);
-	}
-
-	public void WaveDone() {
-		Debug.Log("Wave done!");
-		
-		if (GameState == GameState.GameOver) { return; }
-		
-		WaveManager.Instance.enabled = false;
-		if (WaveManager.Instance.CompletedWaves) {
-			GameOver(true);
-		} else {
-			GameState = GameState.Shop;
-			AudioManager.Instance.PlayShopTheme();
-			Player.GetComponent<PlayerController>().GoToUiControls();
-
-			ShopManager.Instance.enabled = true;
-			ShopManager.Instance.StartShop();
-		}
-	}
-
-	public void ShopDone() {
-		Debug.Log("Shop done!");
-		GameState = GameState.Wave;
-		AudioManager.Instance.PlayGameTheme();
-		Player.GetComponent<PlayerController>().GoToPlayerControls();
-		
-		ShopManager.Instance.enabled = false;
-		ShopManager.Instance.StopShop();
-		
-		WaveManager.Instance.enabled = true;
-		WaveManager.Instance.StartWave();
 	}
 
 	public void GameOver(bool won) {
@@ -154,41 +111,17 @@ public class GameManager : MonoBehaviour {
 		}
 		
 		Player.GetComponent<PlayerController>().GoToUiControls();
-		Bubble.enabled = false;
-
-		WaveManager.Instance.enabled = false;
+		foreach (var bubble in Bubbles) {
+			bubble.enabled = false;
+		}
+		
 		CoinManager.Instance.enabled = false;
 		OxygenManager.Instance.enabled = false;
-		
-		PlayerOutOfBubble();
-		outBubbleCamera.Follow = null;
 		
 		UiManager.Instance.ShowGameOver(!won);
 		UiManager.Instance.ShowWinScreen(won);
 		UiManager.Instance.ShowTitle(false);
-		UiManager.Instance.ShowOxygen(false);
-		UiManager.Instance.ShowTimer(false);
 		UiManager.Instance.ShowHud(false);
-	}
-
-	public void TitleCamera() {
-		titleCamera.Priority = 3;
-		inBubbleCamera.Priority = 2;
-		outBubbleCamera.Priority = 1;
-	}
-
-	public void PlayerOutOfBubble() {
-		OxygenManager.Instance.OutOfBubble();
-		titleCamera.Priority = 1;
-		inBubbleCamera.Priority = 2;
-		outBubbleCamera.Priority = 3;
-	}
-	
-	public void PlayerInBubble() {
-		OxygenManager.Instance.InBubble();
-		titleCamera.Priority = 1;
-		inBubbleCamera.Priority = 3;
-		outBubbleCamera.Priority = 2;
 	}
 #endregion
 

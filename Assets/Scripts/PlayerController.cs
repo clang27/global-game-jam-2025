@@ -61,14 +61,6 @@ public class PlayerController : MonoBehaviour {
 			case GameState.GameOver:
 				GameManager.Instance.ResetGame();
 				break;
-			case GameState.Wave:
-				break;
-			case GameState.Shop:
-				ShopManager.Instance.CloseShop();
-				GoToPlayerControls();
-				break;
-			case GameState.Win:
-				break;
 			default:
 				throw new ArgumentOutOfRangeException();
 		}

@@ -1,14 +1,12 @@
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class UiManager : MonoBehaviour {
 
 #region Dependencies
-	[SerializeField] private TextMeshProUGUI waveCountTextMesh, coinTextMesh, bubbleTextMesh, enemiesRemainingTextMesh, winCoinTextMesh;
-	[SerializeField] private Image oxygenBarImage, timerBarImage;
-	[SerializeField] private CanvasGroup shopCanvasGroup, winScreenCanvasGroup, oxygenBarCanvasGroup, timerCanvasGroup, hudCanvasGroup, titleCanvasGroup, gameOverCanvasGroup;
+	[SerializeField] private TextMeshProUGUI winCoinTextMesh;
+	[SerializeField] private CanvasGroup winScreenCanvasGroup, hudCanvasGroup, titleCanvasGroup, gameOverCanvasGroup;
 	[SerializeField] private TextMeshProUGUI restartGameOverTextMesh, startTextMesh;
 	[SerializeField] private RectTransform _munnyWinSprite; 
 #endregion
@@ -37,7 +35,6 @@ public class UiManager : MonoBehaviour {
 		ShowWinScreen(false);
 		ShowGameOver(false);
 		ShowTitle(true);
-		ShowOxygen(false);
 		ShowHud(false);
 
 		startTextMesh.DOFade(1f, 0f);
@@ -48,51 +45,18 @@ public class UiManager : MonoBehaviour {
 		restartGameOverTextMesh.DOFade(0f, 0.3f).SetLoops(-1, LoopType.Yoyo);
 		winCoinTextMesh.transform.DOScale(1.2f, 0.8f).SetLoops(-1, LoopType.Yoyo);
 	}
-	public void SetWaveCount(int waveCount, int maxWaveCount) {
-		waveCountTextMesh.text = $"{waveCount}/{maxWaveCount}";
-	}
-	
-	public void SetCoins(int coins) {
-		coinTextMesh.text = coins.ToString();
-	}
+
 	
 	public void SetWinCoins(int coins) {
 		winCoinTextMesh.text = $"Made it out with {coins} coins!";
-	}
-
-	public void SetBubble(float percentage) {
-		bubbleTextMesh.text = $"{percentage*100f:F0}%";
-	}
-
-	public void SetOxygen(float oxygen) {
-		oxygenBarImage.fillAmount = oxygen;
-	}
-	
-	public void SetEnemiesRemaining(int num) {
-		enemiesRemainingTextMesh.text = num.ToString();
-	}
-	
-	public void SetTimer(float amount) {
-		timerBarImage.fillAmount = amount;
 	}
 
 	public void ShowHud(bool b) {
 		ShowCanvas(hudCanvasGroup, b);
 	}
 	
-	public void ShowShopItems(bool b) {
-		ShowCanvas(shopCanvasGroup, b);
-	}
-	
 	public void ShowTitle(bool b) {
 		ShowCanvas(titleCanvasGroup, b);
-	}
-	
-	public void ShowOxygen(bool b) {
-		ShowCanvas(oxygenBarCanvasGroup, b);
-	}
-	public void ShowTimer(bool b) {
-		ShowCanvas(timerCanvasGroup, b);
 	}
 	
 	public void ShowGameOver(bool b) {
