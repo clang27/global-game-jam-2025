@@ -30,6 +30,7 @@ public class CharacterBehavior : MonoBehaviour {
 			_inputVector = value;
 			if (_inputVector != Vector2.zero) {
 				PreviousNotZeroInputVector = value;
+				_timeSinceLastInput = 0f;
 			}
 		}
 	}
@@ -56,6 +57,7 @@ public class CharacterBehavior : MonoBehaviour {
 	private float _startingAcceleration, _startingDeceleration, _startingMaxSpeed, _startingJetpackForce;
 	private Vector2 _velocity;
 	private bool _jetpacking;
+	private float _timeSinceLastInput = 10f;
 #endregion
 
 #region Unity
@@ -72,6 +74,10 @@ public class CharacterBehavior : MonoBehaviour {
 		_startingDeceleration = Deceleration;
 		_startingMaxSpeed = MaxSpeed;
 		_startingJetpackForce = JetpackForce;
+    }
+
+    private void Update() {
+	    _timeSinceLastInput += Time.deltaTime;
     }
 	
 	private void FixedUpdate() {
@@ -117,7 +123,7 @@ public class CharacterBehavior : MonoBehaviour {
 					_animator.SetBool("down", true);
 				}
 				
-				_animator.SetBool("idle", _velocity.sqrMagnitude < 0.05f);
+				_animator.SetBool("idle", _velocity.sqrMagnitude < 0.05f && _timeSinceLastInput > 2f);
 			}
 
 			_animator.SetFloat("speed", Mathf.Sqrt(_velocity.sqrMagnitude) / 5f + 0.2f);
@@ -167,6 +173,7 @@ public class CharacterBehavior : MonoBehaviour {
 	}
 	
 	public void Unstun() {
+		Debug.Log("Unstun");
 		Stunned = false;
 		_spriteRenderer.DOKill();
 		_spriteRenderer.DOFade(1f, 0f);
@@ -194,6 +201,7 @@ public class CharacterBehavior : MonoBehaviour {
 		_transform.eulerAngles = Vector3.zero;
 		_jetpacking = false;
 		TimeOnBubble = 0f;
+		_timeSinceLastInput = 10f;
 		_attackBehavior.Init();
 
 		DirectionFacing = Direction.Up;
@@ -237,6 +245,7 @@ public class CharacterBehavior : MonoBehaviour {
 			DOVirtual.DelayedCall(0.1f, () => AudioManager.Instance.PlaySfx(_attackSound));
 			if (_animator) {
 				_animator.SetTrigger("attack");
+				_timeSinceLastInput = 0f;
 			}
 		}
 		
@@ -259,7 +268,7 @@ public class CharacterBehavior : MonoBehaviour {
 
 		_velocity += PreviousNotZeroInputVector * JetpackForce;
 		OxygenManager.Instance.AddOxygen(-0.005f);
-		
+		_timeSinceLastInput = 0f;
 		AudioManager.Instance.PlaySfx(_dashSound);	
 	}
 	

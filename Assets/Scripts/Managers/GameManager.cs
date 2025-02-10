@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour {
 	    Instance = this;
 
 	    DOTween.Init(false, false, LogBehaviour. Default)
-		    .SetCapacity(100, 20);
+		    .SetCapacity(1000, 200);
         
 	    Bubble = GameObject.FindGameObjectWithTag("Bubble").GetComponent<BubbleBehavior>();
 	    Player = GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterBehavior>();
@@ -43,6 +43,10 @@ public class GameManager : MonoBehaviour {
 	    if (Input.GetKeyDown(KeyCode.Escape)) {
 		    Application.Quit();
 	    }
+    }
+    
+    private void OnDestroy() {
+	    DOTween.KillAll();
     }
 #endregion
 

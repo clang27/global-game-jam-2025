@@ -1,4 +1,7 @@
+using System;
+using DG.Tweening;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class CoinBehavior : MonoBehaviour {
 
@@ -13,6 +16,7 @@ public class CoinBehavior : MonoBehaviour {
 
 #region Components
 	private Transform _transform;
+	private Sequence _danceSequence;
 #endregion
 
 #region Data
@@ -20,15 +24,28 @@ public class CoinBehavior : MonoBehaviour {
 #endregion
 
 #region Unity
-private void OnTriggerEnter2D(Collider2D other) {
-	if (GameManager.Instance.GameState == GameState.Start) { return; }
-		
-	if (other.tag.Equals("Player")) {
-		AudioManager.Instance.PlaySfx(pickupSound);
-		CoinManager.Instance.AddCoin(worth);
-		Destroy(gameObject);
+	private void Awake() {
+		_transform = transform;
 	}
-}
+
+	private void Start() {
+		_danceSequence = _transform.DOLocalJump(_transform.localPosition, 0.25f, 1, 2f);
+		_danceSequence.SetLoops(-1);
+	}
+
+	private void OnTriggerEnter2D(Collider2D other) {
+		if (GameManager.Instance.GameState == GameState.Start) { return; }
+			
+		if (other.tag.Equals("Player")) {
+			AudioManager.Instance.PlaySfx(pickupSound);
+			CoinManager.Instance.AddCoin(worth);
+			Destroy(gameObject);
+		}
+	}
+	
+	private void OnDestroy() {
+		_danceSequence.Kill();
+	}
 #endregion
 
 #region Custom
