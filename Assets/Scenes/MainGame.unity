@@ -5698,7 +5698,7 @@ GameObject:
   - component: {fileID: 1351299329}
   - component: {fileID: 1351299330}
   m_Layer: 0
-  m_Name: Player
+  m_Name: Munny
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6176,7 +6176,7 @@ SpriteRenderer:
   m_Size: {x: 2.5, y: 2.5}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!95 &1372014622
@@ -15514,12 +15514,12 @@ CanvasRenderer:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 1351299324}
   - {fileID: 519420032}
   - {fileID: 1934333674}
   - {fileID: 613313945}
   - {fileID: 2078220775}
   - {fileID: 359503214}
-  - {fileID: 1351299324}
   - {fileID: 534061248}
   - {fileID: 1085860866}
   - {fileID: 88986816}

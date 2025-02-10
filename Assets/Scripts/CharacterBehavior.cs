@@ -115,7 +115,9 @@ public class CharacterBehavior : MonoBehaviour {
 					DirectionFacing = Direction.Down;
 					ClearMovementFlags();
 					_animator.SetBool("down", true);
-				} 
+				}
+				
+				_animator.SetBool("idle", _velocity.sqrMagnitude < 0.05f);
 			}
 
 			_animator.SetFloat("speed", Mathf.Sqrt(_velocity.sqrMagnitude) / 5f + 0.2f);
