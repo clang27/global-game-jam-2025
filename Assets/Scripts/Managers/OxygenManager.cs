@@ -7,6 +7,8 @@ public class OxygenManager : MonoBehaviour {
     [Header("Variables")]
     [SerializeField] private float decayRate = 0.005f;
     [SerializeField] private float growRate = 0.005f;
+    [SerializeField] private float jetpackDecayRate = 0.01f;
+    [SerializeField] private float jetpackInitialDrain = 0.01f;
 
     [Header("UI")] 
     [SerializeField] private Image barUnlockImage;
@@ -65,6 +67,7 @@ public class OxygenManager : MonoBehaviour {
     private float _oxygenPercent = 1f;
     private int _upgrades;
     private bool _outOfBubble;
+    private bool _jetpackOn;
 #endregion
 
 #region Unity
@@ -76,15 +79,26 @@ public class OxygenManager : MonoBehaviour {
     private void FixedUpdate() {
         if (_outOfBubble) {
             AddOxygen(-decayRate);
-        }
-        else {
+        } else {
             AddOxygen(growRate);
+        }
+        
+        if (_jetpackOn) {
+            AddOxygen(-jetpackDecayRate);
         }
     }
 #endregion
 
 #region Custom
-    public void AddOxygen(float amount) {
+    public void ToggleJetpack(bool b) {
+        _jetpackOn = b;
+        
+        if (b) {
+            AddOxygen(-jetpackInitialDrain);
+        }
+    }
+
+    private void AddOxygen(float amount) {
         var trueRate = amount > 0f ? amount * (_upgrades + 1) : amount / (_upgrades + 1);
         
         OxygenPercent += trueRate;
@@ -98,7 +112,7 @@ public class OxygenManager : MonoBehaviour {
     }
 
     public void Init() {
-        Upgrades = 1;
+        Upgrades = 0;
         OxygenPercent = 1f;
         OutOfBubble();
     }

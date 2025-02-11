@@ -117,6 +117,27 @@ public class GameManager : MonoBehaviour {
 		UiManager.Instance.ShowTitle(false);
 		UiManager.Instance.ShowHud(false);
 	}
+	public void Pause() {
+		GameState = GameState.Paused;
+		Player.GetComponent<PlayerController>().GoToUiControls();
+		
+		CoinManager.Instance.enabled = false;
+		OxygenManager.Instance.enabled = false;
+		
+		UiManager.Instance.ShowPause(true);
+		UiManager.Instance.ShowHud(false);
+	}
+	
+	public void Unpause() {
+		GameState = GameState.Playing;
+		Player.GetComponent<PlayerController>().GoToPlayerControls();
+		
+		CoinManager.Instance.enabled = true;
+		OxygenManager.Instance.enabled = true;
+		
+		UiManager.Instance.ShowPause(false);
+		UiManager.Instance.ShowHud(true);
+	}
 #endregion
 
 }

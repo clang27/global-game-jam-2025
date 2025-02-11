@@ -87,7 +87,6 @@ public class CharacterBehavior : MonoBehaviour {
 			var goalSpeed = PreviousNotZeroInputVector * JetpackMaxSpeed;
 			var acc = Acceleration / 2f;
 			_velocity = Vector2.Lerp(_velocity, goalSpeed, Time.fixedDeltaTime * acc);
-			OxygenManager.Instance.AddOxygen(-0.002f);
 		} else {
 			if (InputVector.magnitude > 0f) {
 				var goalSpeed = InputVector * MaxSpeed;
@@ -145,6 +144,12 @@ public class CharacterBehavior : MonoBehaviour {
 #endregion
 
 #region Custom
+	public void StopMoving() {
+		JetpackOff();
+		_inputVector = Vector2.zero;
+		_velocity = Vector2.zero;
+		_timeSinceLastInput = 10f;
+	}
 	public void UpgradeJetpack() {
 		JetpackForce += 0.4f;
 	}
@@ -255,13 +260,13 @@ public class CharacterBehavior : MonoBehaviour {
 
 		_particleSystem.Play();
 		_jetpacking = true;
+		OxygenManager.Instance.ToggleJetpack(true);
 		
 		if (_animator) {
-			_animator.SetBool("jetpack", _jetpacking);
+			_animator.SetBool("jetpack", true);
 		}
 
 		_velocity += PreviousNotZeroInputVector * JetpackForce;
-		OxygenManager.Instance.AddOxygen(-0.005f);
 		_timeSinceLastInput = 0f;
 		AudioManager.Instance.PlaySfx(_dashSound);	
 	}
@@ -269,9 +274,10 @@ public class CharacterBehavior : MonoBehaviour {
 	public void JetpackOff() {
 		_particleSystem.Stop();
 		_jetpacking = false;
+		OxygenManager.Instance.ToggleJetpack(false);
 		
 		if (_animator) {
-			_animator.SetBool("jetpack", _jetpacking);
+			_animator.SetBool("jetpack", false);
 		}
 	}
 	

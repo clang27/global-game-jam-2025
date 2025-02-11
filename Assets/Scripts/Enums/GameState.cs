@@ -1,3 +1,3 @@
 public enum GameState {
-    Start, Playing, GameOver, Win
+    Start, Playing, GameOver, Win, Paused
 }

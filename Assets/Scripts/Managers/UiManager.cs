@@ -6,7 +6,7 @@ public class UiManager : MonoBehaviour {
 
 #region Dependencies
 	[SerializeField] private TextMeshProUGUI winCoinTextMesh;
-	[SerializeField] private CanvasGroup winScreenCanvasGroup, hudCanvasGroup, titleCanvasGroup, gameOverCanvasGroup;
+	[SerializeField] private CanvasGroup winScreenCanvasGroup, pauseCanvasGroup, hudCanvasGroup, titleCanvasGroup, gameOverCanvasGroup;
 	[SerializeField] private TextMeshProUGUI restartGameOverTextMesh, startTextMesh;
 	[SerializeField] private RectTransform _munnyWinSprite; 
 #endregion
@@ -49,6 +49,10 @@ public class UiManager : MonoBehaviour {
 	
 	public void SetWinCoins(int coins) {
 		winCoinTextMesh.text = $"Made it out with {coins} coins!";
+	}
+	
+	public void ShowPause(bool b) {
+		ShowCanvas(pauseCanvasGroup, b);
 	}
 
 	public void ShowHud(bool b) {

@@ -31,10 +31,8 @@ public class PlayerController : MonoBehaviour {
 #region Custom
 	public void GoToUiControls() {
 		Debug.Log("Going to UI controls");
-		
-		_character.InputVector = Vector2.zero;
-		_character.JetpackOff();
 
+		_character.StopMoving();
 		_inUi = true;
 	}
 	
@@ -61,8 +59,19 @@ public class PlayerController : MonoBehaviour {
 			case GameState.GameOver:
 				GameManager.Instance.ResetGame();
 				break;
-			default:
-				throw new ArgumentOutOfRangeException();
+		}
+	}
+
+	public void OnPause(InputAction.CallbackContext context) {
+		if (!context.started) { return; }
+		
+		switch (GameManager.Instance.GameState) {
+			case GameState.Playing:
+				GameManager.Instance.Pause();
+				break;
+			case GameState.Paused:
+				GameManager.Instance.Unpause();
+				break;
 		}
 	}
 			
