@@ -38,12 +38,6 @@ public class GameManager : MonoBehaviour {
     private void Start() {
 	    Init();
     }
-
-    private void Update() {
-	    if (Input.GetKeyDown(KeyCode.Escape)) {
-		    Application.Quit();
-	    }
-    }
     
     private void OnDestroy() {
 	    DOTween.KillAll();

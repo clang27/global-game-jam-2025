@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7398667266118744015}
   - component: {fileID: 1538349933275036063}
-  - component: {fileID: 4876426639942149892}
   m_Layer: 0
   m_Name: Hurtbox
   m_TagString: Untagged
@@ -79,19 +78,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.1641117, y: 0.13344932}
   m_EdgeRadius: 0
---- !u!114 &4876426639942149892
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3314517479508237645}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0993cd69da2499ba1beac7f1ceb6adc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hitSound: {fileID: 8300000, guid: 69e3a149300155841b781d90397f983c, type: 3}
 --- !u!1 &7282344639636168180
 GameObject:
   m_ObjectHideFlags: 0
@@ -105,7 +91,6 @@ GameObject:
   - component: {fileID: 5025134682188753112}
   - component: {fileID: 8856664944919283103}
   - component: {fileID: 7162103286997196706}
-  - component: {fileID: 2865206718112430807}
   - component: {fileID: 53559109004338006}
   m_Layer: 0
   m_Name: Swordfish
@@ -153,7 +138,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -273,9 +258,9 @@ MonoBehaviour:
   Acceleration: 4
   Deceleration: 4
   MaxSpeed: 3.5
+  JetpackMaxSpeed: 10
   EjectForce: 8
-  DashSpeed: 10
-  DashForce: 10
+  JetpackForce: 2
   _leaveBubbleSound: {fileID: 8300000, guid: 335d8577f8ec17d448e810b636985343, type: 3}
   _enterBubbleSound: {fileID: 8300000, guid: a1250fb4cdf990b48ae2ab789f832dc0, type: 3}
   _dashSound: {fileID: 0}
@@ -283,26 +268,6 @@ MonoBehaviour:
   _hurtSound: {fileID: 8300000, guid: 6050f143108766f43b9644073702920c, type: 3}
   _attackSound: {fileID: 0}
   _shockSprite: {fileID: 0}
---- !u!114 &2865206718112430807
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7282344639636168180}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f29aafdca162b7043a10096ed7fd637c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackSound: {fileID: 8300000, guid: 69e3a149300155841b781d90397f983c, type: 3}
-  bubbleLayerMask:
-    serializedVersion: 2
-    m_Bits: 64
-  style: 2
-  avoidEdgeDistance: 1
-  knockback: 8
-  stunTime: 0.4
 --- !u!95 &53559109004338006
 Animator:
   serializedVersion: 7
