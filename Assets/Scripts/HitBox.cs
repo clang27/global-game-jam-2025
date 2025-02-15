@@ -27,7 +27,7 @@ public class HitBox : MonoBehaviour {
 	}
 
 	private void OnTriggerEnter2D(Collider2D other) {
-		if (other.TryGetComponent<CharacterBehavior>(out var player)) {
+		if (other.TryGetComponent<PlayerBehavior>(out var player)) {
 			if (player.tag.Equals("Enemy")) {
 				Debug.Log(other.name + " has been hit");
 				player.Knockback(_attackBehavior.DirectionAttacking, _attackBehavior.EquippedWeapon.Knockback);

@@ -1,4 +1,5 @@
-using System;
+using Enums;
+using Managers;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -13,17 +14,18 @@ public class PlayerController : MonoBehaviour {
 #endregion
 
 #region Components
-	private CharacterBehavior _character;
+	private PlayerBehavior _player;
 	private PlayerInput _playerInput;
 #endregion
 
 #region Data
 	private bool _inUi;
+	private Vector2 _storedInput;
 #endregion
 
 #region Unity
     private void Awake() {
-		_character = GetComponent<CharacterBehavior>();
+		_player = GetComponent<PlayerBehavior>();
 		_playerInput = GetComponent<PlayerInput>();
     }
 #endregion
@@ -31,8 +33,7 @@ public class PlayerController : MonoBehaviour {
 #region Custom
 	public void GoToUiControls() {
 		Debug.Log("Going to UI controls");
-
-		_character.StopMoving();
+		
 		_inUi = true;
 	}
 	
@@ -40,12 +41,15 @@ public class PlayerController : MonoBehaviour {
 		Debug.Log("Going to Player controls");
 
 		_inUi = false;
+		_player.InputVector = _storedInput;
 	}
 	
 	public void OnMove(InputAction.CallbackContext context) {
+		_storedInput = context.ReadValue<Vector2>();
+		
 		if (_inUi) { return; }
 		
-		_character.InputVector = context.ReadValue<Vector2>();
+		_player.InputVector = _storedInput;
 	}
 
 	public void OnSubmit(InputAction.CallbackContext context) {
@@ -79,9 +83,9 @@ public class PlayerController : MonoBehaviour {
 		if (_inUi) { return; }
 		
 		if (context.started) {
-			_character.JetpackOn();	
+			_player.JetpackOn();	
 		} else if(context.canceled) {
-			_character.JetpackOff();	
+			_player.JetpackOff();	
 		}
 	}
 	
@@ -89,7 +93,7 @@ public class PlayerController : MonoBehaviour {
 		if (_inUi) { return; }
 		if (!context.started) { return; }
 		
-		_character.Attack();	
+		_player.Attack();	
 	}
 #endregion
 

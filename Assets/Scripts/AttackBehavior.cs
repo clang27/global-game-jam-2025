@@ -1,5 +1,7 @@
 using System;
 using DG.Tweening;
+using Enums;
+using Scriptable;
 using UnityEngine;
 
 public class AttackBehavior : MonoBehaviour {

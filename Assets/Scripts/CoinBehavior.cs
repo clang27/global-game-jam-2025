@@ -1,4 +1,6 @@
 using DG.Tweening;
+using Enums;
+using Managers;
 using UnityEngine;
 
 public class CoinBehavior : MonoBehaviour {

@@ -1,57 +1,61 @@
 using UnityEngine;
 
-public class CoinManager : MonoBehaviour {
+namespace Managers {
+    public class CoinManager : MonoBehaviour, IManager {
 
-#region Dependencies
-    [SerializeField] private GameObject coinPrefab, chestPrefab;
-#endregion
+        #region Dependencies
+        [SerializeField] private GameObject coinPrefab, chestPrefab;
+        #endregion
 
-#region Attributes
-    public static CoinManager Instance { get; private set; }
-    public int Coins { get; private set; }
-#endregion
+        #region Attributes
+        public static CoinManager Instance { get; private set; }
+        public int Coins { get; private set; }
+        #endregion
 
-#region Components
-    private Transform _transform;
-#endregion
+        #region Components
+        private Transform _transform;
+        #endregion
 
-#region Data
-#endregion
+        #region Data
+        #endregion
 
-#region Unity
-    private void Awake() {
-        Instance = this;
+        #region Unity
+        private void Awake() {
+            Instance = this;
         
-        _transform = transform;
-    }
+            _transform = transform;
+        }
 
-    private void Update() {
+        private void Update() {
         
-    }
+        }
 	
-    private void FixedUpdate() {
+        private void FixedUpdate() {
         
-    }
-#endregion
+        }
+        #endregion
 
-#region Custom
-    public void Init() {
-        Coins = 0;
-        //UiManager.Instance.SetCoins(Coins);
-    }
-    public void AddCoin(int amount) {
-        Coins+=amount;
-        //UiManager.Instance.SetCoins(Coins);
-    }
-
-    public bool HaveEnoughCoins(int amount) {
-        return Coins >= amount;
-    }
+        #region Custom
+        public void Init() {
+            enabled = false;
+            Coins = 0;
+            //UiManager.Instance.SetCoins(Coins);
+        }
     
-    public void SpendCoins(int amount) {
-        Coins -= amount;
-        //UiManager.Instance.SetCoins(Coins);
-    }
-#endregion
+        public void AddCoin(int amount) {
+            Coins+=amount;
+            //UiManager.Instance.SetCoins(Coins);
+        }
 
+        public bool HaveEnoughCoins(int amount) {
+            return Coins >= amount;
+        }
+    
+        public void SpendCoins(int amount) {
+            Coins -= amount;
+            //UiManager.Instance.SetCoins(Coins);
+        }
+        #endregion
+
+    }
 }

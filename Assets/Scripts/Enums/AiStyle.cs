@@ -1,6 +1,8 @@
 using System;
 
-[Serializable]
-public enum AiStyle {
-    Pufferfish, Jellyfish, Swordfish
+namespace Enums {
+    [Serializable]
+    public enum AiStyle {
+        Pufferfish, Jellyfish, Swordfish
+    }
 }

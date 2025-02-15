@@ -1,7 +1,9 @@
 using DG.Tweening;
+using Enums;
+using Managers;
 using UnityEngine;
 
-public class CharacterBehavior : MonoBehaviour {
+public class PlayerBehavior : MonoBehaviour {
 
 #region Dependencies
 	public float Acceleration = 2f;
@@ -39,6 +41,7 @@ public class CharacterBehavior : MonoBehaviour {
 	public Vector2 PreviousInputVector { get; set; }
 	public bool Spinning { get; private set; }
 	public bool Stunned { get; private set; }
+	public bool AutoCenterBubble { get; set; }
 #endregion
 
 #region Components
@@ -82,6 +85,8 @@ public class CharacterBehavior : MonoBehaviour {
 	
 	private void FixedUpdate() {
 		if (Stunned) {return;}
+
+		var onBubble = BubbleManager.Instance.PlayerIsOnBubble;
 		
 		if (_jetpacking) {
 			var goalSpeed = PreviousNotZeroInputVector * JetpackMaxSpeed;
@@ -90,11 +95,11 @@ public class CharacterBehavior : MonoBehaviour {
 		} else {
 			if (InputVector.magnitude > 0f) {
 				var goalSpeed = InputVector * MaxSpeed;
-				var acc = (GameManager.Instance.PlayerOnBubble) ? Acceleration : Acceleration / 4f;
+				var acc = (onBubble) ? Acceleration : Acceleration / 4f;
 				_velocity = Vector2.Lerp(_velocity, goalSpeed, Time.fixedDeltaTime * acc);
 			} else if (!Stunned) {
 				var goalSpeed = Vector2.zero;
-				var dec = (GameManager.Instance.PlayerOnBubble) ? Deceleration : Deceleration / 4f;
+				var dec = (onBubble) ? Deceleration : Deceleration / 4f;
 				_velocity = Vector2.Lerp(_velocity, goalSpeed, Time.fixedDeltaTime * dec);
 			}
 		}
@@ -128,9 +133,7 @@ public class CharacterBehavior : MonoBehaviour {
 		if (!Spinning) { // Don't clamp if spinning or dashing
 			var maxSpeed = _jetpacking ? JetpackMaxSpeed : MaxSpeed;
 			_rigidbody.linearVelocity = Vector2.ClampMagnitude(_velocity, maxSpeed);
-			if (GameManager.Instance.PlayerOnBubble) {
-				_rigidbody.linearVelocity += GameManager.Instance.BubblePlayerIsOn.Velocity;
-			}
+			_rigidbody.linearVelocity += BubbleManager.Instance.BubbleVelocity;
 		}
 	}
 
@@ -214,6 +217,23 @@ public class CharacterBehavior : MonoBehaviour {
 			_animator.SetBool("left", false);
 		}
 	}
+
+	public void MoveToBubble(Vector2 v) {
+		_velocity = Vector2.zero;
+		_transform.position = v;
+		_transform.eulerAngles = Vector3.zero;
+		_jetpacking = false;
+		TimeOnBubble = 0f;
+		_timeSinceLastInput = 10f;
+		
+		DirectionFacing = Direction.Up;
+		if (_animator) {
+			_animator.SetBool("up", true);
+			_animator.SetBool("down", false);
+			_animator.SetBool("right", false);
+			_animator.SetBool("left", false);
+		}
+	}
 	
 	public void Eject(Vector2 direction) {
 		Spinning = true;
@@ -256,7 +276,7 @@ public class CharacterBehavior : MonoBehaviour {
 	
 	public void JetpackOn() {
 		if (Stunned) { return; }
-		if (GameManager.Instance.PlayerOnBubble) { return; }
+		if (BubbleManager.Instance.PlayerIsOnBubble) { return; }
 
 		_particleSystem.Play();
 		_jetpacking = true;

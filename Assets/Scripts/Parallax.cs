@@ -3,7 +3,7 @@ using UnityEngine;
 public class Parallax : MonoBehaviour {
 
 	private float length, startpos;
-	public GameObject cam;
+	private GameObject cam;
 	public float parallaxEffect;
 	private Transform _transform;
 
@@ -11,6 +11,7 @@ public class Parallax : MonoBehaviour {
 		_transform = transform;
 		startpos = _transform.position.y;
 		length = GetComponent<SpriteRenderer>().bounds.size.y;
+		cam = GameObject.FindGameObjectWithTag("MainCamera");
 	}
 
 	private void Update() {
