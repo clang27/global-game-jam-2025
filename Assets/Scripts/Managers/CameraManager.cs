@@ -24,6 +24,7 @@ namespace Managers {
 		#region Custom
 		public void Init() {
 			Switch(CameraState.Title);
+			insideCamera.Target.TrackingTarget = null;
 		}
 
 		public void Switch(CameraState state, Transform bubble = null, bool track = true) {

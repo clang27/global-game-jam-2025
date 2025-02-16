@@ -82,13 +82,13 @@ public class LargeBubbleBehavior : MonoBehaviour {
 
 #region Custom
 	
-	public void StartMovingInstantly() {
-		_rigidbody.linearVelocity = goalVelocity;
+	public void StartMovingInstantly(bool reverse) {
+		_rigidbody.linearVelocity = reverse ? -goalVelocity : goalVelocity;
 	}
 	
-	public void StartMovingSlowly() {
+	public void StartMovingSlowly(bool reverse) {
 		_accelerationTween = 
-			DOVirtual.Vector2(Vector2.zero, goalVelocity, 1f, 
+			DOVirtual.Vector2(Vector2.zero, reverse ? -goalVelocity : goalVelocity, 1f, 
 				(v) => _rigidbody.linearVelocity = v);
 	}
 	

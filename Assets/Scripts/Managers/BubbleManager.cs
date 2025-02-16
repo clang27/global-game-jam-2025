@@ -54,7 +54,7 @@ namespace Managers {
 		
 		public void PreBubbleRide(string sceneName) {
 			LargeBubbleName = LargeBubblePlayerIsOn.name;
-			LargeBubblePlayerIsOn.StartMovingSlowly();
+			LargeBubblePlayerIsOn.StartMovingSlowly(false);
 
 			PlayerManager.Instance.enabled = false;
 			PlayerManager.Instance.GoToCenterOfBubble(LargeBubblePlayerIsOn);
@@ -67,7 +67,7 @@ namespace Managers {
 			var bubbleOn = LargeBubbles.Find(bubble => bubble.name.Equals(LargeBubbleName));
 
 			if (bubbleOn) {
-				bubbleOn.StartMovingInstantly();
+				bubbleOn.StartMovingInstantly(true);
 				PlayerManager.Instance.HopLargeBubbles(bubbleOn);
 				GameManager.Instance.EndLargeBubbleTransition();
 			}

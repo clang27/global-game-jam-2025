@@ -29,7 +29,7 @@ namespace Managers {
 
 		private void Start() {
 			Init();
-			StartCoroutine(ChangeScene("Ocean"));
+			StartCoroutine(ChangeScene("Ship"));
 		}
     
 		private void OnDestroy() {
@@ -117,6 +117,7 @@ namespace Managers {
 			CoinManager.Instance.enabled = false;
 			OxygenManager.Instance.enabled = false;
 			PlayerManager.Instance.enabled = false;
+			PlayerManager.Instance.StopPlayer();
 		
 			UiManager.Instance.ShowGameOver(!won);
 			UiManager.Instance.ShowTitle(false);
