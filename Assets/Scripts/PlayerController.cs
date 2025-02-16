@@ -10,7 +10,21 @@ public class PlayerController : MonoBehaviour {
 #endregion
 
 #region Attributes
-	// public static GameManager Instance { get; private set; }
+	public bool Enabled {
+		get => _enabled;
+		set {
+			_enabled = value;
+			_player.InputVector = _enabled ? _storedInput : Vector2.zero;
+		}
+	}
+	
+	public bool InUi {
+		get => _inUi;
+		set {
+			_inUi = value;
+			_player.InputVector = _enabled ? _storedInput : Vector2.zero;
+		}
+	}
 #endregion
 
 #region Components
@@ -19,8 +33,9 @@ public class PlayerController : MonoBehaviour {
 #endregion
 
 #region Data
-	private bool _inUi;
 	private Vector2 _storedInput;
+	private bool _enabled;
+	private bool _inUi;
 #endregion
 
 #region Unity
@@ -31,42 +46,17 @@ public class PlayerController : MonoBehaviour {
 #endregion
 
 #region Custom
-	public void GoToUiControls() {
-		Debug.Log("Going to UI controls");
-		
-		_inUi = true;
-	}
-	
-	public void GoToPlayerControls() {
-		Debug.Log("Going to Player controls");
-
-		_inUi = false;
-		_player.InputVector = _storedInput;
-	}
-	
 	public void OnMove(InputAction.CallbackContext context) {
 		_storedInput = context.ReadValue<Vector2>();
 		
-		if (_inUi) { return; }
+		if (InUi) { return; }
+		if (!Enabled) { return; }
 		
 		_player.InputVector = _storedInput;
 	}
 
-	public void OnSubmit(InputAction.CallbackContext context) {
-        if (!_inUi) { return; }
-        if (!context.started) { return; }
-        
-		switch (GameManager.Instance.GameState) {
-			case GameState.Start:
-				GameManager.Instance.StartGame();
-				break;
-			case GameState.GameOver:
-				GameManager.Instance.ResetGame();
-				break;
-		}
-	}
-
 	public void OnPause(InputAction.CallbackContext context) {
+		if (!Enabled) { return; }
 		if (!context.started) { return; }
 		
 		switch (GameManager.Instance.GameState) {
@@ -80,7 +70,8 @@ public class PlayerController : MonoBehaviour {
 	}
 			
 	public void OnJetpack(InputAction.CallbackContext context) {
-		if (_inUi) { return; }
+		if (InUi) { return; }
+		if (!Enabled) { return; }
 		
 		if (context.started) {
 			_player.JetpackOn();	
@@ -90,7 +81,8 @@ public class PlayerController : MonoBehaviour {
 	}
 	
 	public void OnAttack(InputAction.CallbackContext context) {
-		if (_inUi) { return; }
+		if (InUi) { return; }
+		if (!Enabled) { return; }
 		if (!context.started) { return; }
 		
 		_player.Attack();	

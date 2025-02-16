@@ -5,30 +5,26 @@ using UnityEngine;
 namespace Managers {
 	public class BubbleManager : MonoBehaviour, IManager {
 
-		#region Dependencies
+	#region Dependencies
 		// [SerializeField] private GameObject[] Entries;
-		#endregion
+	#endregion
 
-		#region Attributes
+	#region Attributes
 		public static BubbleManager Instance { get; private set; }
 		private List<SmallBubbleBehavior> SmallBubbles { get; set; } = new();
 		private List<LargeBubbleBehavior> LargeBubbles { get; set; } = new();
-	
 		public SmallBubbleBehavior SmallBubblePlayerIsOn { get; set; }
 		public LargeBubbleBehavior LargeBubblePlayerIsOn { get; set; }
-		
 		private string LargeBubbleName { get; set; }
-		
 		public bool PlayerIsOnBubble => SmallBubblePlayerIsOn || LargeBubblePlayerIsOn;
 		public Vector2 BubbleVelocity => LargeBubblePlayerIsOn ? LargeBubblePlayerIsOn.Velocity : Vector2.zero;
-		#endregion
-		
-
-		#region Data
+	#endregion
+	
+	#region Data
 		// private Coroutine _marchOverCoroutine;
-		#endregion
+	#endregion
 
-		#region Unity
+	#region Unity
 		private void Awake() {
 			Instance = this;
 		}
@@ -45,9 +41,9 @@ namespace Managers {
 			}
 		}
 
-		#endregion
+	#endregion
 
-		#region Custom
+	#region Custom
 		public void Init() {
 			enabled = false;
 		}
@@ -56,8 +52,9 @@ namespace Managers {
 			LargeBubbleName = LargeBubblePlayerIsOn.name;
 			LargeBubblePlayerIsOn.StartMovingSlowly(false);
 
-			PlayerManager.Instance.enabled = false;
-			PlayerManager.Instance.GoToCenterOfBubble(LargeBubblePlayerIsOn);
+			PlayerManager.Controller.Enabled = false;
+			var direction = (LargeBubblePlayerIsOn.transform.position - PlayerManager.PlayerTransform.position).normalized / 2f;
+			PlayerManager.Player.InputVector = direction;
 		}
 
 		public void PostSceneLoad(string sceneName) {
@@ -68,16 +65,19 @@ namespace Managers {
 
 			if (bubbleOn) {
 				bubbleOn.StartMovingInstantly(true);
-				PlayerManager.Instance.HopLargeBubbles(bubbleOn);
+				
+				PlayerManager.Player.StopMoving();
+				PlayerManager.Player.MoveToBubble(bubbleOn.transform.position);
+				
 				GameManager.Instance.EndLargeBubbleTransition();
 			}
 		}
 
 		public void PostBubbleRide(string sceneName) {
-			PlayerManager.Instance.enabled = true;
+			PlayerManager.Controller.Enabled = true;
 		}
 	
-		#endregion
+	#endregion
 
 	}
 }

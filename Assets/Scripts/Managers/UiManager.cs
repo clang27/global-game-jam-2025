@@ -6,41 +6,38 @@ using UnityEngine;
 namespace Managers {
 	public class UiManager : MonoBehaviour, IManager {
 
-		#region Dependencies
+	#region Dependencies
 		[SerializeField] private CanvasGroup pauseCanvasGroup, hudCanvasGroup, titleCanvasGroup, gameOverCanvasGroup;
-		[SerializeField] private TextMeshProUGUI restartGameOverTextMesh, startTextMesh;
+		[SerializeField] private TextMeshProUGUI restartGameOverTextMesh;
 		[SerializeField] private RectTransform _loadingScreen; 
-		#endregion
+	#endregion
 
-		#region Attributes
+	#region Attributes
 		public static UiManager Instance { get; private set; }
-		#endregion
+	#endregion
 
-		#region Components
+	#region Components
 		private Transform _transform;
-		#endregion
+	#endregion
 
-		#region Data
+	#region Data
 		// private Coroutine _marchOverCoroutine;
-		#endregion
+	#endregion
 
-		#region Unity
+	#region Unity
 		private void Awake() {
 			Instance = this;
 			_transform = transform;
 		}
-		#endregion
+	#endregion
 
-		#region Custom
+	#region Custom
 		public void Init() {
 			ShowGameOver(false);
 			ShowTitle(true);
 			ShowHud(false);
-
-			startTextMesh.DOFade(1f, 0f);
+			
 			restartGameOverTextMesh.DOFade(1f, 0f);
-		
-			startTextMesh.DOFade(0f, 0.3f).SetLoops(-1, LoopType.Yoyo);
 			restartGameOverTextMesh.DOFade(0f, 0.3f).SetLoops(-1, LoopType.Yoyo);
 		}
 		
@@ -71,9 +68,9 @@ namespace Managers {
 			if (!cg) { return; }
 			cg.alpha = b ? 1f : 0f;
 			cg.interactable = b;
-			cg.blocksRaycasts = b;
+			cg.blocksRaycasts = false; // No mouse inputs
 		}
-		#endregion
+	#endregion
 
 	}
 }

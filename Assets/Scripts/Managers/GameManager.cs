@@ -96,8 +96,8 @@ namespace Managers {
 			GameState = GameState.Playing;
 		
 			CameraManager.Instance.Switch(CameraState.Ocean);
-			
-			PlayerManager.Instance.enabled = true;
+
+			PlayerManager.Controller.InUi = false;
 			BubbleManager.Instance.enabled = true;
 			CoinManager.Instance.enabled = true;
 			OxygenManager.Instance.enabled = true;
@@ -116,8 +116,9 @@ namespace Managers {
 			BubbleManager.Instance.enabled = false;
 			CoinManager.Instance.enabled = false;
 			OxygenManager.Instance.enabled = false;
-			PlayerManager.Instance.enabled = false;
-			PlayerManager.Instance.StopPlayer();
+
+			PlayerManager.Controller.InUi = true;
+			PlayerManager.Player.StopMoving();
 		
 			UiManager.Instance.ShowGameOver(!won);
 			UiManager.Instance.ShowTitle(false);
@@ -126,9 +127,10 @@ namespace Managers {
 
 		public void Pause() {
 			GameState = GameState.Paused;
-		
-			PlayerManager.Instance.StopPlayer();
-			PlayerManager.Instance.enabled = false;
+			
+			PlayerManager.Controller.InUi = true;
+			PlayerManager.Player.StopMoving();
+			
 			CoinManager.Instance.enabled = false;
 			OxygenManager.Instance.enabled = false;
 		
@@ -139,7 +141,8 @@ namespace Managers {
 		public void Unpause() {
 			GameState = GameState.Playing;
 		
-			PlayerManager.Instance.enabled = true;
+			PlayerManager.Controller.InUi = false;
+			
 			CoinManager.Instance.enabled = true;
 			OxygenManager.Instance.enabled = true;
 		
