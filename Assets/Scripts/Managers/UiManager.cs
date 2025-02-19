@@ -1,15 +1,16 @@
 using System;
 using DG.Tweening;
-using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace Managers {
 	public class UiManager : MonoBehaviour, IManager {
 
 	#region Dependencies
 		[SerializeField] private CanvasGroup pauseCanvasGroup, hudCanvasGroup, titleCanvasGroup, gameOverCanvasGroup;
-		[SerializeField] private TextMeshProUGUI restartGameOverTextMesh;
-		[SerializeField] private RectTransform _loadingScreen; 
+		[SerializeField] private RectTransform _loadingScreen;
+		[SerializeField] private Button startGameButton, resetGameButton;
 	#endregion
 
 	#region Attributes
@@ -18,6 +19,7 @@ namespace Managers {
 
 	#region Components
 		private Transform _transform;
+		private EventSystem _eventSystem;
 	#endregion
 
 	#region Data
@@ -28,6 +30,7 @@ namespace Managers {
 		private void Awake() {
 			Instance = this;
 			_transform = transform;
+			_eventSystem = FindFirstObjectByType<EventSystem>();
 		}
 	#endregion
 
@@ -36,9 +39,6 @@ namespace Managers {
 			ShowGameOver(false);
 			ShowTitle(true);
 			ShowHud(false);
-			
-			restartGameOverTextMesh.DOFade(1f, 0f);
-			restartGameOverTextMesh.DOFade(0f, 0.3f).SetLoops(-1, LoopType.Yoyo);
 		}
 		
 		public void ShowLoading(bool b, Action a) {
@@ -57,10 +57,18 @@ namespace Managers {
 		}
 	
 		public void ShowTitle(bool b) {
+			if (b) {
+				_eventSystem.SetSelectedGameObject(startGameButton.gameObject);	
+			}
+			
 			ShowCanvas(titleCanvasGroup, b);
 		}
 	
 		public void ShowGameOver(bool b) {
+			if (b) {
+				_eventSystem.SetSelectedGameObject(resetGameButton.gameObject);	
+			}
+			
 			ShowCanvas(gameOverCanvasGroup, b);
 		}
 

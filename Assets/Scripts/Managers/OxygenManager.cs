@@ -104,6 +104,10 @@ namespace Managers {
                 AddOxygen(-jetpackInitialDrain);
             }
         }
+        
+        public void Hurt(int damage) {
+            AddOxygen(-damage/100f);
+        }
 
         private void AddOxygen(float amount) {
             var trueRate = amount > 0f ? amount * (_upgrades + 1) : amount / (_upgrades + 1);

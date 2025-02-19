@@ -7,6 +7,8 @@ namespace Scriptable {
         public float Knockback;
         public float AttackSpeed;
         public float StunTime;
+        public int Damage;
+        public bool Shock;
         public AudioClip Sound;
     }
 }

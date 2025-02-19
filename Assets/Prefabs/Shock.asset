@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c74bc45f641e72c4880a6468da1597c9, type: 3}
-  m_Name: Hook
+  m_Name: Shock
   m_EditorClassIdentifier: 
   Sprite: {fileID: 0}
-  Knockback: 8
+  Knockback: 60
   AttackSpeed: 0.5
-  StunTime: 0.3
-  Damage: 1
-  Sound: {fileID: 8300000, guid: 6e4fbb0f5837eda4cad11e70c1c35dfb, type: 3}
+  StunTime: 1
+  Damage: 5
+  Shock: 1
+  Sound: {fileID: 0}

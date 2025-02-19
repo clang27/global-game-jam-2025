@@ -1,6 +1,6 @@
 using DG.Tweening;
-using Enums;
 using Managers;
+using Scriptable;
 using UnityEngine;
 
 public class PlayerBehavior : MonoBehaviour {
@@ -19,12 +19,12 @@ public class PlayerBehavior : MonoBehaviour {
 	[SerializeField] private AudioClip _bumpSound;
 	[SerializeField] private AudioClip _hurtSound;
 	[SerializeField] private AudioClip _attackSound;
-	[SerializeField] private SpriteRenderer _shockSprite;
+	
+	[SerializeField] private SpriteRenderer _shockSprite, _jetpackSprite;
 #endregion
 
 #region Attributes
 	public float TimeOnBubble { get; set; }
-	public Direction DirectionFacing { get; private set; }
 	public Vector2 InputVector {
 		get => _inputVector;
 		set {
@@ -41,7 +41,6 @@ public class PlayerBehavior : MonoBehaviour {
 	public Vector2 PreviousInputVector { get; set; }
 	public bool Spinning { get; private set; }
 	public bool Stunned { get; private set; }
-	public bool AutoCenterBubble { get; set; }
 #endregion
 
 #region Components
@@ -107,19 +106,15 @@ public class PlayerBehavior : MonoBehaviour {
 		if (_animator) {
 			if (tag.Equals("Player")) {
 				if (InputVector.x > 0f) {
-					DirectionFacing = Direction.Right;
 					ClearMovementFlags();
 					_animator.SetBool("right", true);
 				} else if (InputVector.x < 0f) {
-					DirectionFacing = Direction.Left;
 					ClearMovementFlags();
 					_animator.SetBool("left", true);
 				} else if (InputVector.y > 0f) {
-					DirectionFacing = Direction.Up;
 					ClearMovementFlags();
 					_animator.SetBool("up", true);
 				} else if (InputVector.y < 0f) {
-					DirectionFacing = Direction.Down;
 					ClearMovementFlags();
 					_animator.SetBool("down", true);
 				}
@@ -162,30 +157,33 @@ public class PlayerBehavior : MonoBehaviour {
 		_attackBehavior.EquippedWeapon.Knockback += _attackBehavior.EquippedWeapon.Knockback * .1f;
 	}
 	
-	public void Stun(bool zapped) {
-		if (tag.Equals("Player") && Stunned) {
-			return;
-		}
+	public void Hurt(Weapon weapon, Vector2 sourcePosition) {
+		if (Stunned) { return; }
 
-		if (_shockSprite && zapped) {
+		if (weapon.Shock) {
 			_shockSprite.enabled = true;
 		}
 		
 		AudioManager.Instance.PlaySfx(_hurtSound);
-		
+            
 		Stunned = true;
+		var direction = ((Vector2) _transform.position - sourcePosition).normalized;
+		_rigidbody.AddForce(direction * weapon.Knockback, ForceMode2D.Impulse);
+		OxygenManager.Instance.Hurt(weapon.Damage);
+		
 		_spriteRenderer.DOFade(0.1f, 0.05f).SetLoops(-1, LoopType.Yoyo);
-	}
-	
-	public void Unstun() {
-		Debug.Log("Unstun");
-		Stunned = false;
-		_spriteRenderer.DOKill();
-		_spriteRenderer.DOFade(1f, 0f);
-
-		if (_shockSprite) {
+		_jetpackSprite.DOFade(0.1f, 0.05f).SetLoops(-1, LoopType.Yoyo);
+            
+		DOVirtual.DelayedCall(weapon.StunTime, () => {
+			Stunned = false;    
 			_shockSprite.enabled = false;
-		}
+			
+			_spriteRenderer.DOKill();
+			_spriteRenderer.DOFade(1f, 0f);
+			
+			_jetpackSprite.DOKill();
+			_jetpackSprite.DOFade(1f, 0f);
+		});
 	}
 
 	public void ResetStats() {
@@ -208,8 +206,7 @@ public class PlayerBehavior : MonoBehaviour {
 		TimeOnBubble = 0f;
 		_timeSinceLastInput = 10f;
 		_attackBehavior.Init();
-
-		DirectionFacing = Direction.Up;
+		
 		if (_animator) {
 			_animator.SetBool("up", true);
 			_animator.SetBool("down", false);
@@ -226,7 +223,6 @@ public class PlayerBehavior : MonoBehaviour {
 		TimeOnBubble = 0f;
 		_timeSinceLastInput = 10f;
 		
-		DirectionFacing = Direction.Up;
 		if (_animator) {
 			_animator.SetBool("up", true);
 			_animator.SetBool("down", false);
@@ -271,7 +267,7 @@ public class PlayerBehavior : MonoBehaviour {
 			}
 		}
 		
-		_attackBehavior.Activate(DirectionFacing);
+		_attackBehavior.Activate();
 	}
 	
 	public void JetpackOn() {

@@ -7,6 +7,7 @@ namespace Managers {
         public static PlayerBehavior Player { get; private set; }
         public static Transform PlayerTransform { get; private set; }
         public static PlayerController Controller { get; private set; }
+        public static LayerMask PlayerMask { get; private set; }
     #endregion
     
 
@@ -15,6 +16,7 @@ namespace Managers {
             Player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerBehavior>();
             PlayerTransform = GameObject.FindGameObjectWithTag("Player").transform;
             Controller = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+            PlayerMask = LayerMask.NameToLayer("Player");
         }
 
     #endregion

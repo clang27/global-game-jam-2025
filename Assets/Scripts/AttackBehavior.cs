@@ -1,6 +1,4 @@
-using System;
 using DG.Tweening;
-using Enums;
 using Scriptable;
 using UnityEngine;
 
@@ -12,7 +10,6 @@ public class AttackBehavior : MonoBehaviour {
 
 #region Attributes
 	public Weapon EquippedWeapon { get; private set; }
-	public Vector2 DirectionAttacking { get; private set; }
 	public bool OnCooldown { get; private set; }
 #endregion
 
@@ -29,6 +26,10 @@ public class AttackBehavior : MonoBehaviour {
 	    _hitBoxSpriteRenderer = _hitBoxTransform.GetComponent<SpriteRenderer>();
 	    _hitBoxCollider = _hitBoxTransform.GetComponent<BoxCollider2D>();
     }
+
+    private void Start() {
+	    Init();
+    }
 #endregion
 
 #region Custom
@@ -39,15 +40,24 @@ public class AttackBehavior : MonoBehaviour {
 		EquippedWeapon.Sprite = defaultWeapon.Sprite;
 		EquippedWeapon.StunTime = defaultWeapon.StunTime;
 		EquippedWeapon.Sound = defaultWeapon.Sound;
+		EquippedWeapon.Damage = defaultWeapon.Damage;
+		EquippedWeapon.Shock = defaultWeapon.Shock;
 		
 		_weaponSpriteRenderer.sprite = defaultWeapon.Sprite;
 	}
 	public void Init() {
 		ResetWeapon();
-		_hitBoxSpriteRenderer.enabled = false;
+		
+		_hitBoxSpriteRenderer.enabled = false;	
 		_hitBoxCollider.enabled = false;
 	}
-	public void Activate(Direction direction) {
+
+	public void TurnOnHitBox() {
+		_hitBoxSpriteRenderer.enabled = true;	
+		_hitBoxCollider.enabled = true;
+	}
+
+	public void Activate() {
 		if (OnCooldown) { return; }
 
 		OnCooldown = true;
@@ -55,23 +65,6 @@ public class AttackBehavior : MonoBehaviour {
 		DOVirtual.DelayedCall(EquippedWeapon.AttackSpeed, () => {
 			OnCooldown = false;
 		});
-
-		switch (direction) {
-			case Direction.Down:
-				DirectionAttacking = Vector2.down;
-				break;
-			case Direction.Up:
-				DirectionAttacking = Vector2.up;
-				break;
-			case Direction.Right:
-				DirectionAttacking = Vector2.right;
-				break;
-			case Direction.Left:
-				DirectionAttacking = Vector2.left;
-				break;
-			default:
-				throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
-		}
 	}
 #endregion
 
