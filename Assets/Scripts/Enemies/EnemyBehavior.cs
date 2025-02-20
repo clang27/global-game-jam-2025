@@ -7,7 +7,7 @@ namespace Enemies {
     public abstract class EnemyBehavior : MonoBehaviour {
 
     #region Dependencies
-        [SerializeField] protected AudioClip attackSound, hurtSound;
+        [SerializeField] protected AudioClip hurtSound;
         [SerializeField] protected float maxSpeed, acceleration;
         [SerializeField][Range(1, 10)] private int health = 1;
     #endregion
@@ -23,6 +23,7 @@ namespace Enemies {
                 _animator.SetFloat(_speed, Mathf.Sqrt(_velocity.sqrMagnitude) / 5f + 0.2f);
             }
         }
+        protected Vector2 GoalVelocity { get; set; }
         public Vector2 Direction { get; protected set; }
     #endregion
 
@@ -37,7 +38,8 @@ namespace Enemies {
     
     #region Data
         private Vector2 _velocity;
-        private static readonly int _speed = Animator.StringToHash("speed");
+        protected static readonly int _speed = Animator.StringToHash("speed");
+        protected static readonly int _attack = Animator.StringToHash("attack");
     #endregion
 
     #region Unity
@@ -58,9 +60,11 @@ namespace Enemies {
 	
         private void FixedUpdate() {
             if (Stunned) { return; }
+            
             Move();
+            
             if (!AttackCooldown) {
-                Attack();	
+                Attack();
             }
         }
     #endregion
@@ -70,7 +74,7 @@ namespace Enemies {
         protected abstract void Init();
         protected abstract void Move();
         protected abstract void Attack();
-
+        
         public void Hurt(Weapon weapon, Vector2 sourcePosition) {
             if (Stunned) { return; }
             AudioManager.Instance.PlaySfx(hurtSound);

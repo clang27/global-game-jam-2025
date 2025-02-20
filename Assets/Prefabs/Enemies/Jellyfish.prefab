@@ -451,6 +451,6 @@ MonoBehaviour:
   attackSound: {fileID: 8300000, guid: b488d615066e1cb46813423ef48976e8, type: 3}
   hurtSound: {fileID: 8300000, guid: 6050f143108766f43b9644073702920c, type: 3}
   maxSpeed: 5
-  acceleration: 0.4
+  acceleration: 20
   health: 1
-  raycastDistance: 1.2
+  raycastDistance: 1.3

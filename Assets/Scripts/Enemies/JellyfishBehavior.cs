@@ -3,8 +3,7 @@ using Vector2 = UnityEngine.Vector2;
 
 namespace Enemies {
     public class JellyfishBehavior : EnemyBehavior {
-        private Vector2 _goalVelocity;
-        private int _floorLayerMask;
+        private int _wallLayerMask;
         
         [SerializeField] private float raycastDistance;
 
@@ -12,8 +11,9 @@ namespace Enemies {
             Velocity = Vector2.zero;
             Direction = _transform.rotation * Vector2.up;
 
-            _floorLayerMask = LayerMask.GetMask("Floor");
-            _goalVelocity = Direction * maxSpeed;
+            _wallLayerMask = LayerMask.GetMask("Floor", "Bubble");
+            
+            GoalVelocity = Direction * maxSpeed;
             _attackBehavior.TurnOnHitBox();
         }
         
@@ -21,13 +21,14 @@ namespace Enemies {
             if (WallAhead()) {
                 Direction = -Direction;
                 _transform.Rotate(new Vector3(0f, 0f, 180f));
-                _goalVelocity = -_goalVelocity;
+                GoalVelocity = -GoalVelocity;
             }
 
-            Velocity = Vector2.Lerp(Velocity, _goalVelocity, acceleration);
-            Vector2.MoveTowards(Velocity, _goalVelocity, 1f / acceleration);
+            Velocity = Vector2.MoveTowards(Velocity, GoalVelocity, acceleration * Time.fixedDeltaTime);
             //Debug.Log($"Jellyfish moving {Velocity}");
             _rigidbody.linearVelocity = Velocity;
+            
+            _animator.SetFloat(_speed, Mathf.Clamp(Mathf.Sqrt(Velocity.sqrMagnitude)/10, 0.2f, 1f));
         }
         
         protected override void Attack() {
@@ -37,7 +38,11 @@ namespace Enemies {
         private bool WallAhead() {
             // 45 degree angles need a longer raycast to detect wall
             var tan = Mathf.Abs(Mathf.Tan(_transform.rotation.eulerAngles.z * Mathf.Deg2Rad)) / 5f;
-            var hit = Physics2D.Raycast(_transform.position, Direction, raycastDistance + tan, _floorLayerMask);
+            tan = Mathf.Clamp(tan, -0.2f, 0.2f);
+            var hit = Physics2D.Raycast(_transform.position, Direction, raycastDistance + tan, _wallLayerMask);
+            if (hit) {
+                Debug.Log($"{name} detects {hit.collider.gameObject.transform.parent.name}");    
+            }
             
             return hit;
         }
