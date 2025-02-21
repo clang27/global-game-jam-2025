@@ -38,7 +38,18 @@ namespace Managers {
 
 		public void Init() {
 			PlayGameTheme();
+			AdjustMusicVolume(SettingsManager.MasterVolume * SettingsManager.MusicVolume);
+			AdjustSfxVolume(SettingsManager.MasterVolume * SettingsManager.SfxVolume);
 		}
+
+		public void AdjustMusicVolume(float f) {
+			_musicSource.volume = f;
+		}
+		
+		public void AdjustSfxVolume(float f) {
+			_sfxSource.volume = f;
+		}
+		
 		public void PlayGameTheme() {
 			if (_musicSource.isPlaying) {
 				_musicSource.DOFade(0f, 0.1f).OnComplete(() => {

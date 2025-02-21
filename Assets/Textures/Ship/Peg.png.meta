@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 4b390e0dfe62034459667c73076a484f
+guid: fddde246066d8284398c97a0ee2a6ea6
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6379154564619917992
-    second: dark-floor-TEMP_0
+      213: 9215908806587904117
+    second: Peg_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -53,7 +53,7 @@ TextureImporter:
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 128
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spriteGenerateFallbackPhysicsShape: 1
+  spriteGenerateFallbackPhysicsShape: 0
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -72,7 +72,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 4096
+    maxTextureSize: 8192
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0

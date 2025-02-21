@@ -8,7 +8,7 @@ namespace Managers {
 	public class UiManager : MonoBehaviour, IManager {
 
 	#region Dependencies
-		[SerializeField] private CanvasGroup pauseCanvasGroup, hudCanvasGroup, titleCanvasGroup, gameOverCanvasGroup;
+		[SerializeField] private CanvasGroup settingsCanvasGroup, pauseCanvasGroup, hudCanvasGroup, titleCanvasGroup, gameOverCanvasGroup;
 		[SerializeField] private RectTransform _loadingScreen;
 		[SerializeField] private Button startGameButton, resetGameButton;
 	#endregion
@@ -54,6 +54,14 @@ namespace Managers {
 
 		public void ShowHud(bool b) {
 			ShowCanvas(hudCanvasGroup, b);
+		}
+		
+		public void ShowSettings(bool b, Slider firstSlider) {
+			if (b) {
+				_eventSystem.SetSelectedGameObject(firstSlider.gameObject);	
+			}
+			
+			ShowCanvas(settingsCanvasGroup, b);
 		}
 	
 		public void ShowTitle(bool b) {
