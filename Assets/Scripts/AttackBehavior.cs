@@ -15,7 +15,7 @@ public class AttackBehavior : MonoBehaviour {
 
 #region Components
 	private SpriteRenderer _weaponSpriteRenderer, _hitBoxSpriteRenderer;
-	private BoxCollider2D _hitBoxCollider;
+	private Collider2D _hitBoxCollider;
 	private Transform _hitBoxTransform;
 #endregion
 
@@ -24,7 +24,7 @@ public class AttackBehavior : MonoBehaviour {
 	    _hitBoxTransform = transform.GetChild(0);
 	    _weaponSpriteRenderer = GetComponent<SpriteRenderer>();
 	    _hitBoxSpriteRenderer = _hitBoxTransform.GetComponent<SpriteRenderer>();
-	    _hitBoxCollider = _hitBoxTransform.GetComponent<BoxCollider2D>();
+	    _hitBoxCollider = _hitBoxTransform.GetComponent<Collider2D>();
     }
 
     private void Start() {

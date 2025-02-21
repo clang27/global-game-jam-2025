@@ -92,7 +92,7 @@ namespace Managers {
         #region Custom
         public void Init() {
             enabled = false;
-            Upgrades = 0;
+            Upgrades = 2;
             OxygenPercent = 1f;
             OutOfBubble();
         }

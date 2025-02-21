@@ -5,6 +5,8 @@ using UnityEngine;
 namespace Enemies {
     public class PufferfishBehavior : EnemyBehavior {
         protected override void Init() {
+            AttackCooldown = false;
+            
             Velocity = Vector2.zero;
             GoalVelocity = Vector2.zero;
             Direction = Vector2.zero;
