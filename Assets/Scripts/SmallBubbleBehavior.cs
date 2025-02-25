@@ -43,6 +43,7 @@ public class SmallBubbleBehavior : MonoBehaviour {
 			OxygenManager.Instance.InBubble();
 			CameraManager.Instance.Switch(CameraState.Bubble, _transform);
 			player.JetpackOff();
+			SaveManager.Instance.Save();
 		}
 	}
 	
