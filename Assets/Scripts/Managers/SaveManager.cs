@@ -31,8 +31,24 @@ namespace Managers {
 			_saveData.ItemsCollected.Add(itemId);
 		}
 
+		public string GetStartScene() {
+			return _saveData.SceneName is null or "" ? "Ship" : _saveData.SceneName;
+		}
+		
+		public Vector2 GetStartPosition() {
+			return _saveData.StartPosition == Vector2.zero ? new Vector2(-179f, -263f) : _saveData.StartPosition;
+		}
+
+		public string GetStartBubbleName() {
+			return _saveData.StartBubbleName;
+		}
+		
+		public bool HasASaveFile() {
+			return _saveData.StartBubbleName is not (null or "");
+		}
+
 		public bool HasBeenCollected(ItemId itemId)  {
-			return _saveData.ItemsCollected.Contains(itemId);
+			return _saveData.ItemsCollected != null && _saveData.ItemsCollected.Contains(itemId);
 		}
 
 		private static SaveData ConvertData(string s) {
@@ -40,7 +56,7 @@ namespace Managers {
 		}
 
 		private static SaveData NewData() {
-			return new SaveData(new List<ItemId>());
+			return new SaveData(new List<ItemId>(), "", "", Vector2.zero);
 		}
 
 		public void Load() {
@@ -50,11 +66,20 @@ namespace Managers {
 			Debug.Log("Loading:\n" + saveDataString);
 		}
 
-		public void Save() {
+		public void Save(SmallBubbleBehavior bubble) {
+			_saveData.StartPosition = bubble.transform.position;
+			_saveData.StartBubbleName = bubble.gameObject.name;
+			_saveData.SceneName = GameManager.Instance.CurrentSceneName;
+			
 			var saveDataString = JsonUtility.ToJson(_saveData);
 			PlayerPrefs.SetString("SaveData", saveDataString);
 			PlayerPrefs.Save();
 			Debug.Log("Saving:\n" + saveDataString);
+		}
+
+		public void ClearSave() {
+			PlayerPrefs.DeleteKey("SaveData");
+			PlayerPrefs.Save();
 		}
 	#endregion
 	}

@@ -8,18 +8,19 @@ using UnityEngine.SceneManagement;
 namespace Managers {
 	public class GameManager : MonoBehaviour {
 
-		#region Attributes
+	#region Attributes
 		public static GameManager Instance { get; private set; }
 		public GameState GameState { get; private set; } = GameState.Start;
+		public string CurrentSceneName => _sceneNameLoaded;
 
-		#endregion
+	#endregion
 
-		#region Data
+	#region Data
 		private bool _gameOverCooldown;
 		private string _sceneNameLoaded;
-		#endregion
+	#endregion
 
-		#region Unity
+	#region Unity
 		private void Awake() {
 			Instance = this;
 
@@ -29,7 +30,9 @@ namespace Managers {
 
 		private void Start() {
 			Init();
-			StartCoroutine(ChangeScene("Ship"));
+			
+			var startScene = SaveManager.Instance.GetStartScene();
+			StartCoroutine(ChangeScene(startScene));
 		}
     
 		private void OnDestroy() {
@@ -94,8 +97,17 @@ namespace Managers {
 
 		public void StartGame() {
 			GameState = GameState.Playing;
-		
-			CameraManager.Instance.Switch(CameraState.Ocean);
+
+			if (SaveManager.Instance.HasASaveFile()) {
+				var bubbleName = SaveManager.Instance.GetStartBubbleName();
+				var bubble = GameObject.Find(bubbleName);
+				
+				BubbleManager.Instance.SmallBubblePlayerIsOn = bubble.GetComponent<SmallBubbleBehavior>();
+				OxygenManager.Instance.InBubble();
+				CameraManager.Instance.Switch(CameraState.Bubble, bubble.transform);
+			} else {
+				CameraManager.Instance.Switch(CameraState.Ocean);	
+			}
 
 			PlayerManager.Controller.InUi = false;
 			BubbleManager.Instance.enabled = true;

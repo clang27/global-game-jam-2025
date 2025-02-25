@@ -39,11 +39,13 @@ public class SmallBubbleBehavior : MonoBehaviour {
 		if (other.TryGetComponent<PlayerBehavior>(out var player)) {
 			Debug.Log(other.name + " has landed on the bubble.");
 			player.EnterBubble();
+			player.JetpackOff();
+			
 			BubbleManager.Instance.SmallBubblePlayerIsOn = this;
 			OxygenManager.Instance.InBubble();
 			CameraManager.Instance.Switch(CameraState.Bubble, _transform);
-			player.JetpackOff();
-			SaveManager.Instance.Save();
+			
+			SaveManager.Instance.Save(this);
 		}
 	}
 	
@@ -54,16 +56,13 @@ public class SmallBubbleBehavior : MonoBehaviour {
 			Debug.Log(other.name + " has exited the bubble.");
 			var direction = (player.transform.position - _transform.position).normalized;
 			player.Eject(direction);
+			
 			BubbleManager.Instance.SmallBubblePlayerIsOn = null;
 			OxygenManager.Instance.OutOfBubble();
 			CameraManager.Instance.Switch(CameraState.Ocean);
 		}
 	}
 
-#endregion
-
-#region Custom
-	//
 #endregion
 
 }

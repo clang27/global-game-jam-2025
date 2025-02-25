@@ -23,7 +23,13 @@ namespace Managers {
 
     #region Custom
         public void Init() {
-            Player.Init();
+            if (SaveManager.Instance.HasASaveFile()) {
+                var startPosition = SaveManager.Instance.GetStartPosition();
+                Player.InitWithBubble(startPosition);
+            } else {
+                Player.Init();
+            }
+            
             Controller.InUi = true;
             Controller.Enabled = true;
         }

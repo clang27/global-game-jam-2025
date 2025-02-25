@@ -6,24 +6,30 @@ using CameraState = Enums.CameraState;
 namespace Managers {
 	public class CameraManager : MonoBehaviour, IManager {
 
-		#region Dependencies
+	#region Dependencies
 		[SerializeField] private CinemachineCamera outsideCamera, insideCamera, titleCamera;
-		#endregion
+	#endregion
 
-		#region Attributes
+	#region Attributes
 		public static CameraManager Instance { get; private set; }
-		#endregion
+	#endregion
 
-
-		#region Unity
+	#region Unity
 		private void Awake() {
 			Instance = this;
 		}
-		#endregion
+	#endregion
 
-		#region Custom
+	#region Custom
 		public void Init() {
-			Switch(CameraState.Title);
+			var startPosition = SaveManager.Instance.HasASaveFile()
+				? SaveManager.Instance.GetStartPosition()
+				: new Vector2(-167.8f, -259.92f);
+			
+			titleCamera.transform.SetPositionAndRotation(new Vector3(startPosition.x, startPosition.y, -10f), Quaternion.identity);
+			titleCamera.Priority = 5;
+			outsideCamera.Priority = 1;
+			insideCamera.Priority = 1;
 			insideCamera.Target.TrackingTarget = null;
 		}
 
@@ -53,7 +59,7 @@ namespace Managers {
 					throw new ArgumentOutOfRangeException(nameof(state), state, null);
 			}
 		}
-		#endregion
+	#endregion
 
 	}
 }

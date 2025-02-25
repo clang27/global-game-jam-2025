@@ -46,6 +46,13 @@ public class SettingsManager : MonoBehaviour {
 		PlayerPrefs.Save();
 	}
 
+	public void ResetSave() {
+		UiManager.Instance.ShowSettings(false, masterVolumeSlider);
+		SaveManager.Instance.ClearSave();
+		SaveManager.Instance.Load();
+		GameManager.Instance.ResetGame();
+	}
+
 	private void Load() {
 		MasterVolume = PlayerPrefs.GetFloat("MasterVolume", 0.5f);
 		MusicVolume = PlayerPrefs.GetFloat("MusicVolume", 1f);

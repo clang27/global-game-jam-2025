@@ -1,5 +1,6 @@
 using System;
 using DG.Tweening;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -66,7 +67,11 @@ namespace Managers {
 	
 		public void ShowTitle(bool b) {
 			if (b) {
-				_eventSystem.SetSelectedGameObject(startGameButton.gameObject);	
+				_eventSystem.SetSelectedGameObject(startGameButton.gameObject);
+				
+				startGameButton.GetComponentInChildren<TextMeshProUGUI>().text = SaveManager.Instance.HasASaveFile() ?
+					"Continue" :
+					"New Game";
 			}
 			
 			ShowCanvas(titleCanvasGroup, b);

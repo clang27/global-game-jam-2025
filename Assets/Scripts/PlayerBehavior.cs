@@ -6,13 +6,15 @@ using UnityEngine;
 public class PlayerBehavior : MonoBehaviour {
 
 #region Dependencies
-	public float Acceleration = 2f;
-	public float Deceleration = 2f;
-	public float MaxSpeed = 5f;
-	public float JetpackMaxSpeed = 10f;
-	public float EjectForce = 20f;
-	public float JetpackForce = 2f;
+	[Header("Stats")]
+	[SerializeField] private float acceleration = 4f;
+	[SerializeField] private float deceleration = 4f;
+	[SerializeField] private float maxSpeed = 5f;
+	[SerializeField] private float jetpackMaxSpeed = 14f;
+	[SerializeField] private float ejectForce = 6f;
+	[SerializeField] private float jetpackForce = 2f;
 
+	[Header("Sounds")]
 	[SerializeField] private AudioClip _leaveBubbleSound;
 	[SerializeField] private AudioClip _enterBubbleSound;
 	[SerializeField] private AudioClip _dashSound;
@@ -20,7 +22,9 @@ public class PlayerBehavior : MonoBehaviour {
 	[SerializeField] private AudioClip _hurtSound;
 	[SerializeField] private AudioClip _attackSound;
 	
-	[SerializeField] private SpriteRenderer _shockSprite, _jetpackSprite;
+	[Header("Sprites")]
+	[SerializeField] private SpriteRenderer _shockSprite;
+	[SerializeField] private SpriteRenderer _jetpackSprite;
 #endregion
 
 #region Attributes
@@ -56,7 +60,6 @@ public class PlayerBehavior : MonoBehaviour {
 	private Vector2 _inputVector; 
 	private bool _dashCooldown;
 	private Vector3 _startingPosition;
-	private float _startingAcceleration, _startingDeceleration, _startingMaxSpeed, _startingJetpackForce;
 	private Vector2 _velocity;
 	private bool _jetpacking;
 	private float _timeSinceLastInput = 10f;
@@ -71,11 +74,6 @@ public class PlayerBehavior : MonoBehaviour {
 		_attackBehavior = GetComponentInChildren<AttackBehavior>();
 		_particleSystem = GetComponentInChildren<ParticleSystem>();
 		_spriteRenderer = GetComponent<SpriteRenderer>();
-
-		_startingAcceleration = Acceleration;
-		_startingDeceleration = Deceleration;
-		_startingMaxSpeed = MaxSpeed;
-		_startingJetpackForce = JetpackForce;
     }
 
     private void Update() {
@@ -88,17 +86,17 @@ public class PlayerBehavior : MonoBehaviour {
 		var onBubble = BubbleManager.Instance.PlayerIsOnBubble;
 		
 		if (_jetpacking) {
-			var goalSpeed = PreviousNotZeroInputVector * JetpackMaxSpeed;
-			var acc = Acceleration / 2f;
+			var goalSpeed = PreviousNotZeroInputVector * jetpackMaxSpeed;
+			var acc = acceleration / 2f;
 			_velocity = Vector2.Lerp(_velocity, goalSpeed, Time.fixedDeltaTime * acc);
 		} else {
 			if (InputVector.magnitude > 0f) {
-				var goalSpeed = InputVector * MaxSpeed;
-				var acc = (onBubble) ? Acceleration : Acceleration / 4f;
+				var goalSpeed = InputVector * maxSpeed;
+				var acc = (onBubble) ? acceleration : acceleration / 4f;
 				_velocity = Vector2.Lerp(_velocity, goalSpeed, Time.fixedDeltaTime * acc);
 			} else if (!Stunned) {
 				var goalSpeed = Vector2.zero;
-				var dec = (onBubble) ? Deceleration : Deceleration / 4f;
+				var dec = (onBubble) ? deceleration : deceleration / 4f;
 				_velocity = Vector2.Lerp(_velocity, goalSpeed, Time.fixedDeltaTime * dec);
 			}
 		}
@@ -126,8 +124,8 @@ public class PlayerBehavior : MonoBehaviour {
 		}
 
 		if (!Spinning) { // Don't clamp if spinning or dashing
-			var maxSpeed = _jetpacking ? JetpackMaxSpeed : MaxSpeed;
-			_rigidbody.linearVelocity = Vector2.ClampMagnitude(_velocity, maxSpeed);
+			var m = _jetpacking ? jetpackMaxSpeed : maxSpeed;
+			_rigidbody.linearVelocity = Vector2.ClampMagnitude(_velocity, m);
 			_rigidbody.linearVelocity += BubbleManager.Instance.BubbleVelocity;
 		}
 	}
@@ -147,14 +145,6 @@ public class PlayerBehavior : MonoBehaviour {
 		_inputVector = Vector2.zero;
 		_velocity = Vector2.zero;
 		_timeSinceLastInput = 10f;
-	}
-	public void UpgradeJetpack() {
-		JetpackForce += 0.4f;
-	}
-
-	public void UpgradeWeapon() {
-		_attackBehavior.EquippedWeapon.StunTime += _attackBehavior.EquippedWeapon.StunTime * .1f;
-		_attackBehavior.EquippedWeapon.Knockback += _attackBehavior.EquippedWeapon.Knockback * .1f;
 	}
 	
 	public void Hurt(Weapon weapon, Vector2 sourcePosition) {
@@ -185,20 +175,7 @@ public class PlayerBehavior : MonoBehaviour {
 			_jetpackSprite.DOFade(1f, 0f);
 		});
 	}
-
-	public void ResetStats() {
-		Acceleration = _startingAcceleration;
-		Deceleration = _startingDeceleration;
-		MaxSpeed = _startingMaxSpeed;
-		JetpackForce = _startingJetpackForce;
-
-		if (_attackBehavior) {
-			_attackBehavior.ResetWeapon();	
-		}
-	}
 	public void Init() {
-		ResetStats();
-
 		_velocity = Vector2.zero;
 		_transform.position = _startingPosition;
 		_transform.eulerAngles = Vector3.zero;
@@ -213,6 +190,12 @@ public class PlayerBehavior : MonoBehaviour {
 			_animator.SetBool("right", false);
 			_animator.SetBool("left", false);
 		}
+	}
+	
+	public void InitWithBubble(Vector2 v) {
+		_attackBehavior.Init();
+		
+		MoveToBubble(v);
 	}
 
 	public void MoveToBubble(Vector2 v) {
@@ -234,7 +217,7 @@ public class PlayerBehavior : MonoBehaviour {
 	public void Eject(Vector2 direction) {
 		Spinning = true;
 		TimeOnBubble = 0f;
-		Knockback(direction, EjectForce);
+		Knockback(direction, ejectForce);
 		AudioManager.Instance.PlaySfx(_leaveBubbleSound);
 
 		var duration = tag.Equals("Enemy") ? 0.5f : 1f;
@@ -282,7 +265,7 @@ public class PlayerBehavior : MonoBehaviour {
 			_animator.SetBool("jetpack", true);
 		}
 
-		_velocity += PreviousNotZeroInputVector * JetpackForce;
+		_velocity += PreviousNotZeroInputVector * jetpackForce;
 		_timeSinceLastInput = 0f;
 		AudioManager.Instance.PlaySfx(_dashSound);	
 	}
