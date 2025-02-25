@@ -31,6 +31,7 @@ public class SettingsManager : MonoBehaviour {
 		MasterVolume = f / sliderQuotient;
 		
 		AudioManager.Instance.AdjustMusicVolume(MasterVolume * MusicVolume);
+		AudioManager.Instance.AdjustSfxVolume(MasterVolume * SfxVolume);
 		PlayerPrefs.SetFloat("MasterVolume", MasterVolume);
 	}
 
