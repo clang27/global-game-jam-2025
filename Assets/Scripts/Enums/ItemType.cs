@@ -3,7 +3,7 @@ using System;
 namespace Enums {
     [Serializable]
     public enum ItemType {
-        Coin, Emerald, Ruby, Sapphire, OxygenUpgrade
+        Coin, Emerald, Ruby, Sapphire, OxygenUpgrade, Key
     }
 
     [Serializable]

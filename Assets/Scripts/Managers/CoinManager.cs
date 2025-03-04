@@ -34,9 +34,11 @@ namespace Managers {
             
             Debug.Log($"${Dollars} has been collected according to save data");
         }
+        
+        public void SceneChange(string sceneName) {}
 
-        public void AddLoot(ItemType type) {
-            AddLoot(type, 1);
+        public void AddLoot(ItemId id) {
+            AddLoot(id.type, 1);
         }
     
         private void AddLoot(ItemType type, int amount) {

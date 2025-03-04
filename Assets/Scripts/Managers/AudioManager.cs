@@ -15,6 +15,7 @@ namespace Managers {
 
 		#region Attributes
 		public static AudioManager Instance { get; private set; }
+		public AudioSource SfxSource => _sfxSource;
 		#endregion
 
 		#region Components
@@ -41,6 +42,8 @@ namespace Managers {
 			AdjustMusicVolume(SettingsManager.MasterVolume * SettingsManager.MusicVolume);
 			AdjustSfxVolume(SettingsManager.MasterVolume * SettingsManager.SfxVolume);
 		}
+		
+		public void SceneChange(string sceneName) {}
 
 		public void AdjustMusicVolume(float f) {
 			_musicSource.volume = f;
@@ -51,46 +54,20 @@ namespace Managers {
 		}
 		
 		public void PlayGameTheme() {
-			if (_musicSource.isPlaying) {
-				_musicSource.DOFade(0f, 0.1f).OnComplete(() => {
-					_musicSource.Stop();
-					_musicSource.clip = songOne;
-					_musicSource.Play();
-					_musicSource.DOFade(1f, 0.1f);
-				});
-			} else {
-				PlaySong(songOne);
-			}
+			PlaySong(songOne);
 		}
 	
-		public void PlayShopTheme() {
-			if (_musicSource.isPlaying) {
-				_musicSource.DOFade(0f, 0.1f).OnComplete(() => {
-					_musicSource.Stop();
-					_musicSource.clip = songTwo;
-					_musicSource.Play();
-					_musicSource.DOFade(1f, 0.1f);
-				});
-			} else {
-				PlaySong(songTwo);
-			}
-		}
-	
-		private void PlaySong(AudioClip ac, float pitch = 1f, float vol = 1f) {
+		private void PlaySong(AudioClip ac) {
 			_musicSource.clip = ac;
-			_musicSource.pitch = pitch;
-			_musicSource.volume = vol;
 			_musicSource.Play();
 		}
 
-		public void PlaySfx(AudioClip ac, float vol = 1f) {
+		public void PlaySfx(AudioClip ac) {
 			if (ac == null) {
 				return;
 			}
-
-			var pitch = 1f;
-			_sfxSource.pitch = pitch;
-			_sfxSource.volume = vol;
+			
+			_sfxSource.pitch = 1f;
 			_sfxSource.PlayOneShot(ac);
 		}
 		#endregion

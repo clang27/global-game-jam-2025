@@ -16,7 +16,7 @@ public class ItemPickup : MonoBehaviour {
 #region Components
 	private Transform _transform;
 	private Sequence _danceSequence;
-	private Action<ItemType> _action;
+	private Action<ItemId> _action;
 #endregion
 
 #region Unity
@@ -25,31 +25,12 @@ public class ItemPickup : MonoBehaviour {
 		name = itemId.ToString();
 	}
 
-	private void Start() {
-		if (SaveManager.Instance.HasBeenCollected(itemId)) {
-			RemoveFromScene();
-		}
-		else {
-			_action = itemId.type switch {
-				ItemType.Coin          => CoinManager.Instance.AddLoot,
-				ItemType.Emerald       => CoinManager.Instance.AddLoot,
-				ItemType.Ruby          => CoinManager.Instance.AddLoot,
-				ItemType.Sapphire      => CoinManager.Instance.AddLoot,
-				ItemType.OxygenUpgrade => CoinManager.Instance.AddLoot,
-				_                    => throw new ArgumentOutOfRangeException()
-			};
-
-			_danceSequence = _transform.DOLocalJump(_transform.localPosition, 0.25f, 1, 2f);
-			_danceSequence.SetLoops(-1);
-		}
-	}
-
 	private void OnTriggerEnter2D(Collider2D other) {
 		if (GameManager.Instance.GameState == GameState.Start) { return; }
 			
 		if (other.tag.Equals("Player")) {
 			AudioManager.Instance.PlaySfx(pickupSound);
-			_action.Invoke(itemId.type);
+			_action.Invoke(itemId);
 			RemoveFromScene();
 			SaveManager.Instance.ItemCollected(itemId);
 		}
@@ -61,9 +42,33 @@ public class ItemPickup : MonoBehaviour {
 #endregion
 
 #region Custom
+	public void Init() {
+		if (SaveManager.Instance.HasBeenCollected(itemId)) {
+			RemoveFromScene();
+		} else {
+			AddToScene();
+		}
+	}
 	private void RemoveFromScene() {
 		_danceSequence?.Kill();
 		gameObject.SetActive(false);
+	}
+
+	private void AddToScene() {
+		gameObject.SetActive(true);
+		
+		_action = itemId.type switch {
+			ItemType.Coin          => CoinManager.Instance.AddLoot,
+			ItemType.Emerald       => CoinManager.Instance.AddLoot,
+			ItemType.Ruby          => CoinManager.Instance.AddLoot,
+			ItemType.Sapphire      => CoinManager.Instance.AddLoot,
+			ItemType.OxygenUpgrade => CoinManager.Instance.AddLoot,
+			ItemType.Key           => KeyManager.Instance.AddKey,
+			_                      => throw new ArgumentOutOfRangeException()
+		};
+
+		_danceSequence = _transform.DOLocalJump(_transform.localPosition, 0.25f, 1, 2f);
+		_danceSequence.SetLoops(-1);
 	}
 #endregion
 

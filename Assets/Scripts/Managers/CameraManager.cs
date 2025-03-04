@@ -24,7 +24,7 @@ namespace Managers {
 		public void Init() {
 			var startPosition = SaveManager.Instance.HasASaveFile()
 				? SaveManager.Instance.GetStartPosition()
-				: new Vector2(-167.8f, -259.92f);
+				: new Vector2(-243.5f, -237.8f);
 			
 			titleCamera.transform.SetPositionAndRotation(new Vector3(startPosition.x, startPosition.y, -10f), Quaternion.identity);
 			titleCamera.Priority = 5;
@@ -32,6 +32,8 @@ namespace Managers {
 			insideCamera.Priority = 1;
 			insideCamera.Target.TrackingTarget = null;
 		}
+		
+		public void SceneChange(string sceneName) {}
 
 		public void Switch(CameraState state, Transform bubble = null, bool track = true) {
 			if (bubble) {

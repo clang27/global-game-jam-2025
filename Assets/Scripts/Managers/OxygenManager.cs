@@ -96,6 +96,8 @@ namespace Managers {
             OxygenPercent = 1f;
             OutOfBubble();
         }
+        
+        public void SceneChange(string sceneName) {}
     
         public void ToggleJetpack(bool b) {
             _jetpackOn = b;

@@ -42,6 +42,8 @@ namespace Managers {
 			ShowHud(false);
 		}
 		
+		public void SceneChange(string sceneName) {}
+		
 		public void ShowLoading(bool b, Action a) {
 			_loadingScreen.DOKill();
 			_loadingScreen.DOLocalMoveY(b ? -3080f : 0f, 0f);

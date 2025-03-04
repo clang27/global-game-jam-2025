@@ -45,6 +45,10 @@ public class PlayerBehavior : MonoBehaviour {
 	public Vector2 PreviousInputVector { get; set; }
 	public bool Spinning { get; private set; }
 	public bool Stunned { get; private set; }
+	public bool InCutScene { get; private set; }
+	
+	public bool HasJetpack { get; private set; }
+	public bool HasWeapon { get; private set; }
 #endregion
 
 #region Components
@@ -117,10 +121,10 @@ public class PlayerBehavior : MonoBehaviour {
 					_animator.SetBool("down", true);
 				}
 				
-				_animator.SetBool("idle", _velocity.sqrMagnitude < 0.05f && _timeSinceLastInput > 2f);
+				_animator.SetBool("idle", _velocity.sqrMagnitude < 0.05f && _timeSinceLastInput > 2f && !InCutScene);
 			}
 
-			_animator.SetFloat("speed", Mathf.Sqrt(_velocity.sqrMagnitude) / 5f + 0.2f);
+			_animator.SetFloat("speed", Mathf.Sqrt(_velocity.sqrMagnitude) / 15f + 0.2f);
 		}
 
 		if (!Spinning) { // Don't clamp if spinning or dashing
@@ -145,6 +149,12 @@ public class PlayerBehavior : MonoBehaviour {
 		_inputVector = Vector2.zero;
 		_velocity = Vector2.zero;
 		_timeSinceLastInput = 10f;
+	}
+
+	public void CutScene(float f) {
+		InCutScene = true;
+		DOVirtual.DelayedCall(f, () => InCutScene = false);
+		StopMoving();
 	}
 	
 	public void Hurt(Weapon weapon, Vector2 sourcePosition) {
@@ -184,6 +194,9 @@ public class PlayerBehavior : MonoBehaviour {
 		_timeSinceLastInput = 10f;
 		_attackBehavior.Init();
 		
+		HasJetpack = SaveManager.Instance.HasJetpack();
+		HasWeapon = SaveManager.Instance.HasWeapon();
+		
 		if (_animator) {
 			_animator.SetBool("up", true);
 			_animator.SetBool("down", false);
@@ -215,24 +228,25 @@ public class PlayerBehavior : MonoBehaviour {
 	}
 	
 	public void Eject(Vector2 direction) {
-		Spinning = true;
 		TimeOnBubble = 0f;
-		Knockback(direction, ejectForce);
-		AudioManager.Instance.PlaySfx(_leaveBubbleSound);
-
-		var duration = tag.Equals("Enemy") ? 0.5f : 1f;
-		_rigidbody.DORotate(360f, duration).OnComplete(() => {
-			_rigidbody.rotation = 0f;
-			Spinning = false;
-			if (tag.Equals("Enemy")) {
-				//EnemyManager.Instance.DespawnEnemy(GetComponent<AiController>());
-			}
-		});
+		if (_jetpacking) {
+			Knockback(direction, ejectForce);	
+		}
+		
+		if (_velocity.sqrMagnitude > 0f) {
+			AudioManager.Instance.PlaySfx(_leaveBubbleSound);	
+		}
+		
+		// _rigidbody.DORotate(360f, 1f).OnComplete(() => {
+		// 	_rigidbody.rotation = 0f;
+		// });
 	}
 
 	public void EnterBubble() {
 		TimeOnBubble = 0f;
-		AudioManager.Instance.PlaySfx(_enterBubbleSound);
+		if (_velocity.sqrMagnitude > 0f) {
+			AudioManager.Instance.PlaySfx(_enterBubbleSound);	
+		}
 	}
 	
 	public void Knockback(Vector2 direction, float force) {
@@ -240,7 +254,7 @@ public class PlayerBehavior : MonoBehaviour {
 	}
 
 	public void Attack() {
-		if (Stunned || _jetpacking) { return; }
+		if (Stunned || _jetpacking || !HasWeapon) { return; }
 
 		if (!_attackBehavior.OnCooldown) {
 			DOVirtual.DelayedCall(0.1f, () => AudioManager.Instance.PlaySfx(_attackSound));
@@ -252,8 +266,21 @@ public class PlayerBehavior : MonoBehaviour {
 		
 		_attackBehavior.Activate();
 	}
+
+	public void Interact() {
+		Debug.Log("Interacting!");
+		if (Stunned) { return; }
+		if (!(KeyManager.TouchedDoor && KeyManager.TouchedDoor.CanOpen)) { return; }
+		
+		_velocity = Vector2.zero;
+		_transform.position = KeyManager.TouchedDoor.TeleportLocation;
+		_transform.eulerAngles = Vector3.zero;
+		_jetpacking = false;
+		_timeSinceLastInput = 10f;
+	}
 	
 	public void JetpackOn() {
+		if (!HasJetpack) { return; }
 		if (Stunned) { return; }
 		if (BubbleManager.Instance.PlayerIsOnBubble) { return; }
 

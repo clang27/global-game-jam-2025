@@ -38,9 +38,9 @@ namespace Managers {
 		private void OnDestroy() {
 			DOTween.KillAll();
 		}
-		#endregion
+	#endregion
 
-		#region Custom
+	#region Custom
 		private void Init() {
 			GameState = GameState.Start;
 			_gameOverCooldown = false;
@@ -85,29 +85,24 @@ namespace Managers {
 			Debug.Log($"Finished unloading {_sceneNameLoaded}");
 			
 			_sceneNameLoaded = sceneName;
-			BubbleManager.Instance.PostSceneLoad(_sceneNameLoaded);
+			
+			foreach (var manager in FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None).OfType<IManager>()) {
+				manager.SceneChange(_sceneNameLoaded);
+			}
 		}
 
 		public void ResetGame() {
 			if (!_gameOverCooldown) {
 				DOTween.KillAll();
 				Init();
+				foreach (var manager in FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None).OfType<IManager>()) {
+					manager.SceneChange(_sceneNameLoaded);
+				}
 			}
 		}
 
 		public void StartGame() {
 			GameState = GameState.Playing;
-
-			if (SaveManager.Instance.HasASaveFile()) {
-				var bubbleName = SaveManager.Instance.GetStartBubbleName();
-				var bubble = GameObject.Find(bubbleName);
-				
-				BubbleManager.Instance.SmallBubblePlayerIsOn = bubble.GetComponent<SmallBubbleBehavior>();
-				OxygenManager.Instance.InBubble();
-				CameraManager.Instance.Switch(CameraState.Bubble, bubble.transform);
-			} else {
-				CameraManager.Instance.Switch(CameraState.Ocean);	
-			}
 
 			PlayerManager.Controller.InUi = false;
 			BubbleManager.Instance.enabled = true;
@@ -117,6 +112,17 @@ namespace Managers {
 			UiManager.Instance.ShowGameOver(false);
 			UiManager.Instance.ShowTitle(false);
 			UiManager.Instance.ShowHud(true);
+			
+			if (SaveManager.Instance.HasASaveFile()) {
+				var bubbleName = SaveManager.Instance.GetStartBubbleName();
+				var bubble = GameObject.Find(bubbleName);
+				
+				BubbleManager.Instance.SmallBubblePlayerIsOn = bubble.GetComponent<SmallBubbleBehavior>();
+				OxygenManager.Instance.InBubble();
+				CameraManager.Instance.Switch(CameraState.Bubble, bubble.transform);
+			} else {
+				CutSceneManager.Instance.PlayScene("Intro");
+			}
 		}
 
 		public void GameOver(bool won) {
@@ -161,8 +167,7 @@ namespace Managers {
 			UiManager.Instance.ShowPause(false);
 			UiManager.Instance.ShowHud(true);
 		}
-		#endregion
-
+	#endregion
 	}
 }
 

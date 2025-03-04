@@ -57,7 +57,7 @@ namespace Managers {
 			PlayerManager.Player.InputVector = direction;
 		}
 
-		public void PostSceneLoad(string sceneName) {
+		public void SceneChange(string sceneName) {
 			SmallBubbles = FindObjectsByType<SmallBubbleBehavior>(FindObjectsInactive.Include, FindObjectsSortMode.None).ToList();
 			LargeBubbles = FindObjectsByType<LargeBubbleBehavior>(FindObjectsInactive.Include, FindObjectsSortMode.None).ToList();
 			

@@ -87,6 +87,14 @@ public class PlayerController : MonoBehaviour {
 		
 		_player.Attack();	
 	}
+	
+	public void OnInteract(InputAction.CallbackContext context) {
+		if (InUi) { return; }
+		if (!Enabled) { return; }
+		if (!context.started) { return; }
+		
+		_player.Interact();	
+	}
 #endregion
 
 }

@@ -33,6 +33,8 @@ namespace Managers {
             Controller.InUi = true;
             Controller.Enabled = true;
         }
+        
+        public void SceneChange(string sceneName) {}
     #endregion
     }
 }

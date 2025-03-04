@@ -4,7 +4,7 @@ using Enums;
 using UnityEngine;
 
 namespace Managers {
-	public class SaveManager : MonoBehaviour {
+	public class SaveManager : MonoBehaviour, IManager {
 		
 	#region Attributes
 		public static SaveManager Instance { get; private set; }
@@ -23,12 +23,25 @@ namespace Managers {
 	#endregion
 
 	#region Custom
+		public void Init() { }
+		public void SceneChange(string sceneName) {
+			foreach (var item in FindObjectsByType<ItemPickup>(FindObjectsInactive.Include, FindObjectsSortMode.None)) {
+				item.Init();
+			}
+		}
 
 		public int NumberOfItem(ItemType itemType) {
 			return _saveData.ItemsCollected.Count(item => item.type == itemType);
 		}
 		public void ItemCollected(ItemId itemId) {
 			_saveData.ItemsCollected.Add(itemId);
+		}
+
+		public List<ushort> KeysCollected() {
+			return _saveData.ItemsCollected
+				.Where(item => item.type.Equals(ItemType.Key))
+				.Select(item => item.number)
+				.ToList();
 		}
 
 		public string GetStartScene() {
@@ -41,6 +54,14 @@ namespace Managers {
 
 		public string GetStartBubbleName() {
 			return _saveData.StartBubbleName;
+		}
+
+		public bool HasWeapon() {
+			return false;
+		}
+
+		public bool HasJetpack() {
+			return false;
 		}
 		
 		public bool HasASaveFile() {

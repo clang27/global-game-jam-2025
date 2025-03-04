@@ -203,7 +203,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -200, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.2, y: 1.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8543044803471118081}
@@ -252,10 +252,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0400aa43af104884a8d61318d54ea12f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shrinkSpeed: 0.00025
-  popPercent: 0.2
-  shrinkThreshold: 1.5
-  topSpeed: 2
 --- !u!95 &8515137750626554695
 Animator:
   serializedVersion: 7
@@ -432,7 +428,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 3
+  m_Radius: 3.4
 --- !u!1 &8430177704814200812
 GameObject:
   m_ObjectHideFlags: 0
