@@ -64,6 +64,8 @@ public class ItemPickup : MonoBehaviour {
 			ItemType.Sapphire      => CoinManager.Instance.AddLoot,
 			ItemType.OxygenUpgrade => CoinManager.Instance.AddLoot,
 			ItemType.Key           => KeyManager.Instance.AddKey,
+			ItemType.Jetpack       => PlayerManager.Player.AddJetpack,
+			ItemType.Weapon       => PlayerManager.Player.AddWeapon,
 			_                      => throw new ArgumentOutOfRangeException()
 		};
 

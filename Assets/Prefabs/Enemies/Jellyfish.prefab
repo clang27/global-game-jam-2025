@@ -280,7 +280,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3695993899324440858}
@@ -448,9 +448,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24b2201884b04d5780982b477a626eea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackSound: {fileID: 8300000, guid: b488d615066e1cb46813423ef48976e8, type: 3}
   hurtSound: {fileID: 8300000, guid: 6050f143108766f43b9644073702920c, type: 3}
   maxSpeed: 5
   acceleration: 20
   health: 1
-  raycastDistance: 1.3
+  raycastDistance: 2.3

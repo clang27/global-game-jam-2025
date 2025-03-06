@@ -24,7 +24,7 @@ namespace Managers {
 		public void Init() {
 			var startPosition = SaveManager.Instance.HasASaveFile()
 				? SaveManager.Instance.GetStartPosition()
-				: new Vector2(-243.5f, -237.8f);
+				: new Vector2(-250f, -250f);
 			
 			titleCamera.transform.SetPositionAndRotation(new Vector3(startPosition.x, startPosition.y, -10f), Quaternion.identity);
 			titleCamera.Priority = 5;

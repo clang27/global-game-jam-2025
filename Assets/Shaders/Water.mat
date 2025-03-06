@@ -45,20 +45,20 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _BodyTransparency: 0.55
+    - _BodyTransparency: 0.7
     - _CausticsOffsetSpeed: 0.33
     - _CausticsPower: 2.33
     - _CausticsScale: 7.15
-    - _CausticsStrength: 0.1
+    - _CausticsStrength: 0.15
     - _DistortionOffsetSpeed: 0.2
     - _DistortionScale: 10
     - _DistortionStrength: 0.01
     - _LineLength: 0.998
     m_Colors:
-    - _BodyColor: {r: 0.04579032, g: 0.184615, b: 0.46226418, a: 0}
+    - _BodyColor: {r: 0, g: 0.09770494, b: 0.29799998, a: 0}
     - _CausticsColor: {r: 0.46705887, g: 0.6819059, b: 0.794, a: 0}
-    - _CausticsDirection: {r: 0.02, g: 0, b: 0, a: 0}
-    - _CausticsTiling: {r: 5, g: 5, b: 0, a: 0}
+    - _CausticsDirection: {r: 0.03, g: 0, b: 0, a: 0}
+    - _CausticsTiling: {r: 10, g: 10, b: 0, a: 0}
     - _DistortionDirection: {r: 0.02, g: 0.04, b: 0, a: 0}
     - _LineColor: {r: 0.39, g: 0.57299995, b: 1, a: 0}
   m_BuildTextureStacks: []

@@ -11,7 +11,7 @@ public class DoorBehavior : MonoBehaviour {
 #endregion
 
 #region Components
-	private SpriteRenderer _spaceBarSpriteRenderer;
+	private SpriteRenderer _spaceBarSpriteRenderer, _lockSpriteRenderer;
 #endregion
 
 #region Attributes
@@ -22,14 +22,16 @@ public class DoorBehavior : MonoBehaviour {
 #region Unity
     private void Awake() {
 	    _spaceBarSpriteRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
+	    _lockSpriteRenderer = transform.GetChild(1).GetComponent<SpriteRenderer>();
 	    
 	    _spaceBarSpriteRenderer.enabled = false;
+	    _lockSpriteRenderer.enabled = !CanOpen;
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
 	    if (other.TryGetComponent<PlayerBehavior>(out var player)) {
 		    Debug.Log(other.name + " has touched the door.");
-
+		    
 		    _spaceBarSpriteRenderer.enabled = true;
 		    _spaceBarSpriteRenderer.sprite =
 			    CanOpen ? unlockedSpacebarSprite : lockedSpacebarSprite;
@@ -47,6 +49,19 @@ public class DoorBehavior : MonoBehaviour {
 		    KeyManager.TouchedDoor = null;
 	    }
     }
+#endregion
+
+#region Other
+	public static void RemoveLock(ushort keyNumber) {
+		foreach (var door in FindObjectsByType<DoorBehavior>(FindObjectsInactive.Include, FindObjectsSortMode.None)) {
+			if (door.keyNumber == keyNumber) {
+				door.RemoveLock();
+			}
+		}
+	}
+	private void RemoveLock() {
+		_lockSpriteRenderer.enabled = false;
+	}
 #endregion
 
 }

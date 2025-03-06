@@ -57,11 +57,13 @@ namespace Managers {
 		}
 
 		public bool HasWeapon() {
-			return false;
+			return _saveData.ItemsCollected
+				.Any(item => item.type.Equals(ItemType.Weapon));
 		}
 
 		public bool HasJetpack() {
-			return false;
+			return _saveData.ItemsCollected
+				.Any(item => item.type.Equals(ItemType.Jetpack));
 		}
 		
 		public bool HasASaveFile() {

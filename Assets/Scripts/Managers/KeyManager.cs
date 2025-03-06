@@ -34,6 +34,7 @@ namespace Managers {
         }
 
         public void AddKey(ItemId id) {
+            DoorBehavior.RemoveLock(id.number);
             KeyNumbers.Add(id.number);
         }
     #endregion

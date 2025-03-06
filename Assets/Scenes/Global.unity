@@ -5897,10 +5897,10 @@ MonoBehaviour:
       Offset: {x: 0, y: 0}
   CenterOnActivate: 1
   TargetOffset: {x: 0, y: 0, z: 0}
-  Damping: {x: 3, y: 3, z: 3}
+  Damping: {x: 2, y: 2, z: 2}
   Lookahead:
     Enabled: 1
-    Time: 0.05
+    Time: 0.8
     Smoothing: 2
     IgnoreY: 0
 --- !u!114 &2078220774
@@ -5928,7 +5928,7 @@ MonoBehaviour:
     CustomLookAtTarget: 0
   Lens:
     FieldOfView: 60
-    OrthographicSize: 14
+    OrthographicSize: 15
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0

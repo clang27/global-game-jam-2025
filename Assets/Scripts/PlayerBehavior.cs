@@ -1,4 +1,5 @@
 using DG.Tweening;
+using Enums;
 using Managers;
 using Scriptable;
 using UnityEngine;
@@ -58,6 +59,7 @@ public class PlayerBehavior : MonoBehaviour {
 	private AttackBehavior _attackBehavior;
 	private SpriteRenderer _spriteRenderer;
 	private ParticleSystem _particleSystem;
+	private GameObject _jetpack;
 #endregion
 
 #region Data
@@ -78,6 +80,7 @@ public class PlayerBehavior : MonoBehaviour {
 		_attackBehavior = GetComponentInChildren<AttackBehavior>();
 		_particleSystem = GetComponentInChildren<ParticleSystem>();
 		_spriteRenderer = GetComponent<SpriteRenderer>();
+		_jetpack = _transform.GetChild(2).gameObject;
     }
 
     private void Update() {
@@ -192,9 +195,10 @@ public class PlayerBehavior : MonoBehaviour {
 		_jetpacking = false;
 		TimeOnBubble = 0f;
 		_timeSinceLastInput = 10f;
-		_attackBehavior.Init();
 		
+		_attackBehavior.Init();
 		HasJetpack = SaveManager.Instance.HasJetpack();
+		_jetpack.SetActive(HasJetpack);
 		HasWeapon = SaveManager.Instance.HasWeapon();
 		
 		if (_animator) {
@@ -207,6 +211,9 @@ public class PlayerBehavior : MonoBehaviour {
 	
 	public void InitWithBubble(Vector2 v) {
 		_attackBehavior.Init();
+		HasJetpack = SaveManager.Instance.HasJetpack();
+		_jetpack.SetActive(HasJetpack);
+		HasWeapon = SaveManager.Instance.HasWeapon();
 		
 		MoveToBubble(v);
 	}
@@ -277,6 +284,15 @@ public class PlayerBehavior : MonoBehaviour {
 		_transform.eulerAngles = Vector3.zero;
 		_jetpacking = false;
 		_timeSinceLastInput = 10f;
+	}
+
+	public void AddJetpack(ItemId id) {
+		_jetpack.SetActive(true);
+		HasJetpack = true;
+	}
+	
+	public void AddWeapon(ItemId id) {
+		HasWeapon = true;
 	}
 	
 	public void JetpackOn() {
