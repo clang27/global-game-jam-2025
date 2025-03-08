@@ -8,10 +8,15 @@ namespace Managers {
 
 	#region Dependencies
 		[SerializeField] private CinemachineCamera outsideCamera, insideCamera, titleCamera;
+		[SerializeField] private float zoomSpeed;
 	#endregion
 
 	#region Attributes
 		public static CameraManager Instance { get; private set; }
+	#endregion
+		
+	#region Data
+		private float _defaultZoom = 10f;	
 	#endregion
 
 	#region Unity
@@ -34,6 +39,13 @@ namespace Managers {
 		}
 		
 		public void SceneChange(string sceneName) {}
+
+		public void UpdateZoom(Vector2 velocity) {
+			var zoomOut = Mathf.Sqrt(velocity.sqrMagnitude) / 2f;
+			
+			outsideCamera.Lens.OrthographicSize = Mathf.Lerp(outsideCamera.Lens.OrthographicSize, _defaultZoom + zoomOut, 
+				zoomSpeed * Time.deltaTime);
+		}
 
 		public void Switch(CameraState state, Transform bubble = null, bool track = true) {
 			if (bubble) {

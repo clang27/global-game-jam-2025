@@ -90,6 +90,7 @@ public class PlayerBehavior : MonoBehaviour {
 
     private void Update() {
 	    _timeSinceLastInput += Time.deltaTime;
+	    CameraManager.Instance.UpdateZoom(_velocity);
     }
 	
 	private void FixedUpdate() {

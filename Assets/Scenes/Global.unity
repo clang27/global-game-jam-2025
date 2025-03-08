@@ -1905,7 +1905,7 @@ MonoBehaviour:
     Enabled: 0
     DefaultMode: 2
   DefaultBlend:
-    Style: 6
+    Style: 1
     Time: 1
     CustomCurve:
       serializedVersion: 2
@@ -3229,6 +3229,7 @@ MonoBehaviour:
   outsideCamera: {fileID: 2078220774}
   insideCamera: {fileID: 8585691755656059549}
   titleCamera: {fileID: 613313944}
+  zoomSpeed: 1.5
 --- !u!1 &1183105638
 GameObject:
   m_ObjectHideFlags: 0
@@ -5928,7 +5929,7 @@ MonoBehaviour:
     CustomLookAtTarget: 0
   Lens:
     FieldOfView: 60
-    OrthographicSize: 15
+    OrthographicSize: 10
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
