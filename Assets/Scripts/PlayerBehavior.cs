@@ -11,9 +11,14 @@ public class PlayerBehavior : MonoBehaviour {
 	[SerializeField] private float acceleration = 4f;
 	[SerializeField] private float deceleration = 4f;
 	[SerializeField] private float maxSpeed = 5f;
+	
+	[Header("Jetpack")]
 	[SerializeField] private float jetpackMaxSpeed = 14f;
-	[SerializeField] private float ejectForce = 6f;
 	[SerializeField] private float jetpackForce = 2f;
+	
+	[Header("Boost")]
+	[SerializeField] private float boostMaxSpeed = 40f;
+	[SerializeField][Range(0f, 1f)] private float boostTime = 0.5f;
 
 	[Header("Sounds")]
 	[SerializeField] private AudioClip _leaveBubbleSound;
@@ -44,12 +49,12 @@ public class PlayerBehavior : MonoBehaviour {
 
 	public Vector2 PreviousNotZeroInputVector { get; set; }
 	public Vector2 PreviousInputVector { get; set; }
-	public bool Spinning { get; private set; }
 	public bool Stunned { get; private set; }
 	public bool InCutScene { get; private set; }
-	
 	public bool HasJetpack { get; private set; }
 	public bool HasWeapon { get; private set; }
+	public bool Jetpacking => _jetpacking;
+	private bool Boosting { get; set; }
 #endregion
 
 #region Components
@@ -66,7 +71,7 @@ public class PlayerBehavior : MonoBehaviour {
 	private Vector2 _inputVector; 
 	private bool _dashCooldown;
 	private Vector3 _startingPosition;
-	private Vector2 _velocity;
+	private Vector2 _velocity, _boostDirection;
 	private bool _jetpacking;
 	private float _timeSinceLastInput = 10f;
 #endregion
@@ -91,19 +96,25 @@ public class PlayerBehavior : MonoBehaviour {
 		if (Stunned) {return;}
 
 		var onBubble = BubbleManager.Instance.PlayerIsOnBubble;
-		
-		if (_jetpacking) {
+
+		if (Boosting) {
+			var goalSpeed = _boostDirection * boostMaxSpeed;
+			var acc = acceleration * 10f;
+			_velocity = Vector2.Lerp(_velocity, goalSpeed, Time.fixedDeltaTime * acc);
+		} else if (Jetpacking) {
 			var goalSpeed = PreviousNotZeroInputVector * jetpackMaxSpeed;
-			var acc = acceleration / 2f;
+			var acc = acceleration * 2f;
 			_velocity = Vector2.Lerp(_velocity, goalSpeed, Time.fixedDeltaTime * acc);
 		} else {
 			if (InputVector.magnitude > 0f) {
 				var goalSpeed = InputVector * maxSpeed;
-				var acc = (onBubble) ? acceleration : acceleration / 4f;
+				var acc = (onBubble) ? acceleration * 2 : acceleration;
+				
 				_velocity = Vector2.Lerp(_velocity, goalSpeed, Time.fixedDeltaTime * acc);
-			} else if (!Stunned) {
+			} else {
 				var goalSpeed = Vector2.zero;
-				var dec = (onBubble) ? deceleration : deceleration / 4f;
+				var dec = (onBubble) ? deceleration * 2 : deceleration;
+				
 				_velocity = Vector2.Lerp(_velocity, goalSpeed, Time.fixedDeltaTime * dec);
 			}
 		}
@@ -129,12 +140,9 @@ public class PlayerBehavior : MonoBehaviour {
 
 			_animator.SetFloat("speed", Mathf.Sqrt(_velocity.sqrMagnitude) / 15f + 0.2f);
 		}
-
-		if (!Spinning) { // Don't clamp if spinning or dashing
-			var m = _jetpacking ? jetpackMaxSpeed : maxSpeed;
-			_rigidbody.linearVelocity = Vector2.ClampMagnitude(_velocity, m);
-			_rigidbody.linearVelocity += BubbleManager.Instance.BubbleVelocity;
-		}
+		
+		_rigidbody.linearVelocity = _velocity;
+		_rigidbody.linearVelocity += BubbleManager.Instance.BubbleVelocity;	
 	}
 
 	private void ClearMovementFlags() {
@@ -192,7 +200,11 @@ public class PlayerBehavior : MonoBehaviour {
 		_velocity = Vector2.zero;
 		_transform.position = _startingPosition;
 		_transform.eulerAngles = Vector3.zero;
+		
 		_jetpacking = false;
+		Stunned = false;
+		Boosting = false;
+		
 		TimeOnBubble = 0f;
 		_timeSinceLastInput = 10f;
 		
@@ -234,19 +246,16 @@ public class PlayerBehavior : MonoBehaviour {
 		}
 	}
 	
-	public void Eject(Vector2 direction) {
+	public void BubbleBoost() {
+		Debug.Log("Boost time!");
 		TimeOnBubble = 0f;
-		if (_jetpacking) {
-			Knockback(direction, ejectForce);	
-		}
-		
-		if (_velocity.sqrMagnitude > 0f) {
-			AudioManager.Instance.PlaySfx(_leaveBubbleSound);	
-		}
-		
-		// _rigidbody.DORotate(360f, 1f).OnComplete(() => {
-		// 	_rigidbody.rotation = 0f;
-		// });
+		AudioManager.Instance.PlaySfx(_leaveBubbleSound);
+		Boosting = true;
+		_boostDirection = PreviousNotZeroInputVector;
+        
+		DOVirtual.DelayedCall(boostTime, () => {
+			Boosting = false;
+		});
 	}
 
 	public void EnterBubble() {
@@ -255,13 +264,9 @@ public class PlayerBehavior : MonoBehaviour {
 			AudioManager.Instance.PlaySfx(_enterBubbleSound);	
 		}
 	}
-	
-	public void Knockback(Vector2 direction, float force) {
-		_rigidbody.AddForce(direction * (force * _rigidbody.mass), ForceMode2D.Impulse);
-	}
 
 	public void Attack() {
-		if (Stunned || _jetpacking || !HasWeapon) { return; }
+		if (Stunned || _jetpacking || !HasWeapon || Boosting) { return; }
 
 		if (!_attackBehavior.OnCooldown) {
 			DOVirtual.DelayedCall(0.1f, () => AudioManager.Instance.PlaySfx(_attackSound));

@@ -38,14 +38,18 @@ public class SmallBubbleBehavior : MonoBehaviour {
 		
 		if (other.TryGetComponent<PlayerBehavior>(out var player)) {
 			Debug.Log(other.name + " has landed on the bubble.");
-			player.EnterBubble();
-			player.JetpackOff();
-			
+
 			BubbleManager.Instance.SmallBubblePlayerIsOn = this;
 			OxygenManager.Instance.InBubble();
-			CameraManager.Instance.Switch(CameraState.Bubble, _transform);
-			
 			SaveManager.Instance.Save(this);
+			player.EnterBubble();
+			
+			if (!player.Jetpacking) {
+				player.JetpackOff();
+				CameraManager.Instance.Switch(CameraState.Bubble, _transform);
+			} else {
+				player.BubbleBoost();
+			}
 		}
 	}
 	
@@ -54,8 +58,6 @@ public class SmallBubbleBehavior : MonoBehaviour {
 		
 		if (other.TryGetComponent<PlayerBehavior>(out var player)) {
 			Debug.Log(other.name + " has exited the bubble.");
-			var direction = (player.transform.position - _transform.position).normalized;
-			player.Eject(direction);
 			
 			BubbleManager.Instance.SmallBubblePlayerIsOn = null;
 			OxygenManager.Instance.OutOfBubble();

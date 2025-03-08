@@ -5900,8 +5900,8 @@ MonoBehaviour:
   Damping: {x: 2, y: 2, z: 2}
   Lookahead:
     Enabled: 1
-    Time: 0.8
-    Smoothing: 2
+    Time: 0.7
+    Smoothing: 5
     IgnoreY: 0
 --- !u!114 &2078220774
 MonoBehaviour:
@@ -6190,6 +6190,30 @@ PrefabInstance:
     - target: {fileID: 3393739391352948792, guid: f1d66f2229f3a9d43855123aed5daedf, type: 3}
       propertyPath: m_Name
       value: Munny
+      objectReference: {fileID: 0}
+    - target: {fileID: 6572557446545623754, guid: f1d66f2229f3a9d43855123aed5daedf, type: 3}
+      propertyPath: boostTime
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6572557446545623754, guid: f1d66f2229f3a9d43855123aed5daedf, type: 3}
+      propertyPath: ejectForce
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 6572557446545623754, guid: f1d66f2229f3a9d43855123aed5daedf, type: 3}
+      propertyPath: acceleration
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6572557446545623754, guid: f1d66f2229f3a9d43855123aed5daedf, type: 3}
+      propertyPath: deceleration
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6572557446545623754, guid: f1d66f2229f3a9d43855123aed5daedf, type: 3}
+      propertyPath: jetpackForce
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6572557446545623754, guid: f1d66f2229f3a9d43855123aed5daedf, type: 3}
+      propertyPath: boostMaxSpeed
+      value: 40
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

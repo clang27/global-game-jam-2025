@@ -66,8 +66,6 @@ public class LargeBubbleBehavior : MonoBehaviour {
 		
 	    if (other.TryGetComponent<PlayerBehavior>(out var player)) {
 		    Debug.Log(other.name + " has exited the bubble.");
-		    var direction = (player.transform.position - _transform.position).normalized;
-		    player.Eject(direction);
 		    BubbleManager.Instance.LargeBubblePlayerIsOn = null;
 		    OxygenManager.Instance.OutOfBubble();
 		    CameraManager.Instance.Switch(CameraState.Ocean);
