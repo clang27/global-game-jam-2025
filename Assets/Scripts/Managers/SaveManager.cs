@@ -33,6 +33,7 @@ namespace Managers {
 		public int NumberOfItem(ItemType itemType) {
 			return _saveData.ItemsCollected.Count(item => item.type == itemType);
 		}
+
 		public void ItemCollected(ItemId itemId) {
 			_saveData.ItemsCollected.Add(itemId);
 		}

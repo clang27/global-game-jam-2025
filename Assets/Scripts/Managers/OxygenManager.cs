@@ -1,10 +1,12 @@
+using DG.Tweening;
+using Enums;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Managers {
     public class OxygenManager : MonoBehaviour, IManager {
 
-        #region Dependencies
+    #region Dependencies
         [Header("Variables")]
         [SerializeField] private float decayRate = 0.005f;
         [SerializeField] private float growRate = 0.005f;
@@ -14,9 +16,9 @@ namespace Managers {
         [Header("UI")] 
         [SerializeField] private Image barUnlockImage;
         [SerializeField] private Image oxygenImage, quadrantsImage;
-        #endregion
+    #endregion
 
-        #region Attributes
+    #region Attributes
         public static OxygenManager Instance { get; private set; }
         public float OxygenPercent {
             get => _oxygenPercent;
@@ -48,33 +50,33 @@ namespace Managers {
                     _ => 0.1f
                 };
             
-                barUnlockImage.fillAmount = _upgrades switch {
+                var amount = _upgrades switch {
                     0 => 0.25f,
                     1 => 0.5f,
                     2 => 0.75f,
                     3 => 1f,
                     _ => 1f
                 };
+
+                oxygenImage.DOFade(0f, 0f);
+                DOVirtual.Float(barUnlockImage.fillAmount, amount, 1f, f => barUnlockImage.fillAmount = f);
+                oxygenImage.DOFade(1f, 0.2f).SetDelay(1f);
+                
+                oxygenImage.fillAmount = amount * _oxygenPercent;
             }
         }
-        #endregion
+    #endregion
 
-        #region Components
-        private Transform _transform;
-        #endregion
-
-        #region Data
+    #region Data
         private float _oxygenPercent = 1f;
         private int _upgrades;
         private bool _outOfBubble;
         private bool _jetpackOn;
-        #endregion
+    #endregion
 
-        #region Unity
+    #region Unity
         private void Awake() {
             Instance = this;
-        
-            _transform = transform;
         }
         private void FixedUpdate() {
             if (_outOfBubble) {
@@ -87,14 +89,18 @@ namespace Managers {
                 AddOxygen(-jetpackDecayRate);
             }
         }
-        #endregion
+    #endregion
 
-        #region Custom
+    #region Custom
         public void Init() {
             enabled = false;
-            Upgrades = 2;
+            Upgrades = SaveManager.Instance.NumberOfItem(ItemType.OxygenUpgrade) + 1;
             OxygenPercent = 1f;
             OutOfBubble();
+        }
+
+        public void Upgrade(ItemId itemId) {
+            Upgrades++;
         }
         
         public void SceneChange(string sceneName) {}
@@ -132,7 +138,7 @@ namespace Managers {
             _outOfBubble = false;
         }
     
-        #endregion
+    #endregion
 
     }
 }
