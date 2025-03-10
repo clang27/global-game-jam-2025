@@ -39,8 +39,8 @@ namespace Managers {
 
 		public void Init() {
 			PlayGameTheme();
-			AdjustMusicVolume(SettingsManager.MasterVolume * SettingsManager.MusicVolume);
-			AdjustSfxVolume(SettingsManager.MasterVolume * SettingsManager.SfxVolume);
+			AdjustMusicVolume(SettingsAndPauseManager.MasterVolume * SettingsAndPauseManager.MusicVolume);
+			AdjustSfxVolume(SettingsAndPauseManager.MasterVolume * SettingsAndPauseManager.SfxVolume);
 		}
 		
 		public void SceneChange(string sceneName) {}

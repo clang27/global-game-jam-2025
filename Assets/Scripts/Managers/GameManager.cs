@@ -152,7 +152,7 @@ namespace Managers {
 			CoinManager.Instance.enabled = false;
 			OxygenManager.Instance.enabled = false;
 		
-			UiManager.Instance.ShowPause(true);
+			SettingsAndPauseManager.Instance.OpenPause();
 			UiManager.Instance.ShowHud(false);
 		}
 	
@@ -164,8 +164,12 @@ namespace Managers {
 			CoinManager.Instance.enabled = true;
 			OxygenManager.Instance.enabled = true;
 		
-			UiManager.Instance.ShowPause(false);
+			SettingsAndPauseManager.Instance.ClosePauseAndSettings();
 			UiManager.Instance.ShowHud(true);
+		}
+
+		public void Quit() {
+			Application.Quit();
 		}
 	#endregion
 	}
