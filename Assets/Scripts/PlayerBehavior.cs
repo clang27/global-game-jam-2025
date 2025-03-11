@@ -90,7 +90,6 @@ public class PlayerBehavior : MonoBehaviour {
 
     private void Update() {
 	    _timeSinceLastInput += Time.deltaTime;
-	    CameraManager.Instance.UpdateZoom(_velocity);
     }
 	
 	private void FixedUpdate() {
@@ -309,6 +308,7 @@ public class PlayerBehavior : MonoBehaviour {
 		_particleSystem.Play();
 		_jetpacking = true;
 		OxygenManager.Instance.ToggleJetpack(true);
+		CameraManager.Instance.Switch(CameraState.Jetpack);
 		
 		if (_animator) {
 			_animator.SetBool("jetpack", true);
@@ -323,6 +323,7 @@ public class PlayerBehavior : MonoBehaviour {
 		_particleSystem.Stop();
 		_jetpacking = false;
 		OxygenManager.Instance.ToggleJetpack(false);
+		CameraManager.Instance.Switch(BubbleManager.Instance.PlayerIsOnBubble ? CameraState.Bubble : CameraState.Ocean);
 		
 		if (_animator) {
 			_animator.SetBool("jetpack", false);

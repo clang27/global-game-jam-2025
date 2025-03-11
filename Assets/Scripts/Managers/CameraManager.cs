@@ -7,16 +7,11 @@ namespace Managers {
 	public class CameraManager : MonoBehaviour, IManager {
 
 	#region Dependencies
-		[SerializeField] private CinemachineCamera outsideCamera, insideCamera, titleCamera;
-		[SerializeField] private float zoomSpeed;
+		[SerializeField] private CinemachineCamera outsideCamera, insideCamera, jetpackCamera, titleCamera;
 	#endregion
 
 	#region Attributes
 		public static CameraManager Instance { get; private set; }
-	#endregion
-		
-	#region Data
-		private float _defaultZoom = 10f;	
 	#endregion
 
 	#region Unity
@@ -35,17 +30,11 @@ namespace Managers {
 			titleCamera.Priority = 5;
 			outsideCamera.Priority = 1;
 			insideCamera.Priority = 1;
+			jetpackCamera.Priority = 1;
 			insideCamera.Target.TrackingTarget = null;
 		}
 		
 		public void SceneChange(string sceneName) {}
-
-		public void UpdateZoom(Vector2 velocity) {
-			var zoomOut = Mathf.Sqrt(velocity.sqrMagnitude) / 2f;
-			
-			outsideCamera.Lens.OrthographicSize = Mathf.Lerp(outsideCamera.Lens.OrthographicSize, _defaultZoom + zoomOut, 
-				zoomSpeed * Time.deltaTime);
-		}
 
 		public void Switch(CameraState state, Transform bubble = null, bool track = true) {
 			if (bubble) {
@@ -58,16 +47,25 @@ namespace Managers {
 					titleCamera.Priority = 5;
 					outsideCamera.Priority = 1;
 					insideCamera.Priority = 1;
+					jetpackCamera.Priority = 1;
 					break;
 				case CameraState.Bubble:
 					titleCamera.Priority = 1;
 					outsideCamera.Priority = 1;
 					insideCamera.Priority = 5;
+					jetpackCamera.Priority = 1;
 					break;
 				case CameraState.Ocean:
 					titleCamera.Priority = 1;
 					outsideCamera.Priority = 5;
 					insideCamera.Priority = 1;
+					jetpackCamera.Priority = 1;
+					break;
+				case CameraState.Jetpack:
+					titleCamera.Priority = 1;
+					outsideCamera.Priority = 1;
+					insideCamera.Priority = 1;
+					jetpackCamera.Priority = 5;
 					break;
 				default:
 					throw new ArgumentOutOfRangeException(nameof(state), state, null);
