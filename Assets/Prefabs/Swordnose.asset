@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Swordnose
   m_EditorClassIdentifier: 
   Sprite: {fileID: 0}
-  Knockback: 80
+  Knockback: 100
   AttackSpeed: 0.5
   StunTime: 0.2
   Damage: 10

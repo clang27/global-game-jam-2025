@@ -9,6 +9,7 @@ namespace Enemies {
         
         [SerializeField] private float zoneOfControlRadius = 1f;
         [SerializeField] private float turnSpeed = 1f;
+        [SerializeField] private Transform top, bottom;
 
         protected override void Init() {
             Velocity = Vector2.zero;
@@ -29,16 +30,18 @@ namespace Enemies {
                 _transform.position, zoneOfControlRadius, Vector2.zero, 0f, _playerLayerMask);
             
             if (playerHit) {
-                Debug.Log($"{name} sees the player!");
-                var wallHits = Physics2D.LinecastAll(
+                var topWallHits = Physics2D.LinecastAll(
+                    top.position, playerHit.point, _wallLayerMask);
+                var middleWallHits = Physics2D.LinecastAll(
                     _transform.position, playerHit.point, _wallLayerMask);
+                var bottomWallHits = Physics2D.LinecastAll(
+                    bottom.position, playerHit.point, _wallLayerMask);
                     
                 // Wall is not in the way, so I will start swimming
-                if (wallHits.Length == 0) {
+                if (topWallHits.Length + middleWallHits.Length + bottomWallHits.Length == 0) {
+                    Debug.Log($"{name} sees the player!");
                     _goalPoint = playerHit.point;
                     _reachedGoal = false;
-                } else {
-                    Debug.Log($"But there is a wall in the way!");
                 }
             } else {
                 _reachedGoal = Vector2.Distance(_transform.position, _goalPoint) < 2f;

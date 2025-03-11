@@ -1,3 +1,4 @@
+using System;
 using DG.Tweening;
 using Managers;
 using Scriptable;
@@ -57,7 +58,16 @@ namespace Enemies {
         private void Start() {
             Init();
         }
-	
+
+        private void OnCollisionEnter2D(Collision2D other) {
+            if (other.gameObject.CompareTag("Bubble")) {
+                var sourcePosition = (Vector2) other.transform.position;
+                var direction = ((Vector2) _transform.position - sourcePosition).normalized;
+                
+                _rigidbody.AddForce(direction * 10f);
+            }
+        }
+
         private void FixedUpdate() {
             if (Stunned) { return; }
             
