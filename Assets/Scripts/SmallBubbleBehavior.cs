@@ -1,3 +1,4 @@
+using DG.Tweening;
 using Enums;
 using Managers;
 using UnityEngine;
@@ -6,31 +7,20 @@ using Vector3 = UnityEngine.Vector3;
 
 public class SmallBubbleBehavior : MonoBehaviour {
 
-#region Dependencies
-	//
-#endregion
-
-#region Attributes
-	//
-#endregion
-
 #region Components
 	private Transform _transform;
-	private Rigidbody2D _rigidbody;
-	private CircleCollider2D _collider;
+	private Animator _animator;
 #endregion
 
 #region Data
-	private Vector3 _startingPosition, _startingScale;
+	private const float JetpackDelayTime = 1f;
+	private bool _jetpackDelay;
 #endregion
 
 #region Unity
     private void Awake() {
 		_transform = transform;
-		_rigidbody = GetComponent<Rigidbody2D>();
-		_collider = GetComponentInChildren<CircleCollider2D>();
-		_startingPosition = _transform.position;
-		_startingScale = _transform.localScale;
+		_animator = GetComponent<Animator>();
     }
 
 	private void OnTriggerEnter2D(Collider2D other) {
@@ -47,7 +37,14 @@ public class SmallBubbleBehavior : MonoBehaviour {
 			if (!player.Jetpacking) {
 				player.JetpackOff();
 				CameraManager.Instance.Switch(CameraState.Bubble, _transform);
-			} else {
+			} else if (!_jetpackDelay) {
+				_jetpackDelay = true;
+				
+				var dir = (other.transform.position - _transform.position).normalized;
+				var lookRotation = Quaternion.LookRotation(forward: Vector3.forward, upwards: dir);
+				DOVirtual.DelayedCall(JetpackDelayTime, () => _jetpackDelay = false);
+				_transform.DORotate(lookRotation.eulerAngles + new Vector3(0f, 0f, 90f), 0.15f).SetEase(Ease.InOutCirc);
+				_animator.SetTrigger("jetpack");
 				player.BubbleBoost();
 			}
 		}
