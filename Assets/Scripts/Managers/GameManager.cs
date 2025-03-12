@@ -10,7 +10,7 @@ namespace Managers {
 
 	#region Attributes
 		public static GameManager Instance { get; private set; }
-		public GameState GameState { get; private set; } = GameState.Start;
+		public GameState GameState { get; set; } = GameState.Start;
 		public string CurrentSceneName => _sceneNameLoaded;
 
 	#endregion
@@ -102,8 +102,6 @@ namespace Managers {
 		}
 
 		public void StartGame() {
-			GameState = GameState.Playing;
-
 			PlayerManager.Controller.InUi = false;
 			BubbleManager.Instance.enabled = true;
 			CoinManager.Instance.enabled = true;
@@ -114,13 +112,16 @@ namespace Managers {
 			UiManager.Instance.ShowHud(true);
 			
 			if (SaveManager.Instance.HasASaveFile()) {
+				GameState = GameState.Playing;
+				
 				var bubbleName = SaveManager.Instance.GetStartBubbleName();
 				var bubble = GameObject.Find(bubbleName);
 				
 				BubbleManager.Instance.SmallBubblePlayerIsOn = bubble.GetComponent<SmallBubbleBehavior>();
 				OxygenManager.Instance.InBubble();
-				CameraManager.Instance.Switch(CameraState.Bubble, bubble.transform);
+				CameraManager.Instance.Switch(CameraState.Bubble, name, bubble.transform);
 			} else {
+				CameraManager.Instance.Switch(CameraState.Title, name);
 				CutSceneManager.Instance.PlayScene("Intro");
 			}
 		}

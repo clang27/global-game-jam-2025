@@ -1,5 +1,5 @@
 namespace Enums {
     public enum GameState {
-        Start, BubbleTransition, Playing, GameOver, Win, Paused
+        Start, BubbleTransition, Playing, GameOver, Win, Paused, CutScene
     }
 }

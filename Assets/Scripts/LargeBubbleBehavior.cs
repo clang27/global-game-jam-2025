@@ -47,8 +47,8 @@ public class LargeBubbleBehavior : MonoBehaviour {
 			    BubbleManager.Instance.LargeBubblePlayerIsOn = this;
 		    
 			    OxygenManager.Instance.InBubble();
-			    CameraManager.Instance.Switch(CameraState.Bubble, _transform, false);
-			    player.JetpackOff();
+			    CameraManager.Instance.Switch(CameraState.Bubble, name, _transform, false);
+			    player.JetpackOff(false);
 			    
 			    GameManager.Instance.StartLargeBubbleTransition(sceneName);
 		    }
@@ -56,7 +56,7 @@ public class LargeBubbleBehavior : MonoBehaviour {
 		    Debug.Log(other.name + " has landed on the bubble from a scene transition.");
 		    BubbleManager.Instance.LargeBubblePlayerIsOn = this;
 		    
-		    CameraManager.Instance.Switch(CameraState.Bubble, _transform, true);
+		    CameraManager.Instance.Switch(CameraState.Bubble, name, _transform, true);
 		    DOVirtual.DelayedCall(2f, StopMoving);
 	    }
     }
@@ -68,7 +68,7 @@ public class LargeBubbleBehavior : MonoBehaviour {
 		    Debug.Log(other.name + " has exited the bubble.");
 		    BubbleManager.Instance.LargeBubblePlayerIsOn = null;
 		    OxygenManager.Instance.OutOfBubble();
-		    CameraManager.Instance.Switch(CameraState.Ocean);
+		    CameraManager.Instance.Switch(CameraState.Ocean, name);
 	    }
     }
 

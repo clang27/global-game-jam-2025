@@ -36,7 +36,9 @@ namespace Managers {
 		
 		public void SceneChange(string sceneName) {}
 
-		public void Switch(CameraState state, Transform bubble = null, bool track = true) {
+		public void Switch(CameraState state, string source, Transform bubble = null, bool track = true) {
+			Debug.Log($"Camera is switching to {state} from {source}");
+			
 			if (bubble) {
 				insideCamera.transform.SetPositionAndRotation(new Vector3(bubble.position.x, bubble.position.y, -10f), Quaternion.identity);
 				insideCamera.Target.TrackingTarget = track ? bubble : null;	

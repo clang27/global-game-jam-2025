@@ -156,7 +156,7 @@ public class PlayerBehavior : MonoBehaviour {
 
 #region Custom
 	public void StopMoving() {
-		JetpackOff();
+		JetpackOff(false);
 		_inputVector = Vector2.zero;
 		_velocity = Vector2.zero;
 		_timeSinceLastInput = 10f;
@@ -308,7 +308,7 @@ public class PlayerBehavior : MonoBehaviour {
 		_particleSystem.Play();
 		_jetpacking = true;
 		OxygenManager.Instance.ToggleJetpack(true);
-		CameraManager.Instance.Switch(CameraState.Jetpack);
+		CameraManager.Instance.Switch(CameraState.Jetpack, name);
 		
 		if (_animator) {
 			_animator.SetBool("jetpack", true);
@@ -319,11 +319,13 @@ public class PlayerBehavior : MonoBehaviour {
 		AudioManager.Instance.PlaySfx(_dashSound);	
 	}
 	
-	public void JetpackOff() {
+	public void JetpackOff(bool changeCamera) {
 		_particleSystem.Stop();
 		_jetpacking = false;
 		OxygenManager.Instance.ToggleJetpack(false);
-		CameraManager.Instance.Switch(BubbleManager.Instance.PlayerIsOnBubble ? CameraState.Bubble : CameraState.Ocean);
+		if (changeCamera) {
+			CameraManager.Instance.Switch(BubbleManager.Instance.PlayerIsOnBubble ? CameraState.Bubble : CameraState.Ocean, name);	
+		}
 		
 		if (_animator) {
 			_animator.SetBool("jetpack", false);

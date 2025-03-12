@@ -1,5 +1,7 @@
 using System.Linq;
 using DG.Tweening;
+using Enums;
+using Managers;
 using UnityEngine;
 
 public class CutSceneManager : MonoBehaviour {
@@ -20,6 +22,7 @@ public class CutSceneManager : MonoBehaviour {
 
 #region Custom
 	public void PlayScene(string n) {
+		GameManager.Instance.GameState = GameState.CutScene;
 		var scene = FindObjectsByType<CutScene>(FindObjectsSortMode.None)
 			.First(scene => scene.gameObject.name.Equals(n));
 

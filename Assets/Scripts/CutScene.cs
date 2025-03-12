@@ -1,4 +1,5 @@
 using DG.Tweening;
+using Enums;
 using Managers;
 using Unity.Mathematics;
 using UnityEngine;
@@ -38,6 +39,9 @@ public class CutScene : MonoBehaviour {
 
 #region Custom
 	public void StartScene() {
+		actor.transform.SetPositionAndRotation(_startPoint.position, Quaternion.identity);
+		PlayerManager.Player.transform.SetPositionAndRotation(new Vector3(-100000f, -100000f), Quaternion.identity);
+		
 		UiManager.Instance.ShowHud(false);
 		PlayerManager.Controller.Enabled = false;
 		PlayerManager.Player.CutScene(startTime + 0.1f); // Munny continues previous animation until tween is done
@@ -54,6 +58,7 @@ public class CutScene : MonoBehaviour {
 	}
 	
 	private void EndScene(PlayableDirector pd) {
+		GameManager.Instance.GameState = GameState.Playing;
 		UiManager.Instance.ShowHud(true);
 		_playableDirector.stopped -= EndScene;
 		
