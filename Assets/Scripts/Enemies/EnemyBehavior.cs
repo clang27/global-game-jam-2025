@@ -91,14 +91,21 @@ namespace Enemies {
             
             Stunned = true;
             var direction = ((Vector2) _transform.position - sourcePosition).normalized;
-            _rigidbody.AddForce(direction * weapon.Knockback, ForceMode2D.Impulse);
             Health -= weapon.Damage;
 
             if (Health == 0) {
-                _spriteRenderer.DOKill();
-                Destroy(gameObject);   
+                _rigidbody.AddForce(direction * weapon.Knockback * 10f, ForceMode2D.Impulse);
+
+                _transform.DORotate(new Vector3(0f, 0f, _transform.localRotation.eulerAngles.z + 720f), 0.5f, RotateMode.FastBeyond360)
+                    .SetEase(Ease.Linear)
+                    .OnComplete(() => {
+                        _spriteRenderer.DOKill();
+                        EnemyManager.Instance.Poof(_transform.position);
+                        Destroy(gameObject);
+                    });
             } else {
                 _spriteRenderer.DOFade(0.1f, 0.05f).SetLoops(-1, LoopType.Yoyo);
+                _rigidbody.AddForce(direction * weapon.Knockback, ForceMode2D.Impulse);
                 
                 DOVirtual.DelayedCall(weapon.StunTime, () => {
                     Stunned = false;    
