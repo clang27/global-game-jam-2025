@@ -98,7 +98,7 @@ public class PlayerBehavior : MonoBehaviour {
 		var onBubble = BubbleManager.Instance.PlayerIsOnBubble;
 
 		if (Boosting) {
-			var goalSpeed = _boostDirection * boostMaxSpeed;
+			var goalSpeed = ((_boostDirection + (PreviousNotZeroInputVector / 4f)) / 2f).normalized * boostMaxSpeed;
 			var acc = acceleration * 10f;
 			_velocity = Vector2.Lerp(_velocity, goalSpeed, Time.fixedDeltaTime * acc);
 		} else if (Jetpacking) {

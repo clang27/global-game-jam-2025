@@ -10,8 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 5954521579234339407}
   - component: {fileID: 9167701023688509939}
+  - component: {fileID: 5502275248423425287}
+  - component: {fileID: 5222781551940773152}
   m_Layer: 0
-  m_Name: Chest
+  m_Name: Barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27,7 +29,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1.271, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -76,7 +78,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 6
-  m_Sprite: {fileID: 1332115597, guid: c806b59af0899f14798960463d3b03d7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 046a82bf4fd787b4cb42ee1606b25535, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -87,3 +89,74 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &5502275248423425287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5595065092490322946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fed02fd676abfff40bc894cca9b2f26d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId:
+    type: 8
+    number: 0
+  itemsStored:
+  - gameObject: {fileID: 8664820763915473730, guid: 60901d46f026fda4b8f9a0e00cab9bc2, type: 3}
+    count: 10
+  - gameObject: {fileID: 5595065092490322946, guid: 8e07eda72d6b9eb4c88a3bff5f95a8bd, type: 3}
+    count: 0
+  - gameObject: {fileID: 5595065092490322946, guid: 12861182aec97a44ab15b118e5ca5f4f, type: 3}
+    count: 0
+  - gameObject: {fileID: 5595065092490322946, guid: e31d26fa815794d4d9cc9e68e1bcafb3, type: 3}
+    count: 0
+  breakSound: {fileID: 0}
+--- !u!61 &5222781551940773152
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5595065092490322946}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2.859375, y: 3.546875}
+    newSize: {x: 2.5, y: 2.5}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 2, y: 3}
+  m_EdgeRadius: 0

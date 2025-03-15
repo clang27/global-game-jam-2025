@@ -23,6 +23,10 @@ public class HitBox : MonoBehaviour {
 			Debug.Log(player.name + " has been hit");
 			player.Hurt(_attackBehavior.EquippedWeapon, _transform.position);
 		}
+		if (other.TryGetComponent<BarrelBehavior>(out var barrel)) {
+			Debug.Log(barrel.name + " has been hit");
+			barrel.Hurt(_attackBehavior.EquippedWeapon, _transform.position);
+		}
 	}
 #endregion
 

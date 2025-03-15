@@ -3,6 +3,7 @@ using DG.Tweening;
 using Enums;
 using Managers;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class ItemPickup : MonoBehaviour {
 
@@ -12,9 +13,15 @@ public class ItemPickup : MonoBehaviour {
 	[Header("Properties")]
 	[SerializeField] private AudioClip pickupSound;
 #endregion
+	
+#region Attributes
+	public bool InBarrel => _transform.parent.name.Contains("Barrel");
+	public bool InChest => _transform.parent.name.Contains("Chest");
+#endregion
 
 #region Components
 	private Transform _transform;
+	private Collider2D _collider;
 	private Sequence _danceSequence;
 	private Action<ItemId> _action;
 #endregion
@@ -22,12 +29,13 @@ public class ItemPickup : MonoBehaviour {
 #region Unity
 	private void Awake() {
 		_transform = transform;
+		_collider = GetComponent<Collider2D>();
 		name = itemId.ToString();
 	}
 
 	private void OnTriggerEnter2D(Collider2D other) {
 		if (GameManager.Instance.GameState == GameState.Start) { return; }
-			
+
 		if (other.tag.Equals("Player")) {
 			AudioManager.Instance.PlaySfx(pickupSound);
 			_action.Invoke(itemId);
@@ -43,12 +51,18 @@ public class ItemPickup : MonoBehaviour {
 
 #region Custom
 	public void Init() {
-		if (SaveManager.Instance.HasBeenCollected(itemId)) {
+		if (!InBarrel && !InChest && SaveManager.Instance.HasBeenCollected(itemId)) {
 			RemoveFromScene();
 		} else {
 			AddToScene();
 		}
 	}
+
+	public void DelayCollision() {
+		_collider.enabled = false;
+		DOVirtual.DelayedCall(Random.Range(0.3f, 0.6f), () => _collider.enabled = true);
+	}
+	
 	private void RemoveFromScene() {
 		_danceSequence?.Kill();
 		gameObject.SetActive(false);
@@ -69,8 +83,10 @@ public class ItemPickup : MonoBehaviour {
 			_                      => throw new ArgumentOutOfRangeException()
 		};
 
-		_danceSequence = _transform.DOLocalJump(_transform.localPosition, 0.25f, 1, 2f);
-		_danceSequence.SetLoops(-1);
+		if (!InBarrel && !InChest) {
+			_danceSequence = _transform.DOLocalJump(_transform.localPosition, 0.25f, 1, 2f);
+			_danceSequence.SetLoops(-1);	
+		}
 	}
 #endregion
 
