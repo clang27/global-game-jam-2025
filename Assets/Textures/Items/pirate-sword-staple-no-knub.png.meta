@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: bc1f7e3faf6f2734b9748bb3c2a5e9cd
+guid: dbdd18691abbede41939004920e718de
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1264772288087964892
-    second: healthBar_0
+      213: -3504574778876104239
+    second: pirate-sword-staple-no-knub_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -53,7 +53,7 @@ TextureImporter:
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 128
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spriteGenerateFallbackPhysicsShape: 1
+  spriteGenerateFallbackPhysicsShape: 0
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -72,7 +72,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 4096
+    maxTextureSize: 8192
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0

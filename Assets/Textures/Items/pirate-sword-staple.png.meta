@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: dbd600243ec18504c898a4fac6ab9cb4
+guid: c85535a9d471c0a42a4e524a2bb4a331
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6467680821765667881
-    second: canon-side_0
+      213: -215109494085251324
+    second: pirate-sword-staple_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -53,7 +53,7 @@ TextureImporter:
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 128
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spriteGenerateFallbackPhysicsShape: 1
+  spriteGenerateFallbackPhysicsShape: 0
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -72,7 +72,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 4096
+    maxTextureSize: 8192
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
