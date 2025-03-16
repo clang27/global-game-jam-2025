@@ -4959,7 +4959,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1.271, z: 0}
-  m_LocalScale: {x: 0.8, y: 0.8, z: 1}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4150279074051675668}
@@ -5037,7 +5037,7 @@ MonoBehaviour:
     number: 0
   itemsStored:
   - gameObject: {fileID: 8664820763915473730, guid: 60901d46f026fda4b8f9a0e00cab9bc2, type: 3}
-    count: 10
+    count: 5
   - gameObject: {fileID: 5595065092490322946, guid: 8e07eda72d6b9eb4c88a3bff5f95a8bd, type: 3}
     count: 0
   - gameObject: {fileID: 5595065092490322946, guid: 12861182aec97a44ab15b118e5ca5f4f, type: 3}
