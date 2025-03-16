@@ -37,7 +37,6 @@ public class DoorBehavior : MonoBehaviour {
 			    CanOpen ? unlockedSpacebarSprite : lockedSpacebarSprite;
 		    
 		    KeyManager.TouchedDoor = this;
-		    
 	    }
     }
     

@@ -1,3 +1,4 @@
+using System;
 using DG.Tweening;
 using Enums;
 using Managers;
@@ -72,7 +73,7 @@ public class PlayerBehavior : MonoBehaviour {
 	private bool _dashCooldown;
 	private Vector3 _startingPosition;
 	private Vector2 _velocity, _boostDirection;
-	private bool _jetpacking;
+	private bool _jetpacking, _jetpackCooldown, _jetpackReleased;
 	private float _timeSinceLastInput = 10f;
 #endregion
 
@@ -102,9 +103,14 @@ public class PlayerBehavior : MonoBehaviour {
 			var acc = acceleration * 10f;
 			_velocity = Vector2.Lerp(_velocity, goalSpeed, Time.fixedDeltaTime * acc);
 		} else if (Jetpacking) {
-			var goalSpeed = PreviousNotZeroInputVector * jetpackMaxSpeed;
-			var acc = acceleration * 2f;
-			_velocity = Vector2.Lerp(_velocity, goalSpeed, Time.fixedDeltaTime * acc);
+			if (_jetpackReleased) {
+				_jetpackReleased = false;
+				JetpackOff(true);
+			} else {
+				var goalSpeed = PreviousNotZeroInputVector * jetpackMaxSpeed;
+				var acc = acceleration * 2f;
+				_velocity = Vector2.Lerp(_velocity, goalSpeed, Time.fixedDeltaTime * acc);
+			}
 		} else {
 			if (InputVector.magnitude > 0f) {
 				var goalSpeed = InputVector * maxSpeed;
@@ -152,6 +158,15 @@ public class PlayerBehavior : MonoBehaviour {
 		_animator.SetBool("left", false);
 	}
 
+	private void OnCollisionEnter2D(Collision2D other) {
+		if (!Boosting) { return; }
+
+		if (other.gameObject.layer.Equals(LayerMask.NameToLayer("Floor"))) {
+			Debug.Log("Stop boosting!");
+			_velocity /= 2f;
+			Boosting = false;
+		}
+	}
 #endregion
 
 #region Custom
@@ -202,6 +217,9 @@ public class PlayerBehavior : MonoBehaviour {
 		_transform.eulerAngles = Vector3.zero;
 		
 		_jetpacking = false;
+		_jetpackCooldown = false;
+		_jetpackReleased = false;
+			
 		Stunned = false;
 		Boosting = false;
 		
@@ -282,13 +300,17 @@ public class PlayerBehavior : MonoBehaviour {
 	public void Interact() {
 		Debug.Log("Interacting!");
 		if (Stunned) { return; }
-		if (!(KeyManager.TouchedDoor && KeyManager.TouchedDoor.CanOpen)) { return; }
-		
-		_velocity = Vector2.zero;
-		_transform.position = KeyManager.TouchedDoor.TeleportLocation;
-		_transform.eulerAngles = Vector3.zero;
-		_jetpacking = false;
-		_timeSinceLastInput = 10f;
+		if (KeyManager.TouchedDoor && KeyManager.TouchedDoor.CanOpen) { 	
+			_velocity = Vector2.zero;
+			_transform.position = KeyManager.TouchedDoor.TeleportLocation;
+			_transform.eulerAngles = Vector3.zero;
+			_jetpacking = false;
+			_timeSinceLastInput = 10f;
+		}
+
+		if (KeyManager.TouchedChest) {
+			KeyManager.TouchedChest.Open();
+		}
 	}
 
 	public void AddJetpack(ItemId id) {
@@ -303,8 +325,13 @@ public class PlayerBehavior : MonoBehaviour {
 	public void JetpackOn() {
 		if (!HasJetpack) { return; }
 		if (Stunned) { return; }
+		if (Boosting) { _jetpackReleased = false; return; }
 		if (BubbleManager.Instance.PlayerIsOnBubble) { return; }
+		if (_jetpackCooldown) { return; }
 
+		_jetpackCooldown = true;
+		DOVirtual.DelayedCall(0.5f, () => _jetpackCooldown = false);
+		
 		_particleSystem.Play();
 		_jetpacking = true;
 		OxygenManager.Instance.ToggleJetpack(true);
@@ -320,6 +347,8 @@ public class PlayerBehavior : MonoBehaviour {
 	}
 	
 	public void JetpackOff(bool changeCamera) {
+		if (Boosting) { _jetpackReleased = true; return; }
+		
 		_particleSystem.Stop();
 		_jetpacking = false;
 		OxygenManager.Instance.ToggleJetpack(false);

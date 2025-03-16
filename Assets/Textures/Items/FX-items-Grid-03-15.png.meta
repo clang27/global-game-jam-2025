@@ -1,0 +1,627 @@
+fileFormatVersion: 2
+guid: 929c1c4176ce37145b3e51d2ff1e974e
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 5584696049538036197
+    second: FX-items-Grid-03-15_0
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 128
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: FX-items-Grid-03-15_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2857
+        width: 320
+        height: 320
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ff5903ee548153349a25507e1f5b0d22
+      internalID: -647347878
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX-items-Grid-03-15_1
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 2857
+        width: 320
+        height: 320
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c05f728b24a3d7641bff97d59b68c4fd
+      internalID: -1704108110
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX-items-Grid-03-15_2
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 2857
+        width: 320
+        height: 320
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5045ce55bf4fc2d4398b07a97e5aab3d
+      internalID: 380739466
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX-items-Grid-03-15_3
+      rect:
+        serializedVersion: 2
+        x: 960
+        y: 2857
+        width: 320
+        height: 320
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1228293b91b34ca4781361f8fda0db77
+      internalID: -1641241704
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX-items-Grid-03-15_4
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 2857
+        width: 320
+        height: 320
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 798c880f4cf99ee439befdc7a0f53b9c
+      internalID: 302392698
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX-items-Grid-03-15_5
+      rect:
+        serializedVersion: 2
+        x: 1600
+        y: 2857
+        width: 320
+        height: 320
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a35638d36be003f4ca4e8a829d916b0d
+      internalID: -539755999
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX-items-Grid-03-15_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2537
+        width: 320
+        height: 320
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9232bcc607ebc6a4eb4784ad517843c1
+      internalID: -1758921082
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX-items-Grid-03-15_7
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 2537
+        width: 320
+        height: 320
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 87fa5be02196aae47bee58a981ea5d3b
+      internalID: 1652417833
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX-items-Grid-03-15_8
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 2537
+        width: 320
+        height: 320
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f88d7569e75fb84fa048fc32bc6aaec
+      internalID: 1255028880
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX-items-Grid-03-15_9
+      rect:
+        serializedVersion: 2
+        x: 960
+        y: 2537
+        width: 320
+        height: 320
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3052dfb9dad603848bef25ffc56da345
+      internalID: -1730013010
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX-items-Grid-03-15_10
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 2537
+        width: 320
+        height: 320
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 92ea388b26082ba4e9adad3e6c70cb87
+      internalID: 67415767
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX-items-Grid-03-15_11
+      rect:
+        serializedVersion: 2
+        x: 1600
+        y: 2537
+        width: 320
+        height: 320
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1bb7f0a1ad490754081dc5b96d35896e
+      internalID: 238041961
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX-items-Grid-03-15_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2217
+        width: 320
+        height: 320
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c6868173b42bf1b40977720202124968
+      internalID: 217864639
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX-items-Grid-03-15_13
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 2217
+        width: 320
+        height: 320
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c7ea5771a581b2439bd32d485a808fb
+      internalID: -181785229
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX-items-Grid-03-15_14
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 2217
+        width: 320
+        height: 320
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a5d5f87c57a95c84a87d0bc0ac6cb8f7
+      internalID: -736585801
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX-items-Grid-03-15_15
+      rect:
+        serializedVersion: 2
+        x: 960
+        y: 2217
+        width: 320
+        height: 320
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c99ae57c1dce86a46b3a0fb22f4244a8
+      internalID: -978818287
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX-items-Grid-03-15_16
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 2217
+        width: 320
+        height: 320
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8f5cc535dd110fd4f8e73ba422b8297b
+      internalID: -998484460
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX-items-Grid-03-15_17
+      rect:
+        serializedVersion: 2
+        x: 1600
+        y: 2217
+        width: 320
+        height: 320
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f1d5bf9ee2666f64082d275243566b4c
+      internalID: 1205737713
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX-items-Grid-03-15_22
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 1897
+        width: 320
+        height: 320
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: df28b80ce328e814693c79317706bb86
+      internalID: -1797983810
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX-items-Grid-03-15_23
+      rect:
+        serializedVersion: 2
+        x: 1600
+        y: 1897
+        width: 320
+        height: 320
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b0f10b1cb981f4a4abe05c88314bc4b5
+      internalID: 532703029
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      FX-items-Grid-03-15_0: -647347878
+      FX-items-Grid-03-15_1: -1704108110
+      FX-items-Grid-03-15_10: 67415767
+      FX-items-Grid-03-15_11: 238041961
+      FX-items-Grid-03-15_12: 217864639
+      FX-items-Grid-03-15_13: -181785229
+      FX-items-Grid-03-15_14: -736585801
+      FX-items-Grid-03-15_15: -978818287
+      FX-items-Grid-03-15_16: -998484460
+      FX-items-Grid-03-15_17: 1205737713
+      FX-items-Grid-03-15_18: 834308197
+      FX-items-Grid-03-15_19: -748195808
+      FX-items-Grid-03-15_2: 380739466
+      FX-items-Grid-03-15_20: 434999474
+      FX-items-Grid-03-15_21: 187353945
+      FX-items-Grid-03-15_22: -1797983810
+      FX-items-Grid-03-15_23: 532703029
+      FX-items-Grid-03-15_24: -57905142
+      FX-items-Grid-03-15_25: -1989246579
+      FX-items-Grid-03-15_26: -574400753
+      FX-items-Grid-03-15_27: 1154275371
+      FX-items-Grid-03-15_28: 1576568710
+      FX-items-Grid-03-15_29: -15131090
+      FX-items-Grid-03-15_3: -1641241704
+      FX-items-Grid-03-15_30: 1392920905
+      FX-items-Grid-03-15_31: -1534060552
+      FX-items-Grid-03-15_32: -872741776
+      FX-items-Grid-03-15_33: -1478376983
+      FX-items-Grid-03-15_34: 1079408303
+      FX-items-Grid-03-15_35: -66751340
+      FX-items-Grid-03-15_36: 1013446634
+      FX-items-Grid-03-15_37: 990719427
+      FX-items-Grid-03-15_38: 331551856
+      FX-items-Grid-03-15_39: 1417330264
+      FX-items-Grid-03-15_4: 302392698
+      FX-items-Grid-03-15_40: 1477098171
+      FX-items-Grid-03-15_41: 64463989
+      FX-items-Grid-03-15_42: 1709315761
+      FX-items-Grid-03-15_43: -553597188
+      FX-items-Grid-03-15_44: -838645899
+      FX-items-Grid-03-15_45: -2055715637
+      FX-items-Grid-03-15_46: -710790830
+      FX-items-Grid-03-15_47: -1755158600
+      FX-items-Grid-03-15_48: -746075223
+      FX-items-Grid-03-15_49: 1616282716
+      FX-items-Grid-03-15_5: -539755999
+      FX-items-Grid-03-15_50: -887474805
+      FX-items-Grid-03-15_51: -773975307
+      FX-items-Grid-03-15_52: 1875415392
+      FX-items-Grid-03-15_53: -222563474
+      FX-items-Grid-03-15_6: -1758921082
+      FX-items-Grid-03-15_7: 1652417833
+      FX-items-Grid-03-15_8: 1255028880
+      FX-items-Grid-03-15_9: -1730013010
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

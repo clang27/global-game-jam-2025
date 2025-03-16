@@ -8,6 +8,7 @@ namespace Managers {
     #region Attributes
         public static KeyManager Instance { get; private set; }
         public static DoorBehavior TouchedDoor { get; set; }
+        public static ChestBehavior TouchedChest { get; set; }
         private List<ushort> KeyNumbers { get; set; }
     #endregion
     
@@ -23,6 +24,7 @@ namespace Managers {
 
             KeyNumbers = SaveManager.Instance.KeysCollected();
             TouchedDoor = null;
+            TouchedChest = null;
             
             Debug.Log($"{KeyNumbers.Count} keys have been collected according to save data");
         }

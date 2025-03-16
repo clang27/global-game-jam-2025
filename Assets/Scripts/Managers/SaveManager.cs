@@ -31,6 +31,9 @@ namespace Managers {
 			foreach (var item in FindObjectsByType<BarrelBehavior>(FindObjectsInactive.Include, FindObjectsSortMode.None)) {
 				item.Init();
 			}
+			foreach (var item in FindObjectsByType<ChestBehavior>(FindObjectsInactive.Include, FindObjectsSortMode.None)) {
+				item.Init();
+			}
 		}
 
 		public int NumberOfItem(ItemType itemType) {

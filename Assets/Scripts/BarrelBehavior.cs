@@ -19,6 +19,9 @@ public class BarrelBehavior : MonoBehaviour {
 
 #region Components
 	private Transform _transform;
+	private SpriteRenderer _spriteRenderer;
+	private Collider2D _collider;
+	private ParticleSystem _particleSystem;
 #endregion
 
 #region Data
@@ -28,6 +31,9 @@ public class BarrelBehavior : MonoBehaviour {
 #region Unity
     private void Awake() {
 		_transform = transform;
+		_spriteRenderer = GetComponent<SpriteRenderer>();
+		_collider = GetComponent<Collider2D>();
+		_particleSystem = GetComponentInChildren<ParticleSystem>();
 
 		foreach (var item in itemsStored) {
 			for (var i = 0; i < item.count; i++) {
@@ -65,17 +71,20 @@ public class BarrelBehavior : MonoBehaviour {
 				t.GetComponent<ItemPickup>().DelayCollision();
 			}
 			
+			_particleSystem.Play();
 			SaveManager.Instance.ItemCollected(itemId);
 			RemoveFromScene();
 		}
 	}
 	
 	private void RemoveFromScene() {
-		gameObject.SetActive(false);
+		_spriteRenderer.enabled = false;
+		_collider.enabled = false;
 	}
 
 	private void AddToScene() {
-		gameObject.SetActive(true);
+		_spriteRenderer.enabled = true;
+		_collider.enabled = true;
 	}
 #endregion
 
