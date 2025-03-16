@@ -5089,7 +5089,7 @@ MonoBehaviour:
   deceleration: 3
   maxSpeed: 9
   jetpackMaxSpeed: 20
-  jetpackForce: 18
+  jetpackForce: 15
   boostMaxSpeed: 60
   boostTime: 0.5
   _leaveBubbleSound: {fileID: 8300000, guid: c2c0bf382b85f5c4f8a1d8ecc98de367, type: 3}

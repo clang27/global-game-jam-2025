@@ -27,6 +27,10 @@ public class HitBox : MonoBehaviour {
 			Debug.Log(barrel.name + " has been hit");
 			barrel.Hurt(_attackBehavior.EquippedWeapon, _transform.position);
 		}
+		if (other.transform.parent.TryGetComponent<BreakableWallBehavior>(out var wall)) {
+			Debug.Log(wall.name + " has been hit");
+			wall.Hurt(_attackBehavior.EquippedWeapon, _transform.position);
+		}
 	}
 #endregion
 
