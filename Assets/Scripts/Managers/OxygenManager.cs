@@ -16,6 +16,8 @@ namespace Managers {
         [Header("UI")] 
         [SerializeField] private Image barUnlockImage;
         [SerializeField] private Image oxygenImage, quadrantsImage;
+        [SerializeField] private Image faceImage;
+        [SerializeField] private Sprite happyFaceSprite, sadFaceSprite;
     #endregion
 
     #region Attributes
@@ -114,6 +116,9 @@ namespace Managers {
         }
         
         public void Hurt(int damage) {
+            faceImage.sprite = sadFaceSprite;
+            DOVirtual.DelayedCall(1f, () => faceImage.sprite = happyFaceSprite);
+            
             AddOxygen(-damage/100f);
         }
 

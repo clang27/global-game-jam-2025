@@ -2515,6 +2515,9 @@ MonoBehaviour:
   barUnlockImage: {fileID: 1659945404}
   oxygenImage: {fileID: 2135398021}
   quadrantsImage: {fileID: 228442649}
+  faceImage: {fileID: 1456054719}
+  happyFaceSprite: {fileID: -1160007600, guid: 30c192dbb42820040858e0d9cdcd12d8, type: 3}
+  sadFaceSprite: {fileID: 292314350, guid: 30c192dbb42820040858e0d9cdcd12d8, type: 3}
 --- !u!114 &177003693
 MonoBehaviour:
   m_ObjectHideFlags: 0
