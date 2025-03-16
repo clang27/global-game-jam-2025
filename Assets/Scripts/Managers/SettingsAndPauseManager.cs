@@ -25,9 +25,6 @@ public class SettingsAndPauseManager : MonoBehaviour {
 		Instance = this;
 		
 		masterVolumeSlider.onValueChanged.AddListener(AdjustMasterVolume);
-	}
-
-	private void Start() {
 		Load();
 	}
 

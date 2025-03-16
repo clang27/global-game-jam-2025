@@ -2518,6 +2518,7 @@ MonoBehaviour:
   faceImage: {fileID: 1456054719}
   happyFaceSprite: {fileID: -1160007600, guid: 30c192dbb42820040858e0d9cdcd12d8, type: 3}
   sadFaceSprite: {fileID: 292314350, guid: 30c192dbb42820040858e0d9cdcd12d8, type: 3}
+  volume: {fileID: 1169789794}
 --- !u!114 &177003693
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4831,10 +4832,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   songOne: {fileID: 8300000, guid: a94839fe766f1604691d15174210e8c9, type: 3}
   songTwo: {fileID: 8300000, guid: 445c275509b2a8c4a9bd650e1573589f, type: 3}
-  beep: {fileID: 0}
-  great: {fileID: 0}
-  good: {fileID: 0}
-  miss: {fileID: 0}
+  songThree: {fileID: 8300000, guid: 51b38678b6cd96545a362c149205bc75, type: 3}
 --- !u!1 &378645728
 GameObject:
   m_ObjectHideFlags: 0
@@ -11322,7 +11320,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
+  m_BackGroundColor: {r: 1, g: 1, b: 1, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0

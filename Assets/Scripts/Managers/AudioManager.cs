@@ -4,19 +4,18 @@ using UnityEngine;
 namespace Managers {
 	public class AudioManager : MonoBehaviour, IManager {
 
-		#region Dependencies
+	#region Dependencies
 		[Header("Music")] 
 		[SerializeField] private AudioClip songOne;
 		[SerializeField] private AudioClip songTwo;
-		[Header("SFX")] 
-		[SerializeField] private AudioClip beep;
-		[SerializeField] private AudioClip great, good, miss;
-		#endregion
+		[SerializeField] private AudioClip songThree;
+	#endregion
 
-		#region Attributes
+	#region Attributes
 		public static AudioManager Instance { get; private set; }
 		public AudioSource SfxSource => _sfxSource;
-		#endregion
+		public bool PlayingLowAirTheme { get; private set; }
+	#endregion
 
 		#region Components
 		private AudioSource _musicSource, _sfxSource;
@@ -54,7 +53,13 @@ namespace Managers {
 		}
 		
 		public void PlayGameTheme() {
+			PlayingLowAirTheme = false;
 			PlaySong(songOne);
+		}
+
+		public void PlayLowAirTheme() {
+			PlayingLowAirTheme = true;
+			PlaySong(songThree);
 		}
 	
 		private void PlaySong(AudioClip ac) {

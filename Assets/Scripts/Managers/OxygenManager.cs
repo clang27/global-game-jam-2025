@@ -1,6 +1,8 @@
 using DG.Tweening;
 using Enums;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
 
 namespace Managers {
@@ -18,6 +20,7 @@ namespace Managers {
         [SerializeField] private Image oxygenImage, quadrantsImage;
         [SerializeField] private Image faceImage;
         [SerializeField] private Sprite happyFaceSprite, sadFaceSprite;
+        [SerializeField] private Volume volume;
     #endregion
 
     #region Attributes
@@ -74,12 +77,16 @@ namespace Managers {
         private int _upgrades;
         private bool _outOfBubble;
         private bool _jetpackOn;
+        private float _startingVignetteIntensity;
     #endregion
 
     #region Unity
         private void Awake() {
             Instance = this;
+            volume.profile.TryGet(typeof(Vignette), out Vignette vignette);
+            _startingVignetteIntensity = vignette.intensity.value;
         }
+        
         private void FixedUpdate() {
             if (_outOfBubble) {
                 AddOxygen(-decayRate);
@@ -124,14 +131,32 @@ namespace Managers {
 
         private void AddOxygen(float amount) {
             var trueRate = amount > 0f ? amount * (_upgrades + 1) : amount / (_upgrades + 1);
+            const float lowAirThreshold = 0.25f;
         
             OxygenPercent += trueRate;
 
             if (OxygenPercent <= 0f) {
                 OxygenPercent = 0f;
                 GameManager.Instance.GameOver(false);
+            } else if (OxygenPercent <= lowAirThreshold && !AudioManager.Instance.PlayingLowAirTheme) {
+                if (volume.profile.TryGet(typeof(Vignette), out Vignette vignette)) {
+                    DOVirtual.Float(vignette.intensity.value, _startingVignetteIntensity * 2f,  1f, (f) => vignette.intensity.value = f);
+                }
+                if (volume.profile.TryGet(typeof(ChromaticAberration), out ChromaticAberration chromaticAberration)) {
+                    DOVirtual.Float(chromaticAberration.intensity.value, 1f,  1f, (f) => chromaticAberration.intensity.value = f);
+                }
+                
+                AudioManager.Instance.PlayLowAirTheme();
             } else if (OxygenPercent >= 1f) {
                 OxygenPercent = 1f;
+            } else if (OxygenPercent > lowAirThreshold && AudioManager.Instance.PlayingLowAirTheme) {
+                if (volume.profile.TryGet(typeof(Vignette), out Vignette vignette)) {
+                    DOVirtual.Float(vignette.intensity.value, _startingVignetteIntensity,  0.5f, (f) => vignette.intensity.value = f);
+                }
+                if (volume.profile.TryGet(typeof(ChromaticAberration), out ChromaticAberration chromaticAberration)) {
+                    DOVirtual.Float(chromaticAberration.intensity.value, 0f,  1f, (f) => chromaticAberration.intensity.value = f);
+                }
+                AudioManager.Instance.PlayGameTheme();
             }
         }
 
