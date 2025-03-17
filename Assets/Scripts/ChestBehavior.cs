@@ -2,9 +2,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using Enums;
 using Managers;
-using Scriptable;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class ChestBehavior : MonoBehaviour {
 
