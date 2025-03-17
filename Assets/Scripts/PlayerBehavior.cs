@@ -240,6 +240,11 @@ public class PlayerBehavior : MonoBehaviour {
 	}
 	
 	public void InitWithBubble(Vector2 v) {
+		_inputVector = Vector2.zero;
+		InputVector = Vector2.zero;
+		PreviousInputVector = Vector2.zero;
+		PreviousNotZeroInputVector = Vector2.zero;
+		
 		_attackBehavior.Init();
 		HasJetpack = SaveManager.Instance.HasJetpack();
 		_jetpack.SetActive(HasJetpack);

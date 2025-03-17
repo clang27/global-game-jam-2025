@@ -24,7 +24,7 @@ public class SmallBubbleBehavior : MonoBehaviour {
     }
 
 	private void OnTriggerEnter2D(Collider2D other) {
-		if (GameManager.Instance.GameState is GameState.Start) { return; }
+		if (GameManager.Instance.GameState is GameState.Start or GameState.GameOver) { return; }
 		
 		if (other.TryGetComponent<PlayerBehavior>(out var player)) {
 			Debug.Log(other.name + " has landed on the bubble.");
@@ -51,7 +51,7 @@ public class SmallBubbleBehavior : MonoBehaviour {
 	}
 	
 	private void OnTriggerExit2D(Collider2D other) {
-		if (GameManager.Instance.GameState is GameState.Start) { return; }
+		if (GameManager.Instance.GameState is GameState.Start or GameState.GameOver) { return; }
 		
 		if (other.TryGetComponent<PlayerBehavior>(out var player)) {
 			Debug.Log(other.name + " has exited the bubble.");

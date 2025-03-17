@@ -51,7 +51,9 @@ public class ItemPickup : MonoBehaviour {
 
 #region Custom
 	public void Init() {
-		if (!InBarrel && !InChest && SaveManager.Instance.HasBeenCollected(itemId)) {
+		if (!_transform.parent) { // Was in a barrel or chest and now is lingering
+			Destroy(gameObject);
+		} else if (!InBarrel && !InChest && SaveManager.Instance.HasBeenCollected(itemId)) {
 			RemoveFromScene();
 		} else {
 			AddToScene();

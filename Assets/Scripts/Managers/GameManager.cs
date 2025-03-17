@@ -16,7 +16,6 @@ namespace Managers {
 	#endregion
 
 	#region Data
-		private bool _gameOverCooldown;
 		private string _sceneNameLoaded;
 	#endregion
 
@@ -43,7 +42,6 @@ namespace Managers {
 	#region Custom
 		private void Init() {
 			GameState = GameState.Start;
-			_gameOverCooldown = false;
 		
 			foreach (var manager in FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None).OfType<IManager>()) {
 				manager.Init();
@@ -92,13 +90,18 @@ namespace Managers {
 		}
 
 		public void ResetGame() {
-			if (!_gameOverCooldown) {
-				DOTween.KillAll();
+			DOTween.KillAll();
+
+			UiManager.Instance.ShowLoading(true, () => {
 				Init();
 				foreach (var manager in FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None).OfType<IManager>()) {
 					manager.SceneChange(_sceneNameLoaded);
 				}
-			}
+
+				CutSceneManager.Instance.HideBlackBars();
+				OxygenManager.Instance.ResetVolume();
+				UiManager.Instance.ShowLoading(false, () => { });
+			});
 		}
 
 		public void StartGame() {
@@ -107,7 +110,6 @@ namespace Managers {
 			CoinManager.Instance.enabled = true;
 			OxygenManager.Instance.enabled = true;
 			
-			UiManager.Instance.ShowGameOver(false);
 			UiManager.Instance.ShowTitle(false);
 			UiManager.Instance.ShowHud(true);
 			
@@ -126,22 +128,17 @@ namespace Managers {
 			}
 		}
 
-		public void GameOver(bool won) {
-			GameState = won ? GameState.Win : GameState.GameOver;
-		
-			_gameOverCooldown = true;
-			DOVirtual.DelayedCall(1f, () => _gameOverCooldown = false);
-
+		public void GameOver() {
+			GameState =  GameState.GameOver;
+			
 			BubbleManager.Instance.enabled = false;
 			CoinManager.Instance.enabled = false;
 			OxygenManager.Instance.enabled = false;
-
-			PlayerManager.Controller.InUi = true;
-			PlayerManager.Player.StopMoving();
-		
-			UiManager.Instance.ShowGameOver(!won);
+			
 			UiManager.Instance.ShowTitle(false);
 			UiManager.Instance.ShowHud(false);
+			
+			CutSceneManager.Instance.GameOver();
 		}
 
 		public void Pause() {

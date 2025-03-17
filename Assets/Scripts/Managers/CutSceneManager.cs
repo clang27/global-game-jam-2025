@@ -21,6 +21,20 @@ public class CutSceneManager : MonoBehaviour {
 #endregion
 
 #region Custom
+	public void GameOver() {
+		ShowBlackBars();
+		CameraManager.Instance.GameOver();
+		
+		PlayerManager.Controller.InUi = true;
+		PlayerManager.Player.StopMoving();
+		
+		AudioManager.Instance.StopSong();
+
+		PlayerManager.PlayerTransform.DORotate(new Vector3(0f, 0f, 360f * 5), 3f, RotateMode.FastBeyond360);
+		PlayerManager.PlayerTransform.DOMove(PlayerManager.PlayerTransform.position + new Vector3(0f, -30f, 0f), 3f)
+			.OnComplete(() => GameManager.Instance.ResetGame());
+	}
+	
 	public void PlayScene(string n) {
 		GameManager.Instance.GameState = GameState.CutScene;
 		var scene = FindObjectsByType<CutScene>(FindObjectsSortMode.None)

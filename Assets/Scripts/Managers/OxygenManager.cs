@@ -137,7 +137,8 @@ namespace Managers {
 
             if (OxygenPercent <= 0f) {
                 OxygenPercent = 0f;
-                GameManager.Instance.GameOver(false);
+                
+                GameManager.Instance.GameOver();
             } else if (OxygenPercent <= lowAirThreshold && !AudioManager.Instance.PlayingLowAirTheme) {
                 if (volume.profile.TryGet(typeof(Vignette), out Vignette vignette)) {
                     DOVirtual.Float(vignette.intensity.value, _startingVignetteIntensity * 2f,  1f, (f) => vignette.intensity.value = f);
@@ -157,6 +158,15 @@ namespace Managers {
                     DOVirtual.Float(chromaticAberration.intensity.value, 0f,  1f, (f) => chromaticAberration.intensity.value = f);
                 }
                 AudioManager.Instance.PlayGameTheme();
+            }
+        }
+
+        public void ResetVolume() {
+            if (volume.profile.TryGet(typeof(Vignette), out Vignette vignette)) {
+                DOVirtual.Float(vignette.intensity.value, _startingVignetteIntensity,  0.5f, (f) => vignette.intensity.value = f);
+            }
+            if (volume.profile.TryGet(typeof(ChromaticAberration), out ChromaticAberration chromaticAberration)) {
+                DOVirtual.Float(chromaticAberration.intensity.value, 0f,  1f, (f) => chromaticAberration.intensity.value = f);
             }
         }
 

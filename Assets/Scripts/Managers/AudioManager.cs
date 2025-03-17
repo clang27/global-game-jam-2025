@@ -67,6 +67,10 @@ namespace Managers {
 			_musicSource.Play();
 		}
 
+		public void StopSong() {
+			_musicSource.Stop();
+		}
+
 		public void PlaySfx(AudioClip ac) {
 			if (ac == null) {
 				return;
