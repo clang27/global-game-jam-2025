@@ -30,7 +30,7 @@ public class ChestBehavior : MonoBehaviour {
 		foreach (var item in itemsStored) {
 			for (var i = 0; i < item.count; i++) {
 				var itemObject = Instantiate(item.gameObject, _transform);
-				itemObject.transform.position = new Vector3(-10000f, -10000f);
+				itemObject.transform.position = new Vector3(10000f, 10000f);
 				_itemTransforms.Add(itemObject.transform);
 			}
 		}

@@ -183,7 +183,7 @@ public class PlayerBehavior : MonoBehaviour {
 		StopMoving();
 	}
 	
-	public void Hurt(Weapon weapon, Vector2 sourcePosition) {
+	public void Hurt(Weapon weapon, Vector2 direction) {
 		if (Stunned) { return; }
 
 		if (weapon.Shock) {
@@ -191,9 +191,14 @@ public class PlayerBehavior : MonoBehaviour {
 		}
 		
 		AudioManager.Instance.PlaySfx(_hurtSound);
-            
+
+		JetpackOff(true);
+		_velocity = Vector2.zero;
+		_rigidbody.linearVelocity = Vector2.zero;
+		
+		Boosting = false;
 		Stunned = true;
-		var direction = ((Vector2) _transform.position - sourcePosition).normalized;
+		
 		_rigidbody.AddForce(direction * weapon.Knockback, ForceMode2D.Impulse);
 		OxygenManager.Instance.Hurt(weapon.Damage);
 		

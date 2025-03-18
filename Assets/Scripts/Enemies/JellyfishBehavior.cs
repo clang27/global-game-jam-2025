@@ -14,7 +14,6 @@ namespace Enemies {
             _wallLayerMask = LayerMask.GetMask("Floor", "Bubble");
             
             GoalVelocity = Direction * maxSpeed;
-            _attackBehavior.TurnOnHitBox();
         }
         
         protected override void Move() {

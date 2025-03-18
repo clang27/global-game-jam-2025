@@ -21,8 +21,6 @@ namespace Enemies {
 
             _playerLayerMask = LayerMask.GetMask("Player");
             _wallLayerMask = LayerMask.GetMask("Floor", "Bubble");
-            
-            _attackBehavior.TurnOnHitBox();
         }
         
         protected override void Move() {

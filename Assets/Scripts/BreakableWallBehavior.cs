@@ -27,7 +27,7 @@ public class BreakableWallBehavior : MonoBehaviour {
 #endregion
 
 #region Custom
-	public void Hurt(Weapon weapon, Vector2 sourcePosition) {
+	public void Hurt(Weapon weapon) {
 		Health -= weapon.Damage;
 
 		if (Health <= 0) {

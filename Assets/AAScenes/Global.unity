@@ -2322,7 +2322,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   decayRate: 0.001
-  growRate: 0.002
+  growRate: 0.004
   jetpackDecayRate: 0.003
   jetpackInitialDrain: 0.1
   barUnlockImage: {fileID: 1659945404}

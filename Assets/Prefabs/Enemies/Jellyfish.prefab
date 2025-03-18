@@ -194,6 +194,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultWeapon: {fileID: 11400000, guid: de6c657037939864fa907f31b7a8c5e5, type: 2}
+  startOn: 1
 --- !u!212 &8460152558177254640
 SpriteRenderer:
   m_ObjectHideFlags: 0

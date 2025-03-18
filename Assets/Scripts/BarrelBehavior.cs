@@ -38,7 +38,7 @@ public class BarrelBehavior : MonoBehaviour {
 		foreach (var item in itemsStored) {
 			for (var i = 0; i < item.count; i++) {
 				var itemObject = Instantiate(item.gameObject, _transform);
-				itemObject.transform.position = new Vector3(-10000f, -10000f);
+				itemObject.transform.position = new Vector3(10000f, 10000f);
 				_itemTransforms.Add(itemObject.transform);
 			}
 		}
@@ -53,7 +53,7 @@ public class BarrelBehavior : MonoBehaviour {
 			AddToScene();
 		}
 	}
-	public void Hurt(Weapon weapon, Vector2 sourcePosition) {
+	public void Hurt(Weapon weapon) {
 		Health -= weapon.Damage;
 
 		if (Health <= 0) {

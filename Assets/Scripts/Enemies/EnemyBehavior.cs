@@ -85,12 +85,11 @@ namespace Enemies {
         protected abstract void Move();
         protected abstract void Attack();
         
-        public void Hurt(Weapon weapon, Vector2 sourcePosition) {
+        public void Hurt(Weapon weapon, Vector2 direction) {
             if (Stunned) { return; }
             AudioManager.Instance.PlaySfx(hurtSound);
             
             Stunned = true;
-            var direction = ((Vector2) _transform.position - sourcePosition).normalized;
             Health -= weapon.Damage;
 
             if (Health == 0) {

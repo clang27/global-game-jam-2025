@@ -5488,6 +5488,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a78fc3a4a8da59a48bcd843ca175f17e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  directionOverride: 0
+  direction: {x: 0, y: 1}
 --- !u!1 &4332966494130388121
 GameObject:
   m_ObjectHideFlags: 0
@@ -5799,7 +5801,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c090d6b17cf399499511b33f869373f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  strength: 200
+  strength: 50
 --- !u!1 &8552567223271329764
 GameObject:
   m_ObjectHideFlags: 0
@@ -5847,6 +5849,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultWeapon: {fileID: 11400000, guid: 9517acd7ff8823342b73cb24f9887ac3, type: 2}
+  startOn: 0
 --- !u!212 &7381793715969176262
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -6,6 +6,7 @@ public class AttackBehavior : MonoBehaviour {
 
 #region Dependencies
 	[SerializeField] private Weapon defaultWeapon;
+	[SerializeField] private bool startOn;
 #endregion
 
 #region Attributes
@@ -48,13 +49,8 @@ public class AttackBehavior : MonoBehaviour {
 	public void Init() {
 		ResetWeapon();
 		
-		_hitBoxSpriteRenderer.enabled = false;	
-		_hitBoxCollider.enabled = false;
-	}
-
-	public void TurnOnHitBox() {
-		_hitBoxSpriteRenderer.enabled = true;	
-		_hitBoxCollider.enabled = true;
+		_hitBoxSpriteRenderer.enabled = startOn;	
+		_hitBoxCollider.enabled = startOn;
 	}
 
 	public void Activate() {

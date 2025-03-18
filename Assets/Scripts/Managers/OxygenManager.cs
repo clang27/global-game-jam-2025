@@ -124,7 +124,7 @@ namespace Managers {
         
         public void Hurt(int damage) {
             faceImage.sprite = sadFaceSprite;
-            DOVirtual.DelayedCall(1f, () => faceImage.sprite = happyFaceSprite);
+            DOVirtual.DelayedCall(0.7f, () => faceImage.sprite = happyFaceSprite);
             
             AddOxygen(-damage/100f);
         }
