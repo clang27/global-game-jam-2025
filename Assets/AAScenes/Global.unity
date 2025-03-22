@@ -24996,7 +24996,7 @@ MonoBehaviour:
   settingsButton: {fileID: 2125108552}
   acceptButton: {fileID: 1363654915}
   quitButton: {fileID: 2101540460}
-  sliderQuotient: 10
+  sliderQuotient: 20
 --- !u!1 &1033529313
 GameObject:
   m_ObjectHideFlags: 0
@@ -39890,7 +39890,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7132920552237810391, guid: b535e682bf24ddc4082149a688c71383, type: 3}
       propertyPath: m_Value
-      value: 9
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7132920552237810391, guid: b535e682bf24ddc4082149a688c71383, type: 3}
       propertyPath: m_FillRect
@@ -39898,7 +39898,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7132920552237810391, guid: b535e682bf24ddc4082149a688c71383, type: 3}
       propertyPath: m_MaxValue
-      value: 9
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 7855566218829582339, guid: b535e682bf24ddc4082149a688c71383, type: 3}
       propertyPath: m_AnchorMax.x
