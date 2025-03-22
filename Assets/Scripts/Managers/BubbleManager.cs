@@ -37,7 +37,9 @@ namespace Managers {
     
 		private void OnDisable() {
 			foreach (var b in SmallBubbles) {
-				b.enabled = false;
+				if (b) {
+					b.enabled = false;	
+				}
 			}
 		}
 

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Shock
   m_EditorClassIdentifier: 
   Sprite: {fileID: 0}
-  Knockback: 30
+  Knockback: 5
   AttackSpeed: 0.5
   StunTime: 0.8
   Damage: 5

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using DG.Tweening;
 using Enums;
 using Managers;
@@ -56,6 +57,7 @@ public class PlayerBehavior : MonoBehaviour {
 	public bool HasWeapon { get; private set; }
 	public bool Jetpacking => _jetpacking;
 	private bool Boosting { get; set; }
+	public List<Vector3> ExternalForces { get; set; } = new();
 #endregion
 
 #region Components
@@ -94,36 +96,37 @@ public class PlayerBehavior : MonoBehaviour {
     }
 	
 	private void FixedUpdate() {
-		if (Stunned) {return;}
-
 		var onBubble = BubbleManager.Instance.PlayerIsOnBubble;
+		var acc = deceleration;
+		var goalSpeed = Vector2.zero;
 
-		if (Boosting) {
-			var goalSpeed = ((_boostDirection + (PreviousNotZeroInputVector / 4f)) / 2f).normalized * boostMaxSpeed;
-			var acc = acceleration * 10f;
-			_velocity = Vector2.Lerp(_velocity, goalSpeed, Time.fixedDeltaTime * acc);
-		} else if (Jetpacking) {
-			if (_jetpackReleased) {
-				_jetpackReleased = false;
-				JetpackOff(true);
+		if (!Stunned) {
+			if (Boosting) {
+				goalSpeed = ((_boostDirection + (PreviousNotZeroInputVector / 4f)) / 2f).normalized * boostMaxSpeed;
+				acc = acceleration * 10f;
+			} else if (Jetpacking) {
+				if (_jetpackReleased) {
+					_jetpackReleased = false;
+					JetpackOff(true);
+				} else {
+					goalSpeed = PreviousNotZeroInputVector * jetpackMaxSpeed;
+					acc = acceleration * 2f;
+				}
 			} else {
-				var goalSpeed = PreviousNotZeroInputVector * jetpackMaxSpeed;
-				var acc = acceleration * 2f;
-				_velocity = Vector2.Lerp(_velocity, goalSpeed, Time.fixedDeltaTime * acc);
-			}
-		} else {
-			if (InputVector.magnitude > 0f) {
-				var goalSpeed = InputVector * maxSpeed;
-				var acc = (onBubble) ? acceleration * 2 : acceleration;
-				
-				_velocity = Vector2.Lerp(_velocity, goalSpeed, Time.fixedDeltaTime * acc);
-			} else {
-				var goalSpeed = Vector2.zero;
-				var dec = (onBubble) ? deceleration * 2 : deceleration;
-				
-				_velocity = Vector2.Lerp(_velocity, goalSpeed, Time.fixedDeltaTime * dec);
+				if (InputVector.magnitude > 0f) {
+					goalSpeed = InputVector * maxSpeed;
+					acc = (onBubble) ? acceleration * 2 : acceleration;
+				} else {
+					goalSpeed = Vector2.zero;
+					acc = (onBubble) ? deceleration * 2 : deceleration;
+				}
 			}
 		}
+		
+		foreach (var force in ExternalForces) {
+			goalSpeed += (Vector2) force;
+		}
+		_velocity = Vector2.Lerp(_velocity, goalSpeed, Stunned ? 1f : Time.fixedDeltaTime * acc);
 		
 		if (_animator) {
 			if (tag.Equals("Player")) {
@@ -193,13 +196,11 @@ public class PlayerBehavior : MonoBehaviour {
 		AudioManager.Instance.PlaySfx(_hurtSound);
 
 		JetpackOff(true);
-		_velocity = Vector2.zero;
-		_rigidbody.linearVelocity = Vector2.zero;
 		
 		Boosting = false;
 		Stunned = true;
 		
-		_rigidbody.AddForce(direction * weapon.Knockback, ForceMode2D.Impulse);
+		ExternalForces.Add(direction * weapon.Knockback);
 		OxygenManager.Instance.Hurt(weapon.Damage);
 		
 		_spriteRenderer.DOFade(0.1f, 0.05f).SetLoops(-1, LoopType.Yoyo);
@@ -207,6 +208,7 @@ public class PlayerBehavior : MonoBehaviour {
             
 		DOVirtual.DelayedCall(weapon.StunTime, () => {
 			Stunned = false;    
+			ExternalForces.Remove(direction * weapon.Knockback);
 			_shockSprite.enabled = false;
 			
 			_spriteRenderer.DOKill();
@@ -220,6 +222,7 @@ public class PlayerBehavior : MonoBehaviour {
 		_velocity = Vector2.zero;
 		_transform.position = _startingPosition;
 		_transform.eulerAngles = Vector3.zero;
+		ExternalForces.Clear();
 		
 		_jetpacking = false;
 		_jetpackCooldown = false;
@@ -265,6 +268,7 @@ public class PlayerBehavior : MonoBehaviour {
 		_jetpacking = false;
 		TimeOnBubble = 0f;
 		_timeSinceLastInput = 10f;
+		ExternalForces.Clear();
 		
 		if (_animator) {
 			_animator.SetBool("up", true);

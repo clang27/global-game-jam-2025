@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Puff
   m_EditorClassIdentifier: 
   Sprite: {fileID: 0}
-  Knockback: 120
+  Knockback: 40
   AttackSpeed: 3
   StunTime: 1
   Damage: 0
