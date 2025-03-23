@@ -78,6 +78,7 @@ namespace Managers {
         private bool _outOfBubble;
         private bool _jetpackOn;
         private float _startingVignetteIntensity;
+        private Tweener _effectTweenerOne, _effectTweenerTwo;
     #endregion
 
     #region Unity
@@ -140,33 +141,41 @@ namespace Managers {
                 
                 GameManager.Instance.GameOver();
             } else if (OxygenPercent <= lowAirThreshold && !AudioManager.Instance.PlayingLowAirTheme) {
-                if (volume.profile.TryGet(typeof(Vignette), out Vignette vignette)) {
-                    DOVirtual.Float(vignette.intensity.value, _startingVignetteIntensity * 2f,  1f, (f) => vignette.intensity.value = f);
-                }
-                if (volume.profile.TryGet(typeof(ChromaticAberration), out ChromaticAberration chromaticAberration)) {
-                    DOVirtual.Float(chromaticAberration.intensity.value, 1f,  1f, (f) => chromaticAberration.intensity.value = f);
-                }
-                
+                GrowEffects();
                 AudioManager.Instance.PlayLowAirTheme();
             } else if (OxygenPercent >= 1f) {
                 OxygenPercent = 1f;
             } else if (OxygenPercent > lowAirThreshold && AudioManager.Instance.PlayingLowAirTheme) {
-                if (volume.profile.TryGet(typeof(Vignette), out Vignette vignette)) {
-                    DOVirtual.Float(vignette.intensity.value, _startingVignetteIntensity,  0.5f, (f) => vignette.intensity.value = f);
-                }
-                if (volume.profile.TryGet(typeof(ChromaticAberration), out ChromaticAberration chromaticAberration)) {
-                    DOVirtual.Float(chromaticAberration.intensity.value, 0f,  1f, (f) => chromaticAberration.intensity.value = f);
-                }
+                ShrinkEffects();
                 AudioManager.Instance.PlayGameTheme();
             }
         }
 
         public void ResetVolume() {
+            ShrinkEffects();
+        }
+
+        private void GrowEffects() {
+            _effectTweenerOne?.Kill();
+            _effectTweenerTwo?.Kill();
+            
             if (volume.profile.TryGet(typeof(Vignette), out Vignette vignette)) {
-                DOVirtual.Float(vignette.intensity.value, _startingVignetteIntensity,  0.5f, (f) => vignette.intensity.value = f);
+                _effectTweenerOne = DOVirtual.Float(vignette.intensity.value, _startingVignetteIntensity * 2f,  1f, (f) => vignette.intensity.value = f);
             }
             if (volume.profile.TryGet(typeof(ChromaticAberration), out ChromaticAberration chromaticAberration)) {
-                DOVirtual.Float(chromaticAberration.intensity.value, 0f,  1f, (f) => chromaticAberration.intensity.value = f);
+                _effectTweenerTwo = DOVirtual.Float(chromaticAberration.intensity.value, 1f,  1f, (f) => chromaticAberration.intensity.value = f);
+            }
+        }
+        
+        private void ShrinkEffects() {
+            _effectTweenerOne?.Kill();
+            _effectTweenerTwo?.Kill();
+            
+            if (volume.profile.TryGet(typeof(Vignette), out Vignette vignette)) {
+                _effectTweenerOne = DOVirtual.Float(vignette.intensity.value, _startingVignetteIntensity,  0.5f, (f) => vignette.intensity.value = f);
+            }
+            if (volume.profile.TryGet(typeof(ChromaticAberration), out ChromaticAberration chromaticAberration)) {
+                _effectTweenerTwo = DOVirtual.Float(chromaticAberration.intensity.value, 0f,  1f, (f) => chromaticAberration.intensity.value = f);
             }
         }
 

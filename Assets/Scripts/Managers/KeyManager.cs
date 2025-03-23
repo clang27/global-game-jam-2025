@@ -1,9 +1,14 @@
 using System.Collections.Generic;
 using Enums;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Managers {
     public class KeyManager : MonoBehaviour, IManager {
+        
+    #region Dependencies
+        [SerializeField] private GameObject[] keyUiImages;
+    #endregion
 
     #region Attributes
         public static KeyManager Instance { get; private set; }
@@ -23,6 +28,15 @@ namespace Managers {
             enabled = false;
 
             KeyNumbers = SaveManager.Instance.KeysCollected();
+            foreach (var image in keyUiImages) {
+               image.transform.GetChild(0).gameObject.SetActive(true);
+               image.transform.GetChild(1).gameObject.SetActive(false);
+            }
+            foreach (var number in KeyNumbers) {
+                keyUiImages[number].transform.GetChild(0).gameObject.SetActive(false);
+                keyUiImages[number].transform.GetChild(1).gameObject.SetActive(true);
+            }
+            
             TouchedDoor = null;
             TouchedChest = null;
             
@@ -38,6 +52,8 @@ namespace Managers {
         public void AddKey(ItemId id) {
             DoorBehavior.RemoveLock(id.number);
             KeyNumbers.Add(id.number);
+            keyUiImages[id.number].transform.GetChild(0).gameObject.SetActive(false);
+            keyUiImages[id.number].transform.GetChild(1).gameObject.SetActive(true);
         }
     #endregion
 

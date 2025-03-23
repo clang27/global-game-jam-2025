@@ -36,6 +36,7 @@ public class SmallBubbleBehavior : MonoBehaviour {
 			
 			if (!player.Jetpacking) {
 				player.JetpackOff(false);
+				_animator.SetTrigger("enterWithoutJetpack");
 				CameraManager.Instance.Switch(CameraState.Bubble, name, _transform);
 			} else if (!_jetpackDelay) {
 				_jetpackDelay = true;
@@ -44,7 +45,7 @@ public class SmallBubbleBehavior : MonoBehaviour {
 				var lookRotation = Quaternion.LookRotation(forward: Vector3.forward, upwards: dir);
 				DOVirtual.DelayedCall(JetpackDelayTime, () => _jetpackDelay = false);
 				_transform.DORotate(lookRotation.eulerAngles + new Vector3(0f, 0f, 90f), 0.15f).SetEase(Ease.InOutCirc);
-				_animator.SetTrigger("jetpack");
+				_animator.SetTrigger("enterWithJetpack");
 				player.BubbleBoost();
 			}
 		}
@@ -56,6 +57,7 @@ public class SmallBubbleBehavior : MonoBehaviour {
 		if (other.TryGetComponent<PlayerBehavior>(out var player)) {
 			Debug.Log(other.name + " has exited the bubble.");
 			
+			_animator.SetTrigger("enterWithoutJetpack");
 			BubbleManager.Instance.SmallBubblePlayerIsOn = null;
 			OxygenManager.Instance.OutOfBubble();
 			CameraManager.Instance.Switch(CameraState.Ocean, name);
