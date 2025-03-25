@@ -61,6 +61,10 @@ public class DoorBehavior : MonoBehaviour {
 	private void RemoveLock() {
 		_lockSpriteRenderer.enabled = false;
 	}
+	
+	public void AddLock() {
+		_lockSpriteRenderer.enabled = !CanOpen;
+	}
 #endregion
 
 }

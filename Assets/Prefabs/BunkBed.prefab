@@ -436,6 +436,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 438006128907694442}
+  - component: {fileID: 1318410275613254087}
   m_Layer: 7
   m_Name: BunkBed
   m_TagString: Untagged
@@ -468,6 +469,26 @@ Transform:
   - {fileID: 2001740390959953587}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1318410275613254087
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3056196159746676941}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b15ac7f8a044f49458eacc0894b583aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bedSprites:
+  - {fileID: 21300000, guid: a80ef8e1d1caaa9469ebb6f6c8d8ce1d, type: 3}
+  - {fileID: 21300000, guid: ce6717f8387464446a457dced475dfed, type: 3}
+  - {fileID: 21300000, guid: 076404a65d535da468a3735bf904504e, type: 3}
+  - {fileID: 21300000, guid: f565041c3af75df4bab4a967ce39708a, type: 3}
+  bedSpriteRenderers:
+  - {fileID: 5125334788351440572}
+  - {fileID: 6153844793953261167}
 --- !u!1 &3305880498336191539
 GameObject:
   m_ObjectHideFlags: 0

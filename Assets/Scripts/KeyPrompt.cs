@@ -19,17 +19,17 @@ public class KeyPrompt : MonoBehaviour {
 	    _startingScale = _transform.localScale.x;
 	    _spriteRenderer = GetComponent<SpriteRenderer>();
     }
-
-    private void Start() {
-	    _spriteRenderer.DOFade(0f, 0f);
-    }
 #endregion
 
 #region Custom
 	public void Bounce() {
+		//Debug.Log("Starting to bounce!");
 		_transform.DOKill();
 		_transform.DOScale(_startingScale, 0f);
-		_transform.DOScale(_startingScale * 0.9f, 0.5f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.InOutCubic);
+		_transform.DOScale(_startingScale * 0.9f, 0.5f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.InOutCubic).OnKill(
+			() => {
+				//Debug.Log("Stopping bounce!");
+			});
 	}
 	public void ChangeToXbox() {
 		_spriteRenderer.sprite = controllerSprite;
@@ -37,6 +37,10 @@ public class KeyPrompt : MonoBehaviour {
 	
 	public void ChangeToPc() {
 		_spriteRenderer.sprite = keyboardSprite;
+	}
+	
+	public void Hide() {
+		_spriteRenderer.DOFade(0f, 0f);
 	}
 	
 	public void Show() {

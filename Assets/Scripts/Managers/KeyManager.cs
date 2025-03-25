@@ -42,8 +42,12 @@ namespace Managers {
             
             Debug.Log($"{KeyNumbers.Count} keys have been collected according to save data");
         }
-        
-        public void SceneChange(string sceneName) {}
+
+        public void SceneChange(string sceneName) {
+            foreach (var d in FindObjectsByType<DoorBehavior>(FindObjectsSortMode.None)) {
+                d.AddLock();
+            }
+        }
 
         public bool HasKey(ushort num) {
             return KeyNumbers.Contains(num);

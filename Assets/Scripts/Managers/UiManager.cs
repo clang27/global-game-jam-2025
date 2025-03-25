@@ -37,12 +37,14 @@ namespace Managers {
 		public void Init() {
 			ShowTitle(true);
 			ShowHud(false);
+		}
+
+		public void SceneChange(string sceneName) {
 			foreach (var kp in FindObjectsByType<KeyPrompt>(FindObjectsSortMode.None)) {
+				kp.Hide();
 				kp.Bounce();
 			}
 		}
-		
-		public void SceneChange(string sceneName) {}
 		
 		public void ShowLoading(bool b, Action a) {
 			_loadingScreen.DOKill();

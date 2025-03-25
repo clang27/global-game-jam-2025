@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class Parallax : MonoBehaviour {
 
-	[SerializeField][Range(0f, 10f)] private float parallaxEffect;
+	[SerializeField][Range(0f, 10f)] private float parallaxEffectX;
+	[SerializeField][Range(0f, 10f)] private float parallaxEffectY;
 	
 	private float _height, _length;
 	private Vector2 _startPos;
@@ -19,8 +20,8 @@ public class Parallax : MonoBehaviour {
 	}
 
 	private void Update() {
-		var xDist = _cam.transform.position.x * parallaxEffect;
-		var yDist = _cam.transform.position.y * parallaxEffect;
+		var xDist = _cam.transform.position.x * parallaxEffectX;
+		var yDist = _cam.transform.position.y * parallaxEffectY;
 
 		_transform.position = new Vector3(_startPos.x + xDist, _startPos.y + yDist, _transform.position.z);
 	}
