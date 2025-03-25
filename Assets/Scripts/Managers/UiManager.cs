@@ -3,6 +3,7 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 namespace Managers {
@@ -36,6 +37,9 @@ namespace Managers {
 		public void Init() {
 			ShowTitle(true);
 			ShowHud(false);
+			foreach (var kp in FindObjectsByType<KeyPrompt>(FindObjectsSortMode.None)) {
+				kp.Bounce();
+			}
 		}
 		
 		public void SceneChange(string sceneName) {}
@@ -81,6 +85,16 @@ namespace Managers {
 			}
 			
 			ShowCanvas(titleCanvasGroup, b);
+		}
+
+		public void ChangeAllKeyPrompts(PlayerInput playerInput) {
+			foreach (var kp in FindObjectsByType<KeyPrompt>(FindObjectsSortMode.None)) {
+				if (playerInput.currentControlScheme.Contains("Gamepad")) {
+					kp.ChangeToXbox();
+				} else {
+					kp.ChangeToPc();
+				}
+			}
 		}
 
 		private void ShowCanvas(CanvasGroup cg, bool b) {

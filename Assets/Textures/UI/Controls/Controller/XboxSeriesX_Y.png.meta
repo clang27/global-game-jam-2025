@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 4aa5351a97ae9bc478ba748b40a4e2a7
+guid: 77eba4c0d7ddd8c459873f69913debac
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4942065966214856429
-    second: unlockedSpacebar_0
+      213: -6152457158109837985
+    second: XboxSeriesX_Y_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -76,8 +76,8 @@ TextureImporter:
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
-    compressionQuality: 50
-    crunchedCompression: 0
+    compressionQuality: 100
+    crunchedCompression: 1
     allowsAlphaSplitting: 0
     overridden: 0
     ignorePlatformSupport: 0

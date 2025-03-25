@@ -248,6 +248,15 @@ public class PlayerBehavior : MonoBehaviour {
 	}
 	
 	public void InitWithBubble(Vector2 v) {
+		Stunned = false;
+		Boosting = false;
+
+		_spriteRenderer.DOKill();
+		_spriteRenderer.DOFade(1f, 0f);
+
+		_jetpackSprite.DOKill();
+		_jetpackSprite.DOFade(1f, 0f);
+		
 		_inputVector = Vector2.zero;
 		InputVector = Vector2.zero;
 		PreviousInputVector = Vector2.zero;

@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: fddde246066d8284398c97a0ee2a6ea6
+guid: 4e2101d7f33f97f48bb9ac6c2e2e5f27
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 9215908806587904117
-    second: Peg_0
+      213: 9190518682586854637
+    second: Wood-Beam_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -75,9 +75,9 @@ TextureImporter:
     maxTextureSize: 8192
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 2
-    compressionQuality: 100
-    crunchedCompression: 1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
     ignorePlatformSupport: 0

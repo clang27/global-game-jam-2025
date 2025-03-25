@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultWeapon: {fileID: 11400000, guid: 9e24eb088a672b947a0b79e61138ce7c, type: 2}
+  startOn: 0
 --- !u!212 &6897568297041810263
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -133,7 +134,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -71.22, y: -49.69, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 942464415036864602}
@@ -374,7 +375,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0.1}
-  m_Radius: 1.2
+  m_Radius: 1
 --- !u!114 &4364256741985067278
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -387,6 +388,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a78fc3a4a8da59a48bcd843ca175f17e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  directionOverride: 0
+  direction: {x: 0, y: 1}
 --- !u!212 &4785417073669957075
 SpriteRenderer:
   m_ObjectHideFlags: 0

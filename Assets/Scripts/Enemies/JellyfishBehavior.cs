@@ -7,7 +7,7 @@ namespace Enemies {
         
         [SerializeField] private float raycastDistance;
 
-        protected override void Init() {
+        public override void Init() {
             Velocity = Vector2.zero;
             Direction = _transform.rotation * Vector2.up;
 

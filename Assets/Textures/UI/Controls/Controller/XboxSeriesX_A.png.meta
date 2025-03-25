@@ -1,19 +1,10 @@
 fileFormatVersion: 2
-guid: a8a09b3c450dd754ca5995655e171b32
+guid: deb71dc65618d074fb7daf0c7aaebece
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1033766676993296678
-    second: Arrows_0
-  - first:
-      213: 5287939958834139383
-    second: Arrows_1
-  - first:
-      213: 3318904089994504119
-    second: Arrows_2
-  - first:
-      213: 2319643638384702094
-    second: Arrows_3
+      213: 6618122927494612730
+    second: XboxSeriesX_A_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -85,8 +76,8 @@ TextureImporter:
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
-    compressionQuality: 50
-    crunchedCompression: 0
+    compressionQuality: 100
+    crunchedCompression: 1
     allowsAlphaSplitting: 0
     overridden: 0
     ignorePlatformSupport: 0

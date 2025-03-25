@@ -1,10 +1,19 @@
 fileFormatVersion: 2
-guid: fddde246066d8284398c97a0ee2a6ea6
+guid: a4685e6690bf604409d504fb3da1a345
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 9215908806587904117
-    second: Peg_0
+      213: 3880529968885569102
+    second: Pillar_0
+  - first:
+      213: -1592747150301918653
+    second: Pillar_1
+  - first:
+      213: 3201397677746351210
+    second: Pillar_2
+  - first:
+      213: 7530759616873178874
+    second: Pillar_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -75,9 +84,9 @@ TextureImporter:
     maxTextureSize: 8192
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 2
-    compressionQuality: 100
-    crunchedCompression: 1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
     ignorePlatformSupport: 0

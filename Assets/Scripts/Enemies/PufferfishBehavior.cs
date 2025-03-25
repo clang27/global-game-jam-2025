@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Enemies {
     public class PufferfishBehavior : EnemyBehavior {
-        protected override void Init() {
+        public override void Init() {
             AttackCooldown = false;
             
             Velocity = Vector2.zero;
@@ -29,7 +29,7 @@ namespace Enemies {
             _animator.SetTrigger(_attack);
 
             var x = _attackBehavior.EquippedWeapon.AttackSpeed;
-            DOVirtual.DelayedCall(Random.Range(x, x * 1.5f), () => AttackCooldown = false);
+            DOVirtual.DelayedCall(Random.Range(x, x * 1.25f), () => AttackCooldown = false);
         }
     }
 }

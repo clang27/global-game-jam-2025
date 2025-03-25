@@ -3,6 +3,7 @@ using Enums;
 using Managers;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Playables;
 using UnityEngine.Timeline;
 
@@ -11,6 +12,7 @@ public class CutScene : MonoBehaviour {
 #region Dependencies
 	[SerializeField] private float startTime;
 	[SerializeField] private GameObject actor;
+	[SerializeField] private UnityEvent onFinish;
 #endregion
 
 #region Components
@@ -58,6 +60,8 @@ public class CutScene : MonoBehaviour {
 	}
 	
 	private void EndScene(PlayableDirector pd) {
+		onFinish.Invoke();
+			
 		GameManager.Instance.GameState = GameState.Playing;
 		UiManager.Instance.ShowHud(true);
 		_playableDirector.stopped -= EndScene;

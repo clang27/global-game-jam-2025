@@ -55,10 +55,6 @@ namespace Enemies {
             Health = health;
         }
 
-        private void Start() {
-            Init();
-        }
-
         private void OnCollisionEnter2D(Collision2D other) {
             if (other.gameObject.CompareTag("Bubble")) {
                 var sourcePosition = (Vector2) other.transform.position;
@@ -81,7 +77,7 @@ namespace Enemies {
 
     #region Custom
 
-        protected abstract void Init();
+        public abstract void Init();
         protected abstract void Move();
         protected abstract void Attack();
         
@@ -92,7 +88,7 @@ namespace Enemies {
             Stunned = true;
             Health -= weapon.Damage;
 
-            if (Health == 0) {
+            if (Health <= 0) {
                 _rigidbody.AddForce(direction * weapon.Knockback * 10f, ForceMode2D.Impulse);
 
                 _transform.DORotate(new Vector3(0f, 0f, _transform.localRotation.eulerAngles.z + 720f), 0.5f, RotateMode.FastBeyond360)

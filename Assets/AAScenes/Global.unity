@@ -40167,6 +40167,10 @@ PrefabInstance:
       propertyPath: m_UIInputModule
       value: 
       objectReference: {fileID: 280329108}
+    - target: {fileID: 393839955263222396, guid: f1d66f2229f3a9d43855123aed5daedf, type: 3}
+      propertyPath: m_ControlsChangedEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1172458627}
     - target: {fileID: 2942874469767818974, guid: f1d66f2229f3a9d43855123aed5daedf, type: 3}
       propertyPath: m_LocalPosition.x
       value: -10000

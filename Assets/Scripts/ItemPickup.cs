@@ -3,6 +3,7 @@ using DG.Tweening;
 using Enums;
 using Managers;
 using UnityEngine;
+using UnityEngine.Events;
 using Random = UnityEngine.Random;
 
 public class ItemPickup : MonoBehaviour {
@@ -12,6 +13,7 @@ public class ItemPickup : MonoBehaviour {
 	[SerializeField] private ItemId itemId;
 	[Header("Properties")]
 	[SerializeField] private AudioClip pickupSound;
+	[SerializeField] private UnityEvent onPickup;
 #endregion
 	
 #region Attributes
@@ -39,6 +41,7 @@ public class ItemPickup : MonoBehaviour {
 		if (other.tag.Equals("Player")) {
 			AudioManager.Instance.PlaySfx(pickupSound);
 			_action.Invoke(itemId);
+			onPickup.Invoke();
 			RemoveFromScene();
 			SaveManager.Instance.ItemCollected(itemId);
 		}

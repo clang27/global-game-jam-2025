@@ -11,7 +11,9 @@ namespace Enemies {
         [SerializeField] private float turnSpeed = 1f;
         [SerializeField] private Transform top, bottom;
 
-        protected override void Init() {
+        public override void Init() {
+            _reachedGoal = true;
+            
             Velocity = Vector2.zero;
             Direction = Vector2.zero;
             GoalVelocity = Vector2.zero;

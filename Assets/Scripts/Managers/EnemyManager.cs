@@ -1,6 +1,8 @@
+using Enemies;
+using Managers;
 using UnityEngine;
 
-public class EnemyManager : MonoBehaviour {
+public class EnemyManager : MonoBehaviour, IManager {
 
 #region Dependencies
 	// [SerializeField] private GameObject[] Entries;
@@ -28,6 +30,12 @@ public class EnemyManager : MonoBehaviour {
 #endregion
 
 #region Custom
+	public void Init() {}
+	public void SceneChange(string sceneName) {
+		foreach (var e in FindObjectsByType<EnemyBehavior>(FindObjectsSortMode.None)) {
+			e.Init();
+		}
+	}
 	public void Poof(Vector2 location) {
 		var system = (_systemCounter++ % 3) switch {
 			1 => _poofParticleSystemTwo,

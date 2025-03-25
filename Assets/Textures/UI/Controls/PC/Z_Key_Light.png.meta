@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: ee1dc3eb37311d24a8a04c29e9089504
+guid: b68f7d1ebdc390245bed8342ab0fc5e9
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8063057067085240033
-    second: lockedSpacebar_0
+      213: 5117434348454109984
+    second: Z_Key_Light_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -72,7 +72,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 8192
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0

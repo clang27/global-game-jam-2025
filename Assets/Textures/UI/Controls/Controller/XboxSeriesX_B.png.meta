@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: fddde246066d8284398c97a0ee2a6ea6
+guid: bd5eff4b579364e4795593c75c7a3c2a
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 9215908806587904117
-    second: Peg_0
+      213: 4564764429337591670
+    second: XboxSeriesX_B_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -75,7 +75,7 @@ TextureImporter:
     maxTextureSize: 8192
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 2
+    textureCompression: 0
     compressionQuality: 100
     crunchedCompression: 1
     allowsAlphaSplitting: 0

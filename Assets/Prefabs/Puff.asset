@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Puff
   m_EditorClassIdentifier: 
   Sprite: {fileID: 0}
-  Knockback: 40
-  AttackSpeed: 3
-  StunTime: 1
+  Knockback: 50
+  AttackSpeed: 5
+  StunTime: 0.5
   Damage: 0
   Shock: 0
   Sound: {fileID: 0}
