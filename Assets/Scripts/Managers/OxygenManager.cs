@@ -107,6 +107,7 @@ namespace Managers {
             Upgrades = SaveManager.Instance.NumberOfItem(ItemType.OxygenUpgrade) + 1;
             OxygenPercent = 1f;
             OutOfBubble();
+            TitleEffects();
         }
 
         public void Upgrade(ItemId itemId) {
@@ -167,7 +168,7 @@ namespace Managers {
             }
         }
         
-        private void ShrinkEffects() {
+        public void ShrinkEffects() {
             _effectTweenerOne?.Kill();
             _effectTweenerTwo?.Kill();
             
@@ -176,6 +177,18 @@ namespace Managers {
             }
             if (volume.profile.TryGet(typeof(ChromaticAberration), out ChromaticAberration chromaticAberration)) {
                 _effectTweenerTwo = DOVirtual.Float(chromaticAberration.intensity.value, 0f,  1f, (f) => chromaticAberration.intensity.value = f);
+            }
+        }
+
+        private void TitleEffects() {
+            _effectTweenerOne?.Kill();
+            _effectTweenerTwo?.Kill();
+
+            if (volume.profile.TryGet(typeof(Vignette), out Vignette vignette)) {
+                _effectTweenerOne = DOVirtual.Float(vignette.intensity.value, 0.5f,  0f, (f) => vignette.intensity.value = f);
+            }
+            if (volume.profile.TryGet(typeof(ChromaticAberration), out ChromaticAberration chromaticAberration)) {
+                _effectTweenerTwo = DOVirtual.Float(chromaticAberration.intensity.value, 0f,  0f, (f) => chromaticAberration.intensity.value = f);
             }
         }
 

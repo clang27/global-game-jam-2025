@@ -13,6 +13,7 @@ namespace Managers {
 		[SerializeField] private CanvasGroup hudCanvasGroup, titleCanvasGroup;
 		[SerializeField] private RectTransform _loadingScreen;
 		[SerializeField] private Button startGameButton;
+		[SerializeField] private RectTransform titleImage;
 		[SerializeField] private CanvasGroup pauseAndSettingsCanvasGroup, pauseCanvasGroup, settingsCanvasGroup;
 	#endregion
 
@@ -37,6 +38,14 @@ namespace Managers {
 		public void Init() {
 			ShowTitle(true);
 			ShowHud(false);
+
+			titleImage.DOKill();
+			titleImage.DOScale(Vector3.one * 1.1f, 2f)
+				.SetEase(Ease.InOutSine)
+				.SetLoops(-1, LoopType.Yoyo)
+				.OnKill(() => {
+					titleImage.DOScale(Vector3.one, 0f);
+				});
 		}
 
 		public void SceneChange(string sceneName) {

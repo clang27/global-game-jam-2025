@@ -112,6 +112,7 @@ namespace Managers {
 			
 			UiManager.Instance.ShowTitle(false);
 			UiManager.Instance.ShowHud(true);
+			OxygenManager.Instance.ShrinkEffects();
 			
 			if (SaveManager.Instance.HasASaveFile()) {
 				GameState = GameState.Playing;
