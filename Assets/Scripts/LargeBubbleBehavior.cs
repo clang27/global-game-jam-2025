@@ -12,6 +12,9 @@ public class LargeBubbleBehavior : MonoBehaviour {
 #region Dependencies
 	[SerializeField] private Vector2 goalVelocity;
 	[SerializeField] private string sceneName = "Ocean";
+	[Header("SFX")]
+	[SerializeField] private AudioClip leaveBubbleSound;
+	[SerializeField] private AudioClip enterBubbleSound;
 #endregion
 
 #region Attributes
@@ -43,9 +46,9 @@ public class LargeBubbleBehavior : MonoBehaviour {
 	    if (GameManager.Instance.GameState == GameState.Playing) {
 		    if (other.TryGetComponent<PlayerBehavior>(out var player)) {
 			    Debug.Log(other.name + " has landed on the bubble.");
-			    player.EnterBubble();
 			    BubbleManager.Instance.LargeBubblePlayerIsOn = this;
 		    
+			    AudioManager.Instance.PlaySfx(enterBubbleSound);
 			    OxygenManager.Instance.InBubble();
 			    CameraManager.Instance.Switch(CameraState.Bubble, name, _transform, false);
 			    player.JetpackOff(false);
@@ -66,6 +69,7 @@ public class LargeBubbleBehavior : MonoBehaviour {
 		
 	    if (other.TryGetComponent<PlayerBehavior>(out var player)) {
 		    Debug.Log(other.name + " has exited the bubble.");
+		    AudioManager.Instance.PlaySfx(leaveBubbleSound);
 		    BubbleManager.Instance.LargeBubblePlayerIsOn = null;
 		    OxygenManager.Instance.OutOfBubble();
 		    CameraManager.Instance.Switch(CameraState.Ocean, name);

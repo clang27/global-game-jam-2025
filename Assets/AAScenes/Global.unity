@@ -3256,8 +3256,8 @@ MonoBehaviour:
   Damping: {x: 0.5, y: 0.5, z: 0.5}
   Lookahead:
     Enabled: 1
-    Time: 0.4
-    Smoothing: 15
+    Time: 0.3
+    Smoothing: 10
     IgnoreY: 0
 --- !u!114 &247296979
 MonoBehaviour:
@@ -3284,7 +3284,7 @@ MonoBehaviour:
     CustomLookAtTarget: 0
   Lens:
     FieldOfView: 60
-    OrthographicSize: 15
+    OrthographicSize: 16
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
@@ -38973,8 +38973,8 @@ MonoBehaviour:
   Damping: {x: 0.5, y: 0.5, z: 0.5}
   Lookahead:
     Enabled: 1
-    Time: 0.4
-    Smoothing: 15
+    Time: 0.3
+    Smoothing: 10
     IgnoreY: 0
 --- !u!114 &2078220774
 MonoBehaviour:
@@ -39001,7 +39001,7 @@ MonoBehaviour:
     CustomLookAtTarget: 0
   Lens:
     FieldOfView: 60
-    OrthographicSize: 13
+    OrthographicSize: 14
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
@@ -40214,6 +40214,14 @@ PrefabInstance:
     - target: {fileID: 3393739391352948792, guid: f1d66f2229f3a9d43855123aed5daedf, type: 3}
       propertyPath: m_Name
       value: Munny
+      objectReference: {fileID: 0}
+    - target: {fileID: 6572557446545623754, guid: f1d66f2229f3a9d43855123aed5daedf, type: 3}
+      propertyPath: jetpackForce
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 6572557446545623754, guid: f1d66f2229f3a9d43855123aed5daedf, type: 3}
+      propertyPath: jetpackMaxSpeed
+      value: 22
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

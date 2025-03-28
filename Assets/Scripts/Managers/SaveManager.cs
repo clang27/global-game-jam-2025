@@ -96,7 +96,7 @@ namespace Managers {
 			Debug.Log("Loading:\n" + saveDataString);
 		}
 
-		public void Save(SmallBubbleBehavior bubble) {
+		public void Save(SaveBubbleBehavior bubble) {
 			_saveData.StartPosition = bubble.transform.position;
 			_saveData.StartBubbleName = bubble.gameObject.name;
 			_saveData.SceneName = GameManager.Instance.CurrentSceneName;

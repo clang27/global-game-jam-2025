@@ -119,7 +119,7 @@ namespace Managers {
 				var bubbleName = SaveManager.Instance.GetStartBubbleName();
 				var bubble = GameObject.Find(bubbleName);
 				
-				BubbleManager.Instance.SmallBubblePlayerIsOn = bubble.GetComponent<SmallBubbleBehavior>();
+				BubbleManager.Instance.SmallBubblePlayerIsOn = bubble.GetComponent<SaveBubbleBehavior>();
 				OxygenManager.Instance.InBubble();
 				CameraManager.Instance.Switch(CameraState.Bubble, name, bubble.transform);
 			} else {

@@ -11,9 +11,9 @@ namespace Managers {
 
 	#region Attributes
 		public static BubbleManager Instance { get; private set; }
-		private List<SmallBubbleBehavior> SmallBubbles { get; set; } = new();
+		private List<SaveBubbleBehavior> SmallBubbles { get; set; } = new();
 		private List<LargeBubbleBehavior> LargeBubbles { get; set; } = new();
-		public SmallBubbleBehavior SmallBubblePlayerIsOn { get; set; }
+		public SaveBubbleBehavior SmallBubblePlayerIsOn { get; set; }
 		public LargeBubbleBehavior LargeBubblePlayerIsOn { get; set; }
 		private string LargeBubbleName { get; set; }
 		public bool PlayerIsOnBubble => SmallBubblePlayerIsOn || LargeBubblePlayerIsOn;
@@ -60,7 +60,7 @@ namespace Managers {
 		}
 
 		public void SceneChange(string sceneName) {
-			SmallBubbles = FindObjectsByType<SmallBubbleBehavior>(FindObjectsInactive.Include, FindObjectsSortMode.None).ToList();
+			SmallBubbles = FindObjectsByType<SaveBubbleBehavior>(FindObjectsInactive.Include, FindObjectsSortMode.None).ToList();
 			LargeBubbles = FindObjectsByType<LargeBubbleBehavior>(FindObjectsInactive.Include, FindObjectsSortMode.None).ToList();
 			
 			var bubbleOn = LargeBubbles.Find(bubble => bubble.name.Equals(LargeBubbleName));

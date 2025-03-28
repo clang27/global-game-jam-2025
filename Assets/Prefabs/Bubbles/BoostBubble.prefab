@@ -198,7 +198,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 100
   m_Sprite: {fileID: 21300000, guid: abf47c29a94d35244ab08b7942ecd483, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.54509807}
+  m_Color: {r: 1, g: 0.9696023, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -218,10 +218,10 @@ GameObject:
   m_Component:
   - component: {fileID: 6690367817290048116}
   - component: {fileID: 8968070432524749499}
-  - component: {fileID: 4080675343111878968}
   - component: {fileID: 8515137750626554695}
+  - component: {fileID: 5264025455573944623}
   m_Layer: 6
-  m_Name: SmallBubble
+  m_Name: BoostBubble
   m_TagString: Bubble
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -237,7 +237,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -200, z: 0}
-  m_LocalScale: {x: 0.9, y: 0.9, z: 0.5}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8543044803471118081}
@@ -271,18 +271,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &4080675343111878968
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5364651703838580974}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0400aa43af104884a8d61318d54ea12f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!95 &8515137750626554695
 Animator:
   serializedVersion: 7
@@ -305,6 +293,22 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &5264025455573944623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5364651703838580974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0400aa43af104884a8d61318d54ea12f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boostMaxSpeed: 60
+  boostTime: 0.5
+  leaveBubbleSound: {fileID: 0}
+  enterBubbleSound: {fileID: 8300000, guid: c2c0bf382b85f5c4f8a1d8ecc98de367, type: 3}
 --- !u!1 &7530372620104144022
 GameObject:
   m_ObjectHideFlags: 0

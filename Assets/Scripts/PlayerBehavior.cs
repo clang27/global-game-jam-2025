@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using DG.Tweening;
 using Enums;
@@ -18,13 +17,7 @@ public class PlayerBehavior : MonoBehaviour {
 	[SerializeField] private float jetpackMaxSpeed = 14f;
 	[SerializeField] private float jetpackForce = 2f;
 	
-	[Header("Boost")]
-	[SerializeField] private float boostMaxSpeed = 40f;
-	[SerializeField][Range(0f, 1f)] private float boostTime = 0.5f;
-
 	[Header("Sounds")]
-	[SerializeField] private AudioClip _leaveBubbleSound;
-	[SerializeField] private AudioClip _enterBubbleSound;
 	[SerializeField] private AudioClip _dashSound;
 	[SerializeField] private AudioClip _bumpSound;
 	[SerializeField] private AudioClip _hurtSound;
@@ -36,7 +29,6 @@ public class PlayerBehavior : MonoBehaviour {
 #endregion
 
 #region Attributes
-	public float TimeOnBubble { get; set; }
 	public Vector2 InputVector {
 		get => _inputVector;
 		set {
@@ -74,9 +66,10 @@ public class PlayerBehavior : MonoBehaviour {
 	private Vector2 _inputVector; 
 	private bool _dashCooldown;
 	private Vector3 _startingPosition;
-	private Vector2 _velocity, _boostDirection;
+	private Vector2 _velocity;
 	private bool _jetpacking, _jetpackCooldown, _jetpackReleased;
 	private float _timeSinceLastInput = 10f;
+	private Tween _boostTween;
 #endregion
 
 #region Unity
@@ -102,7 +95,7 @@ public class PlayerBehavior : MonoBehaviour {
 
 		if (!Stunned) {
 			if (Boosting) {
-				goalSpeed = ((_boostDirection + (PreviousNotZeroInputVector / 4f)) / 2f).normalized * boostMaxSpeed;
+				goalSpeed = InputVector * maxSpeed;
 				acc = acceleration * 10f;
 			} else if (Jetpacking) {
 				if (_jetpackReleased) {
@@ -147,7 +140,7 @@ public class PlayerBehavior : MonoBehaviour {
 				_animator.SetBool("idle", _velocity.sqrMagnitude < 0.05f && _timeSinceLastInput > 2f && !InCutScene);
 			}
 
-			_animator.SetFloat("speed", Mathf.Sqrt(_velocity.sqrMagnitude) / 15f + 0.2f);
+			_animator.SetFloat("speed", Mathf.Min(Mathf.Sqrt(_velocity.sqrMagnitude) / 15f + 0.2f, 3f));
 		}
 		
 		_rigidbody.linearVelocity = _velocity;
@@ -166,7 +159,9 @@ public class PlayerBehavior : MonoBehaviour {
 
 		if (other.gameObject.layer.Equals(LayerMask.NameToLayer("Floor"))) {
 			Debug.Log("Stop boosting!");
-			_velocity /= 2f;
+			_velocity.x /= -2f;
+			_velocity.y /= -2f;
+			_rigidbody.linearVelocity = _velocity;
 			Boosting = false;
 		}
 	}
@@ -231,7 +226,6 @@ public class PlayerBehavior : MonoBehaviour {
 		Stunned = false;
 		Boosting = false;
 		
-		TimeOnBubble = 0f;
 		_timeSinceLastInput = 10f;
 		
 		_attackBehavior.Init();
@@ -275,7 +269,6 @@ public class PlayerBehavior : MonoBehaviour {
 		_transform.position = v;
 		_transform.eulerAngles = Vector3.zero;
 		_jetpacking = false;
-		TimeOnBubble = 0f;
 		_timeSinceLastInput = 10f;
 		ExternalForces.Clear();
 		
@@ -287,23 +280,21 @@ public class PlayerBehavior : MonoBehaviour {
 		}
 	}
 	
-	public void BubbleBoost() {
+	public Vector3 BubbleBoost(float boostMaxSpeed, float boostTime) {
 		Debug.Log("Boost time!");
-		TimeOnBubble = 0f;
-		AudioManager.Instance.PlaySfx(_leaveBubbleSound);
+		
+		_boostTween?.Kill();
+		
+		var force = PreviousNotZeroInputVector * boostMaxSpeed;
 		Boosting = true;
-		_boostDirection = PreviousNotZeroInputVector;
+		ExternalForces.Add(force);
         
-		DOVirtual.DelayedCall(boostTime, () => {
+		_boostTween = DOVirtual.DelayedCall(boostTime, () => {
 			Boosting = false;
-		});
-	}
+			ExternalForces.Remove(force);
+		}).OnKill(() => ExternalForces.Remove(force));
 
-	public void EnterBubble() {
-		TimeOnBubble = 0f;
-		if (_velocity.sqrMagnitude > 0f) {
-			AudioManager.Instance.PlaySfx(_enterBubbleSound);	
-		}
+		return force.normalized;
 	}
 
 	public void Attack() {

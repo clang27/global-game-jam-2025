@@ -1,20 +1,19 @@
-using DG.Tweening;
 using Enums;
 using Managers;
 using UnityEngine;
 using CameraState = Enums.CameraState;
-using Vector3 = UnityEngine.Vector3;
 
-public class SmallBubbleBehavior : MonoBehaviour {
+public class SaveBubbleBehavior : MonoBehaviour {
 
+#region Dependencies
+	[Header("SFX")]
+	[SerializeField] private AudioClip leaveBubbleSound;
+	[SerializeField] private AudioClip enterBubbleSound;
+#endregion
+	
 #region Components
 	private Transform _transform;
 	private Animator _animator;
-#endregion
-
-#region Data
-	private const float JetpackDelayTime = 1f;
-	private bool _jetpackDelay;
 #endregion
 
 #region Unity
@@ -27,27 +26,16 @@ public class SmallBubbleBehavior : MonoBehaviour {
 		if (GameManager.Instance.GameState is GameState.Start or GameState.GameOver) { return; }
 		
 		if (other.TryGetComponent<PlayerBehavior>(out var player)) {
-			Debug.Log(other.name + " has landed on the bubble.");
+			Debug.Log(other.name + " has landed on the save bubble.");
 
 			BubbleManager.Instance.SmallBubblePlayerIsOn = this;
 			OxygenManager.Instance.InBubble();
 			SaveManager.Instance.Save(this);
-			player.EnterBubble();
+			AudioManager.Instance.PlaySfx(enterBubbleSound);
 			
-			if (!player.Jetpacking) {
-				player.JetpackOff(false);
-				_animator.SetTrigger("enterWithoutJetpack");
-				CameraManager.Instance.Switch(CameraState.Bubble, name, _transform);
-			} else if (!_jetpackDelay) {
-				_jetpackDelay = true;
-				
-				var dir = (other.transform.position - _transform.position).normalized;
-				var lookRotation = Quaternion.LookRotation(forward: Vector3.forward, upwards: dir);
-				DOVirtual.DelayedCall(JetpackDelayTime, () => _jetpackDelay = false);
-				_transform.DORotate(lookRotation.eulerAngles + new Vector3(0f, 0f, 90f), 0.15f).SetEase(Ease.InOutCirc);
-				_animator.SetTrigger("enterWithJetpack");
-				player.BubbleBoost();
-			}
+			player.JetpackOff(false);
+			_animator.SetTrigger("enterWithoutJetpack");
+			CameraManager.Instance.Switch(CameraState.Bubble, name, _transform);
 		}
 	}
 	
@@ -57,7 +45,7 @@ public class SmallBubbleBehavior : MonoBehaviour {
 		if (other.TryGetComponent<PlayerBehavior>(out var player)) {
 			Debug.Log(other.name + " has exited the bubble.");
 			
-			_animator.SetTrigger("enterWithoutJetpack");
+			AudioManager.Instance.PlaySfx(leaveBubbleSound);
 			BubbleManager.Instance.SmallBubblePlayerIsOn = null;
 			OxygenManager.Instance.OutOfBubble();
 			CameraManager.Instance.Switch(CameraState.Ocean, name);
