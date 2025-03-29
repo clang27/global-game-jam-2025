@@ -160,15 +160,12 @@ public class PlayerBehavior : MonoBehaviour {
 	}
 
 	private void OnCollisionEnter2D(Collision2D other) {
-		var xVelocity = Mathf.Abs(_rigidbody.linearVelocity.x);
-		var yVelocity = Mathf.Abs(_rigidbody.linearVelocity.y);
-
-		if (!(xVelocity > 30f) && !(yVelocity > 30f)) return;
 		if (!other.gameObject.layer.Equals(LayerMask.NameToLayer("Floor"))) return;
+		if (_velocity.sqrMagnitude < 1000f) return;
 		
-		Debug.Log($"Stop boosting! {xVelocity} {yVelocity}");
-		_velocity.x /= -2f;
-		_velocity.y /= -2f;
+		Debug.Log($"Slowing down!!! {_velocity.sqrMagnitude}");
+		_velocity.x /= 4f;
+		_velocity.y /= 4f;
 		_rigidbody.linearVelocity = _velocity;
 		Boosting = false;
 	}
