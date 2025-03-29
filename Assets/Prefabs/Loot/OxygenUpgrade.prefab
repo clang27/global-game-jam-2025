@@ -150,4 +150,8 @@ MonoBehaviour:
   itemId:
     type: 4
     number: 0
-  pickupSound: {fileID: 0}
+  pickupSound: {fileID: 8300000, guid: 38b9126f348e8694faf9f07cacebcbdf, type: 3}
+  onPickup:
+    m_PersistentCalls:
+      m_Calls: []
+  jumpPower: 0.25

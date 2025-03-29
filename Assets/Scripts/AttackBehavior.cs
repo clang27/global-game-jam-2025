@@ -12,6 +12,7 @@ public class AttackBehavior : MonoBehaviour {
 #region Attributes
 	public Weapon EquippedWeapon { get; private set; }
 	public bool OnCooldown { get; private set; }
+	public bool Stunned { get; set; }
 #endregion
 
 #region Components

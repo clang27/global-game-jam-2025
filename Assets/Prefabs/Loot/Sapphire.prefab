@@ -142,7 +142,11 @@ MonoBehaviour:
   itemId:
     type: 3
     number: 0
-  pickupSound: {fileID: 8300000, guid: b750472232c9c5841a572f5cd32c9585, type: 3}
+  pickupSound: {fileID: 8300000, guid: cf66176a5b04b5f4e9615119b7751df3, type: 3}
+  onPickup:
+    m_PersistentCalls:
+      m_Calls: []
+  jumpPower: 0.25
 --- !u!50 &8809549757288039098
 Rigidbody2D:
   serializedVersion: 5

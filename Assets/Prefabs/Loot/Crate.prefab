@@ -4943,7 +4943,7 @@ GameObject:
   - component: {fileID: 5502275248423425287}
   - component: {fileID: 5222781551940773152}
   m_Layer: 0
-  m_Name: Barrel
+  m_Name: Crate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5009,7 +5009,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 6
-  m_Sprite: {fileID: 21300000, guid: 046a82bf4fd787b4cb42ee1606b25535, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 61345e89e88172045886e2f5fe601676, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -5083,7 +5083,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.859375, y: 3.546875}
+    oldSize: {x: 4.390625, y: 4.734375}
     newSize: {x: 2.5, y: 2.5}
     adaptiveTilingThreshold: 0.5
     drawMode: 0

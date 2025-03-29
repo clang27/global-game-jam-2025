@@ -11,6 +11,7 @@ public class SettingsAndPauseManager : MonoBehaviour {
 	[SerializeField] private GameObject acceptButton;
 	[SerializeField] private GameObject quitButton;
 	[SerializeField] private float sliderQuotient = 10f;
+	[SerializeField] private Material waterMaterial;
 #endregion
 
 #region Attributes
@@ -94,6 +95,14 @@ public class SettingsAndPauseManager : MonoBehaviour {
 		SfxVolume = PlayerPrefs.GetFloat("SfxVolume", 1f);
 		
 		masterVolumeSlider.value = MasterVolume * sliderQuotient;
+	}
+
+	public void EnableDistortionEffect(bool b) {
+		waterMaterial.SetFloat("_DistortionStrength", b ? 0.01f : 0f);
+	}
+	
+	public void EnableCausticsEffect(bool b) {
+		waterMaterial.SetFloat("_CausticsStrength", b ? 0.2f : 0f);
 	}
 #endregion
 

@@ -48,7 +48,7 @@ Material:
     - _BodyTransparency: 0.7
     - _CausticsOffsetSpeed: 0.33
     - _CausticsPower: 2
-    - _CausticsScale: 6.5
+    - _CausticsScale: 5
     - _CausticsStrength: 0.2
     - _DistortionOffsetSpeed: 0.2
     - _DistortionScale: 10

@@ -86,6 +86,7 @@ namespace Enemies {
             AudioManager.Instance.PlaySfx(hurtSound);
             
             Stunned = true;
+            _attackBehavior.Stunned = true;
             Health -= weapon.Damage;
 
             if (Health <= 0) {
@@ -104,6 +105,7 @@ namespace Enemies {
                 
                 DOVirtual.DelayedCall(weapon.StunTime, () => {
                     Stunned = false;    
+                    _attackBehavior.Stunned = false;
                     _spriteRenderer.DOKill();
                     _spriteRenderer.DOFade(1f, 0f);
                 });

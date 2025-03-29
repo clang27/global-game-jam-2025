@@ -20,6 +20,10 @@ public class HitBox : MonoBehaviour {
 	}
 
 	private void OnTriggerEnter2D(Collider2D other) {
+		if (_attackBehavior.Stunned) {
+			return;
+		}
+		
 		var dir = directionOverride ? 
 			direction :
 			((Vector2) other.transform.position - (Vector2) _transform.position).normalized;
