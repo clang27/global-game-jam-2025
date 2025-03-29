@@ -160,15 +160,17 @@ public class PlayerBehavior : MonoBehaviour {
 	}
 
 	private void OnCollisionEnter2D(Collision2D other) {
-		if (!Boosting) { return; }
+		var xVelocity = Mathf.Abs(_rigidbody.linearVelocity.x);
+		var yVelocity = Mathf.Abs(_rigidbody.linearVelocity.y);
 
-		if (other.gameObject.layer.Equals(LayerMask.NameToLayer("Floor"))) {
-			Debug.Log("Stop boosting!");
-			_velocity.x /= -2f;
-			_velocity.y /= -2f;
-			_rigidbody.linearVelocity = _velocity;
-			Boosting = false;
-		}
+		if (!(xVelocity > 30f) && !(yVelocity > 30f)) return;
+		if (!other.gameObject.layer.Equals(LayerMask.NameToLayer("Floor"))) return;
+		
+		Debug.Log($"Stop boosting! {xVelocity} {yVelocity}");
+		_velocity.x /= -2f;
+		_velocity.y /= -2f;
+		_rigidbody.linearVelocity = _velocity;
+		Boosting = false;
 	}
 #endregion
 
