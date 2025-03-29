@@ -14,6 +14,7 @@ public class ItemPickup : MonoBehaviour {
 	[Header("Properties")]
 	[SerializeField] private AudioClip pickupSound;
 	[SerializeField] private UnityEvent onPickup;
+	[SerializeField] [Range(0f, 2f)] private float jumpPower = 0.25f;
 #endregion
 	
 #region Attributes
@@ -89,7 +90,7 @@ public class ItemPickup : MonoBehaviour {
 		};
 
 		if (!InBarrel && !InChest) {
-			_danceSequence = _transform.DOLocalJump(_transform.localPosition, 0.25f, 1, 2f);
+			_danceSequence = _transform.DOLocalJump(_transform.localPosition, jumpPower, 1, 2f);
 			_danceSequence.SetLoops(-1);	
 		}
 	}

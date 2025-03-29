@@ -5062,7 +5062,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 20
-  m_Sprite: {fileID: -1302271633, guid: 23456d7a7b6678740a1b1060012852d8, type: 3}
+  m_Sprite: {fileID: 366100413, guid: bb6056ba888b39b43b164f906575273a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -5090,16 +5090,15 @@ MonoBehaviour:
   maxSpeed: 9
   jetpackMaxSpeed: 20
   jetpackForce: 15
-  boostMaxSpeed: 60
-  boostTime: 0.5
-  _leaveBubbleSound: {fileID: 8300000, guid: c2c0bf382b85f5c4f8a1d8ecc98de367, type: 3}
-  _enterBubbleSound: {fileID: 8300000, guid: a1250fb4cdf990b48ae2ab789f832dc0, type: 3}
   _dashSound: {fileID: 8300000, guid: f3ff63ac04e1f0d4a8133edbb0d409b8, type: 3}
   _bumpSound: {fileID: 8300000, guid: 7fe01e5c73191ab4091394b159da38e6, type: 3}
   _hurtSound: {fileID: 8300000, guid: ae44fdf1ce7cef94d86ab1d52f8c6411, type: 3}
   _attackSound: {fileID: 8300000, guid: 6e4fbb0f5837eda4cad11e70c1c35dfb, type: 3}
   _shockSprite: {fileID: 6971455494596561389}
   _jetpackSprite: {fileID: 4612679213399104333}
+  weaponSpriteRenderer: {fileID: 0}
+  hookWeapon: {fileID: 11400000, guid: 9517acd7ff8823342b73cb24f9887ac3, type: 2}
+  swordWeapon: {fileID: 0}
 --- !u!50 &5554407359629843773
 Rigidbody2D:
   serializedVersion: 5
@@ -5732,6 +5731,93 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!1 &8050223600566866462
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3769681874733896836}
+  - component: {fileID: 5378556034040591519}
+  m_Layer: 8
+  m_Name: Sprite
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3769681874733896836
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8050223600566866462}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: -0.41389897, w: 0.91032284}
+  m_LocalPosition: {x: 1.075, y: -0.011, z: 0}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4820352129285144377}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -48.9}
+--- !u!212 &5378556034040591519
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8050223600566866462}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 5
+  m_Sprite: {fileID: 21300000, guid: 0ce09fce9b2bd5f4dbe766e9f83a3082, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 2.9375, y: 3.1640625}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
 --- !u!1 &8201672269297988334
 GameObject:
   m_ObjectHideFlags: 0
@@ -5824,7 +5910,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4820352129285144377}
   - component: {fileID: 1622084398475748273}
-  - component: {fileID: 7381793715969176262}
   m_Layer: 8
   m_Name: Weapon
   m_TagString: Untagged
@@ -5846,6 +5931,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1967844591122823703}
+  - {fileID: 3769681874733896836}
   m_Father: {fileID: 2942874469767818974}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1622084398475748273
@@ -5860,60 +5946,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a86026f5baa466a4085ad56e1f4ad50f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultWeapon: {fileID: 11400000, guid: 9517acd7ff8823342b73cb24f9887ac3, type: 2}
+  defaultWeapon: {fileID: 0}
   startOn: 0
---- !u!212 &7381793715969176262
-SpriteRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8552567223271329764}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 0
-  m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 21
-  m_Sprite: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
-  m_MaskInteraction: 0
-  m_SpriteSortPoint: 0

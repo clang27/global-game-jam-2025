@@ -40,6 +40,7 @@ namespace Managers {
 			ShowHud(false);
 
 			titleImage.DOKill();
+			titleImage.DOScale(Vector3.one, 0f);
 			titleImage.DOScale(Vector3.one * 1.1f, 2f)
 				.SetEase(Ease.InOutSine)
 				.SetLoops(-1, LoopType.Yoyo)

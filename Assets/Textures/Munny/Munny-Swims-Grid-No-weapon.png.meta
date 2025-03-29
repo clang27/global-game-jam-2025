@@ -335,7 +335,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Munny-Swims-Grid-No-weapon_0
+      name: Left1
       rect:
         serializedVersion: 2
         x: 0
@@ -343,7 +343,7 @@ TextureImporter:
         width: 320
         height: 320
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -357,7 +357,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Munny-Swims-Grid-No-weapon_1
+      name: Left2
       rect:
         serializedVersion: 2
         x: 320
@@ -365,7 +365,7 @@ TextureImporter:
         width: 320
         height: 320
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -379,7 +379,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Munny-Swims-Grid-No-weapon_2
+      name: Left3
       rect:
         serializedVersion: 2
         x: 640
@@ -387,7 +387,7 @@ TextureImporter:
         width: 320
         height: 320
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -401,7 +401,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Munny-Swims-Grid-No-weapon_3
+      name: Right3
       rect:
         serializedVersion: 2
         x: 960
@@ -409,7 +409,7 @@ TextureImporter:
         width: 320
         height: 320
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -423,7 +423,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Munny-Swims-Grid-No-weapon_4
+      name: Right2
       rect:
         serializedVersion: 2
         x: 1280
@@ -431,7 +431,7 @@ TextureImporter:
         width: 320
         height: 320
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -445,7 +445,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Munny-Swims-Grid-No-weapon_5
+      name: Right1
       rect:
         serializedVersion: 2
         x: 1600
@@ -453,7 +453,7 @@ TextureImporter:
         width: 320
         height: 320
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -467,7 +467,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Munny-Swims-Grid-No-weapon_6
+      name: Up1
       rect:
         serializedVersion: 2
         x: 0
@@ -475,7 +475,7 @@ TextureImporter:
         width: 320
         height: 320
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -489,7 +489,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Munny-Swims-Grid-No-weapon_7
+      name: Up3
       rect:
         serializedVersion: 2
         x: 320
@@ -497,7 +497,7 @@ TextureImporter:
         width: 320
         height: 320
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -511,7 +511,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Munny-Swims-Grid-No-weapon_8
+      name: Up2
       rect:
         serializedVersion: 2
         x: 640
@@ -519,7 +519,7 @@ TextureImporter:
         width: 320
         height: 320
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -533,7 +533,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Munny-Swims-Grid-No-weapon_9
+      name: Down2
       rect:
         serializedVersion: 2
         x: 960
@@ -541,7 +541,7 @@ TextureImporter:
         width: 320
         height: 320
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -555,7 +555,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Munny-Swims-Grid-No-weapon_10
+      name: Down3
       rect:
         serializedVersion: 2
         x: 1280
@@ -563,7 +563,7 @@ TextureImporter:
         width: 320
         height: 320
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -577,7 +577,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Munny-Swims-Grid-No-weapon_11
+      name: Down1
       rect:
         serializedVersion: 2
         x: 1600
@@ -585,7 +585,7 @@ TextureImporter:
         width: 320
         height: 320
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -599,7 +599,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Munny-Swims-Grid-No-weapon_12
+      name: ALeft1
       rect:
         serializedVersion: 2
         x: 0
@@ -607,7 +607,7 @@ TextureImporter:
         width: 320
         height: 320
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -621,7 +621,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Munny-Swims-Grid-No-weapon_13
+      name: ALeft2
       rect:
         serializedVersion: 2
         x: 320
@@ -629,7 +629,7 @@ TextureImporter:
         width: 320
         height: 320
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -643,7 +643,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Munny-Swims-Grid-No-weapon_14
+      name: ALeft3
       rect:
         serializedVersion: 2
         x: 640
@@ -651,7 +651,7 @@ TextureImporter:
         width: 320
         height: 320
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -665,7 +665,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Munny-Swims-Grid-No-weapon_15
+      name: ARight1
       rect:
         serializedVersion: 2
         x: 960
@@ -673,7 +673,7 @@ TextureImporter:
         width: 320
         height: 320
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -687,7 +687,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Munny-Swims-Grid-No-weapon_16
+      name: ARight2
       rect:
         serializedVersion: 2
         x: 1280
@@ -695,7 +695,7 @@ TextureImporter:
         width: 320
         height: 320
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -709,7 +709,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Munny-Swims-Grid-No-weapon_17
+      name: ARight3
       rect:
         serializedVersion: 2
         x: 1600
@@ -717,7 +717,7 @@ TextureImporter:
         width: 320
         height: 320
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -731,7 +731,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Munny-Swims-Grid-No-weapon_18
+      name: AUp1
       rect:
         serializedVersion: 2
         x: 0
@@ -739,7 +739,7 @@ TextureImporter:
         width: 320
         height: 320
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -753,7 +753,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Munny-Swims-Grid-No-weapon_19
+      name: AUp2
       rect:
         serializedVersion: 2
         x: 320
@@ -761,7 +761,7 @@ TextureImporter:
         width: 320
         height: 320
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -775,7 +775,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Munny-Swims-Grid-No-weapon_20
+      name: AUp3
       rect:
         serializedVersion: 2
         x: 640
@@ -783,7 +783,7 @@ TextureImporter:
         width: 320
         height: 320
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -797,7 +797,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Munny-Swims-Grid-No-weapon_21
+      name: ADown1
       rect:
         serializedVersion: 2
         x: 960
@@ -805,7 +805,7 @@ TextureImporter:
         width: 320
         height: 320
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -819,7 +819,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Munny-Swims-Grid-No-weapon_22
+      name: ADown2
       rect:
         serializedVersion: 2
         x: 1280
@@ -827,7 +827,7 @@ TextureImporter:
         width: 320
         height: 320
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -841,7 +841,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Munny-Swims-Grid-No-weapon_23
+      name: ADown3
       rect:
         serializedVersion: 2
         x: 1600
@@ -849,7 +849,7 @@ TextureImporter:
         width: 320
         height: 320
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -863,7 +863,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Munny-Swims-Grid-No-weapon_24
+      name: DUp1
       rect:
         serializedVersion: 2
         x: 320
@@ -871,7 +871,7 @@ TextureImporter:
         width: 320
         height: 320
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -885,7 +885,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Munny-Swims-Grid-No-weapon_25
+      name: DLeft1
       rect:
         serializedVersion: 2
         x: 640
@@ -893,7 +893,7 @@ TextureImporter:
         width: 320
         height: 320
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -907,7 +907,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Munny-Swims-Grid-No-weapon_26
+      name: DRight1
       rect:
         serializedVersion: 2
         x: 960
@@ -915,7 +915,7 @@ TextureImporter:
         width: 320
         height: 320
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -929,7 +929,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Munny-Swims-Grid-No-weapon_27
+      name: DDown1
       rect:
         serializedVersion: 2
         x: 1280
@@ -937,7 +937,7 @@ TextureImporter:
         width: 320
         height: 320
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -959,7 +959,7 @@ TextureImporter:
         width: 320
         height: 320
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -981,7 +981,7 @@ TextureImporter:
         width: 320
         height: 320
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1003,7 +1003,7 @@ TextureImporter:
         width: 320
         height: 320
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1025,7 +1025,7 @@ TextureImporter:
         width: 320
         height: 320
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1039,7 +1039,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Munny-Swims-Grid-No-weapon_32
+      name: Idle1
       rect:
         serializedVersion: 2
         x: 0
@@ -1047,7 +1047,7 @@ TextureImporter:
         width: 320
         height: 320
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1061,7 +1061,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Munny-Swims-Grid-No-weapon_33
+      name: Idle2
       rect:
         serializedVersion: 2
         x: 320
@@ -1069,7 +1069,7 @@ TextureImporter:
         width: 320
         height: 320
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1083,7 +1083,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Munny-Swims-Grid-No-weapon_34
+      name: Idle3
       rect:
         serializedVersion: 2
         x: 640
@@ -1091,7 +1091,7 @@ TextureImporter:
         width: 320
         height: 320
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1118,41 +1118,41 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Munny-Swims-Grid-No-weapon_0: 673252347
-      Munny-Swims-Grid-No-weapon_1: -757546926
-      Munny-Swims-Grid-No-weapon_10: 1942245878
-      Munny-Swims-Grid-No-weapon_11: 1900937577
-      Munny-Swims-Grid-No-weapon_12: 685514789
-      Munny-Swims-Grid-No-weapon_13: 1207158795
-      Munny-Swims-Grid-No-weapon_14: -1839245313
-      Munny-Swims-Grid-No-weapon_15: -917747914
-      Munny-Swims-Grid-No-weapon_16: 424652788
-      Munny-Swims-Grid-No-weapon_17: 449971441
-      Munny-Swims-Grid-No-weapon_18: 121020313
-      Munny-Swims-Grid-No-weapon_19: -238918127
-      Munny-Swims-Grid-No-weapon_2: -1354837499
-      Munny-Swims-Grid-No-weapon_20: 1106307099
-      Munny-Swims-Grid-No-weapon_21: -2070025022
-      Munny-Swims-Grid-No-weapon_22: -1698095186
-      Munny-Swims-Grid-No-weapon_23: 1789914814
-      Munny-Swims-Grid-No-weapon_24: 1004048420
-      Munny-Swims-Grid-No-weapon_25: -1070478728
-      Munny-Swims-Grid-No-weapon_26: -575076523
-      Munny-Swims-Grid-No-weapon_27: 2030833777
+      ADown1: -2070025022
+      ADown2: -1698095186
+      ADown3: 1789914814
+      ALeft1: 685514789
+      ALeft2: 1207158795
+      ALeft3: -1839245313
+      ARight1: -917747914
+      ARight2: 424652788
+      ARight3: 449971441
+      AUp1: 121020313
+      AUp2: -238918127
+      AUp3: 1106307099
+      DDown1: 2030833777
+      DLeft1: -1070478728
+      DRight1: -575076523
+      DUp1: 1004048420
+      Down1: 1900937577
+      Down2: -1220483439
+      Down3: 1942245878
+      Idle1: 366100413
+      Idle2: 2143910847
+      Idle3: 1562913915
+      Left1: 673252347
+      Left2: -757546926
+      Left3: -1354837499
       Munny-Swims-Grid-No-weapon_28: -1430273568
       Munny-Swims-Grid-No-weapon_29: 2665955
-      Munny-Swims-Grid-No-weapon_3: -958480326
       Munny-Swims-Grid-No-weapon_30: -165683704
       Munny-Swims-Grid-No-weapon_31: -455985371
-      Munny-Swims-Grid-No-weapon_32: 366100413
-      Munny-Swims-Grid-No-weapon_33: 2143910847
-      Munny-Swims-Grid-No-weapon_34: 1562913915
-      Munny-Swims-Grid-No-weapon_4: -1020417644
-      Munny-Swims-Grid-No-weapon_5: -792311385
-      Munny-Swims-Grid-No-weapon_6: -70589592
-      Munny-Swims-Grid-No-weapon_7: -950964242
-      Munny-Swims-Grid-No-weapon_8: 1244709343
-      Munny-Swims-Grid-No-weapon_9: -1220483439
+      Right1: -792311385
+      Right2: -1020417644
+      Right3: -958480326
+      Up1: -70589592
+      Up2: 1244709343
+      Up3: -950964242
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

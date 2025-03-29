@@ -26,6 +26,11 @@ public class PlayerBehavior : MonoBehaviour {
 	[Header("Sprites")]
 	[SerializeField] private SpriteRenderer _shockSprite;
 	[SerializeField] private SpriteRenderer _jetpackSprite;
+	[SerializeField] private SpriteRenderer weaponSpriteRenderer;
+
+	[Header("Weapons")] 
+	[SerializeField] private Weapon hookWeapon;
+	[SerializeField] private Weapon swordWeapon;
 #endregion
 
 #region Attributes
@@ -46,7 +51,7 @@ public class PlayerBehavior : MonoBehaviour {
 	public bool Stunned { get; private set; }
 	public bool InCutScene { get; private set; }
 	public bool HasJetpack { get; private set; }
-	public bool HasWeapon { get; private set; }
+	public bool HasWeapon => _attackBehavior.EquippedWeapon != null;
 	public bool Jetpacking => _jetpacking;
 	private bool Boosting { get; set; }
 	public List<Vector3> ExternalForces { get; set; } = new();
@@ -231,7 +236,12 @@ public class PlayerBehavior : MonoBehaviour {
 		_attackBehavior.Init();
 		HasJetpack = SaveManager.Instance.HasJetpack();
 		_jetpack.SetActive(HasJetpack);
-		HasWeapon = SaveManager.Instance.HasWeapon();
+
+		if (SaveManager.Instance.HasHook()) {
+			_attackBehavior.EquipWeapon(hookWeapon);
+		} else if (SaveManager.Instance.HasSword()) {
+			_attackBehavior.EquipWeapon(swordWeapon);
+		}
 		
 		if (_animator) {
 			_animator.SetBool("up", true);
@@ -259,7 +269,12 @@ public class PlayerBehavior : MonoBehaviour {
 		_attackBehavior.Init();
 		HasJetpack = SaveManager.Instance.HasJetpack();
 		_jetpack.SetActive(HasJetpack);
-		HasWeapon = SaveManager.Instance.HasWeapon();
+		
+		if (SaveManager.Instance.HasHook()) {
+			_attackBehavior.EquipWeapon(hookWeapon);
+		} else if (SaveManager.Instance.HasSword()) {
+			_attackBehavior.EquipWeapon(swordWeapon);
+		}
 		
 		MoveToBubble(v);
 	}
@@ -333,7 +348,16 @@ public class PlayerBehavior : MonoBehaviour {
 	}
 	
 	public void AddWeapon(ItemId id) {
-		HasWeapon = true;
+		if (id.type != ItemType.Weapon) { return; }
+
+		switch (id.number) {
+			case 0:
+				_attackBehavior.EquipWeapon(hookWeapon);
+				break;
+			case 1:
+				_attackBehavior.EquipWeapon(swordWeapon);
+				break;
+		}
 	}
 	
 	public void JetpackOn() {

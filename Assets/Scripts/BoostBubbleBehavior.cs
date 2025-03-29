@@ -1,3 +1,4 @@
+using System;
 using DG.Tweening;
 using Enums;
 using Managers;
@@ -19,6 +20,7 @@ public class BoostBubbleBehavior : MonoBehaviour {
 #region Components
 	private Transform _transform;
 	private Animator _animator;
+	private Transform _arrowTransform;
 #endregion
 
 #region Data
@@ -30,9 +32,14 @@ public class BoostBubbleBehavior : MonoBehaviour {
     private void Awake() {
 		_transform = transform;
 		_animator = GetComponent<Animator>();
+		_arrowTransform = _transform.GetChild(1).GetChild(0);
     }
 
-	private void OnTriggerEnter2D(Collider2D other) {
+    private void FixedUpdate() {
+	    _arrowTransform.right = PlayerManager.Player.PreviousNotZeroInputVector;
+    }
+
+    private void OnTriggerEnter2D(Collider2D other) {
 		if (GameManager.Instance.GameState is GameState.Start or GameState.GameOver) { return; }
 		
 		if (other.TryGetComponent<PlayerBehavior>(out var player)) {

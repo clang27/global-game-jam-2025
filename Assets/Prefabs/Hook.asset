@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c74bc45f641e72c4880a6468da1597c9, type: 3}
   m_Name: Hook
   m_EditorClassIdentifier: 
-  Sprite: {fileID: 0}
+  Sprite: {fileID: 21300000, guid: 0ce09fce9b2bd5f4dbe766e9f83a3082, type: 3}
   Knockback: 8
   AttackSpeed: 0.5
   StunTime: 0.3
   Damage: 1
+  Shock: 0
   Sound: {fileID: 8300000, guid: 6e4fbb0f5837eda4cad11e70c1c35dfb, type: 3}

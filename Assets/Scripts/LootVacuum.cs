@@ -6,6 +6,7 @@ public class LootVacuum : MonoBehaviour {
 
 #region Dependencies
 	[SerializeField] private float strength = 10f;
+	[SerializeField] private float maxPullSpeed = 20f;
 #endregion
 
 #region Components
@@ -24,7 +25,8 @@ public class LootVacuum : MonoBehaviour {
 		    if (rb && rb.gameObject.activeInHierarchy) {
 			    var direction = ((Vector2) _transform.position - (Vector2) rb.transform.position).normalized;
 			    var distance = Vector2.Distance(_transform.position, rb.transform.position);
-			    rb.AddForce(direction * (strength * distance));    
+			    rb.AddForce(direction * (strength * distance));
+			    rb.linearVelocity = Vector2.ClampMagnitude(rb.linearVelocity, maxPullSpeed);
 		    } else {
 			    _rigidBodies.RemoveAt(index);
 		    }

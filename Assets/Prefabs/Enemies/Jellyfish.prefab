@@ -92,6 +92,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a78fc3a4a8da59a48bcd843ca175f17e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  directionOverride: 0
+  direction: {x: 0, y: 1}
 --- !u!212 &3292189035324390402
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -157,7 +159,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3695993899324440858}
   - component: {fileID: 5253773065661551665}
-  - component: {fileID: 8460152558177254640}
   m_Layer: 0
   m_Name: Weapon
   m_TagString: Untagged
@@ -179,6 +180,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7398667266118744015}
+  - {fileID: 4028472965424128630}
   m_Father: {fileID: 189890722560585710}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5253773065661551665
@@ -195,13 +197,45 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultWeapon: {fileID: 11400000, guid: de6c657037939864fa907f31b7a8c5e5, type: 2}
   startOn: 1
---- !u!212 &8460152558177254640
+--- !u!1 &6351876630828897331
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4028472965424128630}
+  - component: {fileID: 1162769276327508612}
+  m_Layer: 0
+  m_Name: Sprite
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4028472965424128630
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6351876630828897331}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -79.466675, y: -54.81111, z: 0}
+  m_LocalScale: {x: 2.2222223, y: 2.2222223, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3695993899324440858}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &1162769276327508612
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5294476841960798890}
+  m_GameObject: {fileID: 6351876630828897331}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0

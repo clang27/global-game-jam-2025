@@ -23,7 +23,7 @@ public class AttackBehavior : MonoBehaviour {
 #region Unity
     private void Awake() {
 	    _hitBoxTransform = transform.GetChild(0);
-	    _weaponSpriteRenderer = GetComponent<SpriteRenderer>();
+	    _weaponSpriteRenderer = transform.GetChild(1).GetComponent<SpriteRenderer>();
 	    _hitBoxSpriteRenderer = _hitBoxTransform.GetComponent<SpriteRenderer>();
 	    _hitBoxCollider = _hitBoxTransform.GetComponent<Collider2D>();
     }
@@ -34,23 +34,21 @@ public class AttackBehavior : MonoBehaviour {
 #endregion
 
 #region Custom
-	public void ResetWeapon() {
-		EquippedWeapon = ScriptableObject.CreateInstance<Weapon>();
-		EquippedWeapon.AttackSpeed = defaultWeapon.AttackSpeed;
-		EquippedWeapon.Knockback = defaultWeapon.Knockback;
-		EquippedWeapon.Sprite = defaultWeapon.Sprite;
-		EquippedWeapon.StunTime = defaultWeapon.StunTime;
-		EquippedWeapon.Sound = defaultWeapon.Sound;
-		EquippedWeapon.Damage = defaultWeapon.Damage;
-		EquippedWeapon.Shock = defaultWeapon.Shock;
-		
-		_weaponSpriteRenderer.sprite = defaultWeapon.Sprite;
-	}
 	public void Init() {
-		ResetWeapon();
-		
+		EquipWeapon(defaultWeapon);
 		_hitBoxSpriteRenderer.enabled = startOn;	
 		_hitBoxCollider.enabled = startOn;
+	}
+
+	public void EquipWeapon(Weapon weapon) {
+		if (weapon == null) {
+			_weaponSpriteRenderer.sprite = null;
+			EquippedWeapon = null;
+		}
+		else {
+			_weaponSpriteRenderer.sprite = weapon.Sprite;
+			EquippedWeapon = weapon;
+		}
 	}
 
 	public void Activate() {

@@ -63,9 +63,14 @@ namespace Managers {
 			return _saveData.StartBubbleName;
 		}
 
-		public bool HasWeapon() {
+		public bool HasHook() {
 			return _saveData.ItemsCollected
-				.Any(item => item.type.Equals(ItemType.Weapon));
+				.Any(item => item.type.Equals(ItemType.Weapon) && item.number == 0);
+		}
+		
+		public bool HasSword() {
+			return _saveData.ItemsCollected
+				.Any(item => item.type.Equals(ItemType.Weapon) && item.number == 1);
 		}
 
 		public bool HasJetpack() {
