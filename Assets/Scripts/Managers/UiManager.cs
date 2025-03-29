@@ -107,6 +107,13 @@ namespace Managers {
 					kp.ChangeToPc();
 				}
 			}
+			foreach (var kp in FindObjectsByType<UiKeyPrompt>(FindObjectsSortMode.None)) {
+				if (playerInput.currentControlScheme.Contains("Gamepad")) {
+					kp.ChangeToXbox();
+				} else {
+					kp.ChangeToPc();
+				}
+			}
 		}
 
 		private void ShowCanvas(CanvasGroup cg, bool b) {
