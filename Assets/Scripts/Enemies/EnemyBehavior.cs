@@ -90,7 +90,7 @@ namespace Enemies {
             Health -= weapon.Damage;
 
             if (Health <= 0) {
-                _rigidbody.AddForce(direction * weapon.Knockback * 10f, ForceMode2D.Impulse);
+                _rigidbody.AddForce(direction * weapon.Knockback * 5f, ForceMode2D.Impulse);
 
                 _transform.DORotate(new Vector3(0f, 0f, _transform.localRotation.eulerAngles.z + 720f), 0.5f, RotateMode.FastBeyond360)
                     .SetEase(Ease.Linear)

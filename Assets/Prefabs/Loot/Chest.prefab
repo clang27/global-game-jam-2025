@@ -107,7 +107,7 @@ MonoBehaviour:
     count: 0
   openSprite: {fileID: 302392698, guid: 929c1c4176ce37145b3e51d2ff1e974e, type: 3}
   closeSprite: {fileID: -181785229, guid: 929c1c4176ce37145b3e51d2ff1e974e, type: 3}
-  openSound: {fileID: 0}
+  openSound: {fileID: 8300000, guid: e3aabda34ada04447a015451d49eeb53, type: 3}
 --- !u!1 &3212432692697227207
 GameObject:
   m_ObjectHideFlags: 0

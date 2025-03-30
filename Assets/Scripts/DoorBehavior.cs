@@ -8,6 +8,7 @@ public class DoorBehavior : MonoBehaviour {
 	[SerializeField] private DoorBehavior matchingDoor;
 	[SerializeField] private bool locked;
 	[SerializeField] private ushort keyNumber;
+	[SerializeField] private AudioClip audioClip;
 #endregion
 
 #region Components
@@ -51,6 +52,10 @@ public class DoorBehavior : MonoBehaviour {
 #endregion
 
 #region Other
+	public void Open() {
+		AudioManager.Instance.PlaySfx(audioClip);
+	}
+	
 	public static void RemoveLock(ushort keyNumber) {
 		foreach (var door in FindObjectsByType<DoorBehavior>(FindObjectsInactive.Include, FindObjectsSortMode.None)) {
 			if (door.keyNumber == keyNumber) {

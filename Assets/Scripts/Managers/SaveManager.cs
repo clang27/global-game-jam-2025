@@ -52,7 +52,7 @@ namespace Managers {
 		}
 
 		public string GetStartScene() {
-			return _saveData.SceneName is null or "" ? "Ship" : _saveData.SceneName;
+			return _saveData.SceneName is null or "" ? "Intro" : _saveData.SceneName;
 		}
 		
 		public Vector2 GetStartPosition() {

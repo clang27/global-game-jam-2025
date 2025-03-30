@@ -334,7 +334,8 @@ public class PlayerBehavior : MonoBehaviour {
 	public void Interact() {
 		Debug.Log("Interacting!");
 		if (Stunned) { return; }
-		if (KeyManager.TouchedDoor && KeyManager.TouchedDoor.CanOpen) { 	
+		if (KeyManager.TouchedDoor && KeyManager.TouchedDoor.CanOpen) {
+			KeyManager.TouchedDoor.Open();
 			_velocity = Vector2.zero;
 			_transform.position = KeyManager.TouchedDoor.TeleportLocation;
 			_transform.eulerAngles = Vector3.zero;

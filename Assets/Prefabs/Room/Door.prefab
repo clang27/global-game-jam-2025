@@ -109,6 +109,7 @@ MonoBehaviour:
   matchingDoor: {fileID: 0}
   locked: 1
   keyNumber: 0
+  audioClip: {fileID: 8300000, guid: dcfb9f515b93eab4a88d96498ac76083, type: 3}
 --- !u!61 &5578566449841776471
 BoxCollider2D:
   m_ObjectHideFlags: 0

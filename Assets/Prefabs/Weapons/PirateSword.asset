@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PirateSword
   m_EditorClassIdentifier: 
   Sprite: {fileID: 21300000, guid: dbdd18691abbede41939004920e718de, type: 3}
-  Knockback: 12
+  Knockback: 28
   AttackSpeed: 0.4
   StunTime: 0.4
   Damage: 2

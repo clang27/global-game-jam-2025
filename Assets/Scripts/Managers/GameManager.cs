@@ -17,10 +17,13 @@ namespace Managers {
 
 	#region Data
 		private string _sceneNameLoaded;
+		private VidPlayer _vidPlayer;
 	#endregion
 
 	#region Unity
 		private void Awake() {
+			_vidPlayer = FindAnyObjectByType<VidPlayer>();
+			
 			Instance = this;
 
 			DOTween.Init(false, false, LogBehaviour. Default)
@@ -28,10 +31,14 @@ namespace Managers {
 		}
 
 		private void Start() {
-			Init();
-			
 			var startScene = SaveManager.Instance.GetStartScene();
-			StartCoroutine(ChangeScene(startScene));
+
+			if (startScene.Equals("Intro")) {
+				_vidPlayer.Play();
+			} else {
+				_vidPlayer.gameObject.SetActive(false);
+				LoadBeginning(startScene);
+			}
 		}
     
 		private void OnDestroy() {
@@ -40,6 +47,11 @@ namespace Managers {
 	#endregion
 
 	#region Custom
+		public void LoadBeginning(string scene) {
+			Init();
+			StartCoroutine(ChangeScene(scene));
+		}
+		
 		private void Init() {
 			GameState = GameState.Start;
 		

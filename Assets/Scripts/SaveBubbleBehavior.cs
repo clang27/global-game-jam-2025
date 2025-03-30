@@ -45,6 +45,7 @@ public class SaveBubbleBehavior : MonoBehaviour {
 		if (other.TryGetComponent<PlayerBehavior>(out var player)) {
 			Debug.Log(other.name + " has exited the bubble.");
 			
+			_animator.SetTrigger("exitWithoutJetpack");
 			AudioManager.Instance.PlaySfx(leaveBubbleSound);
 			BubbleManager.Instance.SmallBubblePlayerIsOn = null;
 			OxygenManager.Instance.OutOfBubble();
