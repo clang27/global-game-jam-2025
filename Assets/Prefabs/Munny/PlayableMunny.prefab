@@ -5096,9 +5096,9 @@ MonoBehaviour:
   _attackSound: {fileID: 8300000, guid: 6e4fbb0f5837eda4cad11e70c1c35dfb, type: 3}
   _shockSprite: {fileID: 6971455494596561389}
   _jetpackSprite: {fileID: 4612679213399104333}
-  weaponSpriteRenderer: {fileID: 0}
-  hookWeapon: {fileID: 11400000, guid: 9517acd7ff8823342b73cb24f9887ac3, type: 2}
-  swordWeapon: {fileID: 0}
+  weaponSpriteRenderer: {fileID: 5378556034040591519}
+  hookWeapon: {fileID: 11400000, guid: 0b19113c8d8a6744899f0e88ed82b886, type: 2}
+  swordWeapon: {fileID: 11400000, guid: 9517acd7ff8823342b73cb24f9887ac3, type: 2}
 --- !u!50 &5554407359629843773
 Rigidbody2D:
   serializedVersion: 5
@@ -5480,7 +5480,7 @@ BoxCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 2.5, y: 2.5}
-    newSize: {x: 1, y: 1}
+    newSize: {x: 2.5, y: 2.5}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -5807,7 +5807,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: 21300000, guid: 0ce09fce9b2bd5f4dbe766e9f83a3082, type: 3}
+  m_Sprite: {fileID: 21300000, guid: dbdd18691abbede41939004920e718de, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -5900,6 +5900,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   strength: 50
+  maxPullSpeed: 20
 --- !u!1 &8552567223271329764
 GameObject:
   m_ObjectHideFlags: 0

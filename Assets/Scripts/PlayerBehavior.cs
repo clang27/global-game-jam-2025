@@ -237,9 +237,12 @@ public class PlayerBehavior : MonoBehaviour {
 		_jetpack.SetActive(HasJetpack);
 
 		if (SaveManager.Instance.HasHook()) {
+			_animator.SetBool("sword", false);
 			_attackBehavior.EquipWeapon(hookWeapon);
-		} else if (SaveManager.Instance.HasSword()) {
+		} 
+		if (SaveManager.Instance.HasSword()) {
 			_attackBehavior.EquipWeapon(swordWeapon);
+			_animator.SetBool("sword", true);
 		}
 		
 		if (_animator) {
@@ -270,8 +273,11 @@ public class PlayerBehavior : MonoBehaviour {
 		_jetpack.SetActive(HasJetpack);
 		
 		if (SaveManager.Instance.HasHook()) {
+            _animator.SetBool("sword", false);
 			_attackBehavior.EquipWeapon(hookWeapon);
-		} else if (SaveManager.Instance.HasSword()) {
+		} 
+		if (SaveManager.Instance.HasSword()) {
+			_animator.SetBool("sword", true);
 			_attackBehavior.EquipWeapon(swordWeapon);
 		}
 		
@@ -349,11 +355,13 @@ public class PlayerBehavior : MonoBehaviour {
 	public void AddWeapon(ItemId id) {
 		if (id.type != ItemType.Weapon) { return; }
 
+		_animator.SetBool("sword", false);
 		switch (id.number) {
 			case 0:
 				_attackBehavior.EquipWeapon(hookWeapon);
 				break;
 			case 1:
+				_animator.SetBool("sword", true);
 				_attackBehavior.EquipWeapon(swordWeapon);
 				break;
 		}

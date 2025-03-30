@@ -1,10 +1,19 @@
 fileFormatVersion: 2
-guid: dbdd18691abbede41939004920e718de
+guid: cc0dde048e4409f4cbce812d99c1abc2
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3504574778876104239
-    second: pirate-sword-staple-no-knub_0
+      213: -4432669438432882863
+    second: IMG_0007_0
+  - first:
+      213: -2719231370950906212
+    second: IMG_0007_1
+  - first:
+      213: -6594653261407858685
+    second: IMG_0007_2
+  - first:
+      213: -8177041404536229089
+    second: IMG_0007_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -49,8 +58,8 @@ TextureImporter:
   spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 0
-  alignment: 9
-  spritePivot: {x: 0.8285205, y: 0.21932434}
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 128
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 0
@@ -121,7 +130,7 @@ TextureImporter:
         width: 128
         height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -139,7 +148,7 @@ TextureImporter:
     physicsShape: []
     bones: []
     spriteID: 5e97eb03825dee720800000000000000
-    internalID: 1537655665
+    internalID: 0
     vertices: []
     indices: 
     edges: []
