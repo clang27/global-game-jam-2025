@@ -26,7 +26,7 @@ public class SaveBubbleBehavior : MonoBehaviour {
 		if (GameManager.Instance.GameState is GameState.Start or GameState.GameOver) { return; }
 		
 		if (other.TryGetComponent<PlayerBehavior>(out var player)) {
-			Debug.Log(other.name + " has landed on the save bubble.");
+			//Debug.Log(other.name + " has landed on the save bubble.");
 
 			BubbleManager.Instance.SmallBubblePlayerIsOn = this;
 			OxygenManager.Instance.InBubble();
@@ -43,7 +43,7 @@ public class SaveBubbleBehavior : MonoBehaviour {
 		if (GameManager.Instance.GameState is GameState.Start or GameState.GameOver) { return; }
 		
 		if (other.TryGetComponent<PlayerBehavior>(out var player)) {
-			Debug.Log(other.name + " has exited the bubble.");
+			//Debug.Log(other.name + " has exited the bubble.");
 			
 			_animator.SetTrigger("exitWithoutJetpack");
 			AudioManager.Instance.PlaySfx(leaveBubbleSound);

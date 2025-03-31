@@ -1,4 +1,3 @@
-using System;
 using DG.Tweening;
 using Enums;
 using Managers;
@@ -45,7 +44,7 @@ public class LargeBubbleBehavior : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D other) {
 	    if (GameManager.Instance.GameState == GameState.Playing) {
 		    if (other.TryGetComponent<PlayerBehavior>(out var player)) {
-			    Debug.Log(other.name + " has landed on the bubble.");
+			    //Debug.Log(other.name + " has landed on the bubble.");
 			    BubbleManager.Instance.LargeBubblePlayerIsOn = this;
 		    
 			    AudioManager.Instance.PlaySfx(enterBubbleSound);
@@ -56,7 +55,7 @@ public class LargeBubbleBehavior : MonoBehaviour {
 			    GameManager.Instance.StartLargeBubbleTransition(sceneName);
 		    }
 	    } else if (other.TryGetComponent<PlayerBehavior>(out var player)) {
-		    Debug.Log(other.name + " has landed on the bubble from a scene transition.");
+		    //Debug.Log(other.name + " has landed on the bubble from a scene transition.");
 		    BubbleManager.Instance.LargeBubblePlayerIsOn = this;
 		    
 		    CameraManager.Instance.Switch(CameraState.Bubble, name, _transform, true);
@@ -68,7 +67,7 @@ public class LargeBubbleBehavior : MonoBehaviour {
 	    if (GameManager.Instance.GameState is GameState.Start or GameState.BubbleTransition) { return; }
 		
 	    if (other.TryGetComponent<PlayerBehavior>(out var player)) {
-		    Debug.Log(other.name + " has exited the bubble.");
+		    //Debug.Log(other.name + " has exited the bubble.");
 		    AudioManager.Instance.PlaySfx(leaveBubbleSound);
 		    BubbleManager.Instance.LargeBubblePlayerIsOn = null;
 		    OxygenManager.Instance.OutOfBubble();

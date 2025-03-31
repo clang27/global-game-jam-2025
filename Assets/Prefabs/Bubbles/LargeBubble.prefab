@@ -273,8 +273,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b52f830658cf43e2a9764fd5b305367f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  goalVelocity: {x: -20, y: 0}
-  sceneName: Ocean
+  goalVelocity: {x: 0, y: 20}
+  sceneName: EndScreen
+  leaveBubbleSound: {fileID: 8300000, guid: 3338023791e295c419c72f2a7873fd6f, type: 3}
+  enterBubbleSound: {fileID: 0}
 --- !u!1 &7530372620104144022
 GameObject:
   m_ObjectHideFlags: 0

@@ -58,8 +58,8 @@ namespace Managers {
 		
 		public void ShowLoading(bool b, Action a) {
 			_loadingScreen.DOKill();
-			_loadingScreen.DOLocalMoveY(b ? -2080f : 0f, 0f);
-			_loadingScreen.DOLocalMoveY(b ? 0f : 2080f, 1f).SetEase(Ease.Linear)
+			_loadingScreen.DOLocalMoveY(b ? -2080f : 400f, 0f);
+			_loadingScreen.DOLocalMoveY(b ? 400f : 2080f, 1f).SetEase(Ease.Linear)
 				.OnComplete(() => a());
 		}
 		

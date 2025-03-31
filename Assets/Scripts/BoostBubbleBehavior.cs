@@ -1,4 +1,3 @@
-using System;
 using DG.Tweening;
 using Enums;
 using Managers;
@@ -45,7 +44,7 @@ public class BoostBubbleBehavior : MonoBehaviour {
 		if (other.TryGetComponent<PlayerBehavior>(out var player)) {
 			if (_jetpackDelay) return;
 			
-			Debug.Log(other.name + " has landed on the boost bubble.");
+			//Debug.Log(other.name + " has landed on the boost bubble.");
 				
 			_jetpackDelay = true;
 			OxygenManager.Instance.InBubble();
@@ -63,7 +62,7 @@ public class BoostBubbleBehavior : MonoBehaviour {
 		if (GameManager.Instance.GameState is GameState.Start or GameState.GameOver) { return; }
 		
 		if (other.TryGetComponent<PlayerBehavior>(out var player)) {
-			Debug.Log(other.name + " has exited the bubble.");
+			//Debug.Log(other.name + " has exited the bubble.");
 			
 			AudioManager.Instance.PlaySfx(leaveBubbleSound);
 			OxygenManager.Instance.OutOfBubble();

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Enums;
 using UnityEngine;
 
 namespace Managers {
@@ -60,6 +61,10 @@ namespace Managers {
 		}
 
 		public void SceneChange(string sceneName) {
+			if (GameManager.Instance.GameState == GameState.Start) {
+				return;
+			}
+			
 			SmallBubbles = FindObjectsByType<SaveBubbleBehavior>(FindObjectsInactive.Include, FindObjectsSortMode.None).ToList();
 			LargeBubbles = FindObjectsByType<LargeBubbleBehavior>(FindObjectsInactive.Include, FindObjectsSortMode.None).ToList();
 			

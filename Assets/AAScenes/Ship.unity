@@ -10576,6 +10576,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 180
       objectReference: {fileID: 0}
+    - target: {fileID: 5998313339615607514, guid: 9b75696bb802f034eb0f980ec1437ea4, type: 3}
+      propertyPath: m_Size.y
+      value: 8.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5998313339615607514, guid: 9b75696bb802f034eb0f980ec1437ea4, type: 3}
+      propertyPath: m_Offset.y
+      value: -3.75
+      objectReference: {fileID: 0}
     - target: {fileID: 7156313425085627134, guid: 9b75696bb802f034eb0f980ec1437ea4, type: 3}
       propertyPath: m_Name
       value: WallWithBottom (15)
@@ -21096,6 +21104,14 @@ PrefabInstance:
     - target: {fileID: 5455010365464468096, guid: 9b75696bb802f034eb0f980ec1437ea4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 5998313339615607514, guid: 9b75696bb802f034eb0f980ec1437ea4, type: 3}
+      propertyPath: m_Size.y
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5998313339615607514, guid: 9b75696bb802f034eb0f980ec1437ea4, type: 3}
+      propertyPath: m_Offset.y
+      value: -2.5
       objectReference: {fileID: 0}
     - target: {fileID: 7156313425085627134, guid: 9b75696bb802f034eb0f980ec1437ea4, type: 3}
       propertyPath: m_Name
@@ -34958,14 +34974,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1666025331}
     m_Modifications:
-    - target: {fileID: 1120237635397860726, guid: 4cfb9efb23582334caeb45d195407305, type: 3}
-      propertyPath: goalVelocity.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1120237635397860726, guid: 4cfb9efb23582334caeb45d195407305, type: 3}
-      propertyPath: goalVelocity.y
-      value: 20
-      objectReference: {fileID: 0}
     - target: {fileID: 5364651703838580974, guid: 4cfb9efb23582334caeb45d195407305, type: 3}
       propertyPath: m_Name
       value: LargeBubble
@@ -39832,6 +39840,14 @@ PrefabInstance:
     - target: {fileID: 5455010365464468096, guid: 9b75696bb802f034eb0f980ec1437ea4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 5998313339615607514, guid: 9b75696bb802f034eb0f980ec1437ea4, type: 3}
+      propertyPath: m_Size.y
+      value: 11.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5998313339615607514, guid: 9b75696bb802f034eb0f980ec1437ea4, type: 3}
+      propertyPath: m_Offset.y
+      value: -5.25
       objectReference: {fileID: 0}
     - target: {fileID: 7156313425085627134, guid: 9b75696bb802f034eb0f980ec1437ea4, type: 3}
       propertyPath: m_Name
@@ -50896,6 +50912,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 180
       objectReference: {fileID: 0}
+    - target: {fileID: 5998313339615607514, guid: 9b75696bb802f034eb0f980ec1437ea4, type: 3}
+      propertyPath: m_Size.y
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5998313339615607514, guid: 9b75696bb802f034eb0f980ec1437ea4, type: 3}
+      propertyPath: m_Offset.y
+      value: -1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 7156313425085627134, guid: 9b75696bb802f034eb0f980ec1437ea4, type: 3}
       propertyPath: m_Name
       value: WallWithBottom (19)
@@ -56357,6 +56381,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 180
       objectReference: {fileID: 0}
+    - target: {fileID: 5998313339615607514, guid: 9b75696bb802f034eb0f980ec1437ea4, type: 3}
+      propertyPath: m_Size.y
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5998313339615607514, guid: 9b75696bb802f034eb0f980ec1437ea4, type: 3}
+      propertyPath: m_Offset.y
+      value: -3
+      objectReference: {fileID: 0}
     - target: {fileID: 7156313425085627134, guid: 9b75696bb802f034eb0f980ec1437ea4, type: 3}
       propertyPath: m_Name
       value: WallWithBottom (12)
@@ -60315,6 +60347,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5998313339615607514, guid: 9b75696bb802f034eb0f980ec1437ea4, type: 3}
+      propertyPath: m_Size.y
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5998313339615607514, guid: 9b75696bb802f034eb0f980ec1437ea4, type: 3}
+      propertyPath: m_Offset.y
+      value: -1.25
+      objectReference: {fileID: 0}
     - target: {fileID: 7156313425085627134, guid: 9b75696bb802f034eb0f980ec1437ea4, type: 3}
       propertyPath: m_Name
       value: WallWithBottom (18)
@@ -61313,6 +61353,14 @@ PrefabInstance:
     - target: {fileID: 5455010365464468096, guid: 9b75696bb802f034eb0f980ec1437ea4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5998313339615607514, guid: 9b75696bb802f034eb0f980ec1437ea4, type: 3}
+      propertyPath: m_Size.y
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5998313339615607514, guid: 9b75696bb802f034eb0f980ec1437ea4, type: 3}
+      propertyPath: m_Offset.y
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 7156313425085627134, guid: 9b75696bb802f034eb0f980ec1437ea4, type: 3}
       propertyPath: m_Name

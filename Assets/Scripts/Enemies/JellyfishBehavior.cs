@@ -40,7 +40,7 @@ namespace Enemies {
             tan = Mathf.Clamp(tan, -0.2f, 0.2f);
             var hit = Physics2D.Raycast(_transform.position, Direction, raycastDistance + tan, _wallLayerMask);
             if (hit) {
-                Debug.Log($"{name} detects {hit.collider.gameObject.transform.parent.name}");    
+                //Debug.Log($"{name} detects {hit.collider.gameObject.transform.parent.name}");    
             }
             
             return hit;

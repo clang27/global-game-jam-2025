@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Bubble
   - Enemy
+  - Win
   layers:
   - Default
   - TransparentFX

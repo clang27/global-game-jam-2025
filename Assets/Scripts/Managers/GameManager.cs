@@ -65,8 +65,7 @@ namespace Managers {
 			BubbleManager.Instance.PreBubbleRide(_sceneNameLoaded);
 
 			DOVirtual.DelayedCall(0.5f, () => {
-				UiManager.Instance.ShowLoading(true,
-					() => StartCoroutine(ChangeScene(sceneName)));
+				UiManager.Instance.ShowLoading(true, () => StartCoroutine(ChangeScene(sceneName)));
 			});
 		}
 		
@@ -79,20 +78,23 @@ namespace Managers {
 		}
 
 		private IEnumerator ChangeScene(string sceneName) {
+			DOTween.KillAll();
+			
 			AsyncOperation unloadSceneAsync = null;
 		
 			if (_sceneNameLoaded != null) {
 				Debug.Log($"Unloading scene: {_sceneNameLoaded}");
 				unloadSceneAsync = SceneManager.UnloadSceneAsync(_sceneNameLoaded);
 			}
+			
+			while (unloadSceneAsync is { isDone: false }) { yield return null; }
+			Debug.Log($"Finished unloading {_sceneNameLoaded}");
 
 			Debug.Log($"Loading scene: {sceneName}");
 			var loadSceneAsync = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
 		
 			while (loadSceneAsync is { isDone: false }) { yield return null; }
 			Debug.Log($"Finished loading {sceneName}");
-			while (unloadSceneAsync is { isDone: false }) { yield return null; }
-			Debug.Log($"Finished unloading {_sceneNameLoaded}");
 			
 			_sceneNameLoaded = sceneName;
 			
@@ -102,13 +104,9 @@ namespace Managers {
 		}
 
 		public void ResetGame() {
-			DOTween.KillAll();
-
 			UiManager.Instance.ShowLoading(true, () => {
 				Init();
-				foreach (var manager in FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None).OfType<IManager>()) {
-					manager.SceneChange(_sceneNameLoaded);
-				}
+				StartCoroutine(ChangeScene("Ship"));
 
 				CutSceneManager.Instance.HideBlackBars();
 				OxygenManager.Instance.ResetVolume();
@@ -176,7 +174,7 @@ namespace Managers {
 			OxygenManager.Instance.enabled = true;
 		
 			SettingsAndPauseManager.Instance.ClosePauseAndSettings();
-			UiManager.Instance.ShowHud(true);
+			UiManager.Instance.ShowHud(GameState != GameState.Win);
 		}
 
 		public void Quit() {

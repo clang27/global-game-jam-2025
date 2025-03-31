@@ -24,6 +24,7 @@ namespace Managers {
         public int Sapphires { get; private set; }
         public int Emeralds { get; private set; }
         public int Rubies { get; private set; }
+        public int Dollars => (Coins * coinValue) + (Sapphires * sapphireValue) + (Emeralds * emeraldValue) + (Rubies * rubyValue);
     #endregion
         
     #region Components
