@@ -355,7 +355,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4799538232772559597}
   m_Layer: 0
-  m_Name: Window
+  m_Name: RoundWindow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

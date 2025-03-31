@@ -49,7 +49,7 @@ Material:
     - _CausticsOffsetSpeed: 0.33
     - _CausticsPower: 2
     - _CausticsScale: 5
-    - _CausticsStrength: 0.2
+    - _CausticsStrength: 0
     - _DistortionOffsetSpeed: 0.2
     - _DistortionScale: 10
     - _DistortionStrength: 0.01
