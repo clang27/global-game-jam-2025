@@ -105,7 +105,7 @@ public class PlayerBehavior : MonoBehaviour {
 			} else if (Jetpacking) {
 				if (_jetpackReleased) {
 					_jetpackReleased = false;
-					JetpackOff(true);
+					JetpackOff();
 				} else {
 					goalSpeed = PreviousNotZeroInputVector * jetpackMaxSpeed;
 					acc = acceleration * 2f;
@@ -116,7 +116,7 @@ public class PlayerBehavior : MonoBehaviour {
 					acc = (onBubble) ? acceleration * 2 : acceleration;
 				} else {
 					goalSpeed = Vector2.zero;
-					acc = (onBubble) ? deceleration * 2 : deceleration;
+					acc = (onBubble) ? deceleration * 4 : deceleration;
 				}
 			}
 		}
@@ -173,7 +173,7 @@ public class PlayerBehavior : MonoBehaviour {
 
 #region Custom
 	public void StopMoving() {
-		JetpackOff(false);
+		EnterBubble();
 		_inputVector = Vector2.zero;
 		_velocity = Vector2.zero;
 		_timeSinceLastInput = 10f;
@@ -194,7 +194,7 @@ public class PlayerBehavior : MonoBehaviour {
 		
 		AudioManager.Instance.PlaySfx(_hurtSound);
 
-		JetpackOff(true);
+		JetpackOff();
 		
 		Boosting = false;
 		Stunned = true;
@@ -235,15 +235,6 @@ public class PlayerBehavior : MonoBehaviour {
 		_attackBehavior.Init();
 		HasJetpack = SaveManager.Instance.HasJetpack();
 		_jetpack.SetActive(HasJetpack);
-
-		if (SaveManager.Instance.HasHook()) {
-			_animator.SetBool("sword", false);
-			_attackBehavior.EquipWeapon(hookWeapon);
-		} 
-		if (SaveManager.Instance.HasSword()) {
-			_attackBehavior.EquipWeapon(swordWeapon);
-			_animator.SetBool("sword", true);
-		}
 		
 		if (_animator) {
 			_animator.SetBool("up", true);
@@ -273,12 +264,12 @@ public class PlayerBehavior : MonoBehaviour {
 		_jetpack.SetActive(HasJetpack);
 		
 		if (SaveManager.Instance.HasHook()) {
-            _animator.SetBool("sword", false);
 			_attackBehavior.EquipWeapon(hookWeapon);
+            _animator.SetBool("sword", false);
 		} 
 		if (SaveManager.Instance.HasSword()) {
-			_animator.SetBool("sword", true);
 			_attackBehavior.EquipWeapon(swordWeapon);
+			_animator.SetBool("sword", true);
 		}
 		
 		MoveToBubble(v);
@@ -392,15 +383,24 @@ public class PlayerBehavior : MonoBehaviour {
 		AudioManager.Instance.PlaySfx(_dashSound);	
 	}
 	
-	public void JetpackOff(bool changeCamera) {
+	public void JetpackOff() {
 		if (Boosting) { _jetpackReleased = true; return; }
 		
 		_particleSystem.Stop();
 		_jetpacking = false;
 		OxygenManager.Instance.ToggleJetpack(false);
-		if (changeCamera) {
-			CameraManager.Instance.Switch(BubbleManager.Instance.PlayerIsOnBubble ? CameraState.Bubble : CameraState.Ocean, name);	
+		CameraManager.Instance.Switch(BubbleManager.Instance.PlayerIsOnBubble ? CameraState.Bubble : CameraState.Ocean, name);	
+		
+		if (_animator) {
+			_animator.SetBool("jetpack", false);
 		}
+	}
+
+	public void EnterBubble() {
+		_particleSystem.Stop();
+		_jetpacking = false;
+		Boosting = false;
+		OxygenManager.Instance.ToggleJetpack(false);
 		
 		if (_animator) {
 			_animator.SetBool("jetpack", false);

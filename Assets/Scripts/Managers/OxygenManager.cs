@@ -31,10 +31,9 @@ namespace Managers {
                 _oxygenPercent = value;
             
                 var maxAmount = _upgrades switch {
-                    0 => 0.25f,
-                    1 => 0.5f,
-                    2 => 0.75f,
-                    3 => 1f,
+                    0 => 0.5f,
+                    1 => 0.75f,
+                    2 => 1f,
                     _ => 1f
                 };
 
@@ -48,18 +47,16 @@ namespace Managers {
                 _upgrades = value;
 
                 quadrantsImage.fillAmount = _upgrades switch {
-                    0 => 1f,
-                    1 => 0.7f,
-                    2 => 0.4f,
-                    3 => 0.1f,
+                    0 => 0.7f,
+                    1 => 0.4f,
+                    2 => 0.1f,
                     _ => 0.1f
                 };
             
                 var amount = _upgrades switch {
-                    0 => 0.25f,
-                    1 => 0.5f,
-                    2 => 0.75f,
-                    3 => 1f,
+                    0 => 0.5f,
+                    1 => 0.75f,
+                    2 => 1f,
                     _ => 1f
                 };
 
@@ -104,7 +101,7 @@ namespace Managers {
     #region Custom
         public void Init() {
             enabled = false;
-            Upgrades = SaveManager.Instance.NumberOfItem(ItemType.OxygenUpgrade) + 1;
+            Upgrades = SaveManager.Instance.NumberOfItem(ItemType.OxygenUpgrade);
             OxygenPercent = 1f;
             OutOfBubble();
             TitleEffects();
@@ -132,7 +129,7 @@ namespace Managers {
         }
 
         private void AddOxygen(float amount) {
-            var trueRate = amount > 0f ? amount * (_upgrades + 1) : amount / (_upgrades + 1);
+            var trueRate = amount > 0f ? amount * (_upgrades * 0.3f + 1) : amount / (_upgrades * 0.5f + 1);
             const float lowAirThreshold = 0.25f;
         
             OxygenPercent += trueRate;

@@ -6,10 +6,7 @@ public class BreakableWallBehavior : MonoBehaviour {
 
 #region Dependencies
 	[SerializeField] private AudioClip breakSound;
-#endregion
-
-#region Attributes
-	public int Health { get; private set; } = 1;
+	[SerializeField] private int health = 1;
 #endregion
 
 #region Components
@@ -28,9 +25,7 @@ public class BreakableWallBehavior : MonoBehaviour {
 
 #region Custom
 	public void Hurt(Weapon weapon) {
-		Health -= weapon.Damage;
-
-		if (Health <= 0) {
+		if (weapon.Damage >= health) {
 			AudioManager.Instance.PlaySfx(breakSound);
 			
 			_particleSystem.Play();

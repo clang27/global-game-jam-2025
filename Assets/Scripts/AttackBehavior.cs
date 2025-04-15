@@ -42,10 +42,8 @@ public class AttackBehavior : MonoBehaviour {
 	}
 
 	public void EquipWeapon(Weapon weapon) {
-		if (weapon == null) {
-			_weaponSpriteRenderer.sprite = null;
-			EquippedWeapon = null;
-		}
+		//Debug.Log($"Equipping {weapon}");
+		if (weapon == null) { }
 		else {
 			_weaponSpriteRenderer.sprite = weapon.Sprite;
 			EquippedWeapon = weapon;

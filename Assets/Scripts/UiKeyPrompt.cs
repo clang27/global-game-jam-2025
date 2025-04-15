@@ -22,11 +22,15 @@ public class UiKeyPrompt : MonoBehaviour {
 
 #region Custom
 	public void ChangeToXbox() {
-		_image.sprite = controllerSprite;
+		if (_image) {
+			_image.sprite = controllerSprite;	
+		}
 	}
 	
 	public void ChangeToPc() {
-		_image.sprite = keyboardSprite;
+		if (_image) {
+			_image.sprite = keyboardSprite;	
+		}
 	}
 	
 	public void Hide() {

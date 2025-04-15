@@ -334,7 +334,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69b8d1b8a57d4601a72c46bf1aa84d5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hurtSound: {fileID: 0}
+  hurtSound: {fileID: 8300000, guid: d1f6f1264275ddb47acdee96656b70d8, type: 3}
   maxSpeed: 0
   acceleration: 0
   health: 2

@@ -13,7 +13,7 @@ public class WinScreen : MonoBehaviour {
 	    
 	    UiManager.Instance.ShowHud(false);
 	    PlayerManager.Controller.Enabled = false;
-	    GameManager.Instance.GameState = GameState.Win;
+	    GameManager.Instance.WonGame = true;
 	    
 	    foreach (var retrieve in FindObjectsByType<RetrieveDollar>(FindObjectsSortMode.None)) {
 		    retrieve.Go();

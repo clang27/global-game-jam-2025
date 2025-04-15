@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Spike
   m_EditorClassIdentifier: 
   Sprite: {fileID: 0}
-  Knockback: 10
+  Knockback: 15
   AttackSpeed: 0.5
-  StunTime: 0.15
+  StunTime: 0.1
   Damage: 20
   Shock: 0
   Sound: {fileID: 0}

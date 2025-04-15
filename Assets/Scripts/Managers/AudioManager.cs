@@ -9,6 +9,7 @@ namespace Managers {
 		[SerializeField] private AudioClip songOne;
 		[SerializeField] private AudioClip songTwo;
 		[SerializeField] private AudioClip songThree;
+		[SerializeField] private AudioClip songFour;
 	#endregion
 
 	#region Attributes
@@ -60,6 +61,10 @@ namespace Managers {
 		public void PlayLowAirTheme() {
 			PlayingLowAirTheme = true;
 			PlaySong(songThree);
+		}
+		
+		public void PlayIntrigue() {
+			PlaySong(songFour);
 		}
 	
 		private void PlaySong(AudioClip ac) {

@@ -76,7 +76,7 @@ public class PlayerController : MonoBehaviour {
 		if (context.started) {
 			_player.JetpackOn();	
 		} else if(context.canceled) {
-			_player.JetpackOff(true);	
+			_player.JetpackOff();	
 		}
 	}
 	

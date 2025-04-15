@@ -1,6 +1,7 @@
 using DG.Tweening;
 using Enums;
 using Managers;
+using Unity.Cinemachine;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Events;
@@ -18,6 +19,7 @@ public class CutScene : MonoBehaviour {
 #region Components
 	private Transform _startPoint, _endPoint;
 	private PlayableDirector _playableDirector;
+	private bool Finished { get; set; }
 #endregion
 
 #region Unity
@@ -37,10 +39,20 @@ public class CutScene : MonoBehaviour {
 		    }
 	    }
     }
+
+    private void OnTriggerEnter2D(Collider2D other) {
+	    if (Finished) {
+		    return;
+	    }
+	    
+	    StartScene();
+    }
 #endregion
 
 #region Custom
 	public void StartScene() {
+		Finished = true;
+		
 		actor.transform.SetPositionAndRotation(_startPoint.position, Quaternion.identity);
 		PlayerManager.Player.transform.SetPositionAndRotation(new Vector3(-100000f, -100000f), Quaternion.identity);
 		
@@ -48,6 +60,7 @@ public class CutScene : MonoBehaviour {
 		PlayerManager.Controller.Enabled = false;
 		PlayerManager.Player.CutScene(startTime + 0.1f); // Munny continues previous animation until tween is done
 		CutSceneManager.Instance.ShowBlackBars();
+		OxygenManager.Instance.enabled = false;
 		
 		PlayerManager.PlayerTransform.DOMove(_startPoint.position, startTime)
 			.OnComplete(() => {
@@ -61,7 +74,7 @@ public class CutScene : MonoBehaviour {
 	
 	private void EndScene(PlayableDirector pd) {
 		onFinish.Invoke();
-			
+        
 		GameManager.Instance.GameState = GameState.Playing;
 		UiManager.Instance.ShowHud(true);
 		_playableDirector.stopped -= EndScene;
@@ -73,6 +86,7 @@ public class CutScene : MonoBehaviour {
 		
 		actor.SetActive(false);
 		PlayerManager.Controller.Enabled = true;
+		OxygenManager.Instance.enabled = true;
 	}
 #endregion
 

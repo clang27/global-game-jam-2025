@@ -12,6 +12,7 @@ namespace Managers {
 		public static GameManager Instance { get; private set; }
 		public GameState GameState { get; set; } = GameState.Start;
 		public string CurrentSceneName => _sceneNameLoaded;
+		public bool WonGame { get; set; }
 
 	#endregion
 
@@ -48,11 +49,12 @@ namespace Managers {
 
 	#region Custom
 		public void LoadBeginning(string scene) {
-			Init();
 			StartCoroutine(ChangeScene(scene));
+			Init();
 		}
 		
 		private void Init() {
+			WonGame = false;
 			GameState = GameState.Start;
 		
 			foreach (var manager in FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None).OfType<IManager>()) {
@@ -105,8 +107,8 @@ namespace Managers {
 
 		public void ResetGame() {
 			UiManager.Instance.ShowLoading(true, () => {
-				Init();
 				StartCoroutine(ChangeScene("Ship"));
+				Init();
 
 				CutSceneManager.Instance.HideBlackBars();
 				OxygenManager.Instance.ResetVolume();
@@ -174,7 +176,7 @@ namespace Managers {
 			OxygenManager.Instance.enabled = true;
 		
 			SettingsAndPauseManager.Instance.ClosePauseAndSettings();
-			UiManager.Instance.ShowHud(GameState != GameState.Win);
+			UiManager.Instance.ShowHud(!WonGame);
 		}
 
 		public void Quit() {
